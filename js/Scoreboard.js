@@ -15,6 +15,9 @@ var baseball = [];
     $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
     $scope.idsToLookFor = [];
     $scope.myPichingStaff = 'lan'
+    $scope.playersUpToBat = [];
+    $scope.playersOnDeck = [];
+    $scope.playersInTheHole = [];
     //  '592626', '570256', '457763', '543760', '471865',"475582"
 
     $scope.changeDate = function (value) {
@@ -160,6 +163,45 @@ var baseball = [];
         if (orderNumber.charAt(1) === "0" && orderNumber.charAt(2) === "0") return orderNumber.charAt(0) + ".";
         else return "-";
     };
+    //$scope.playersUpToBat = [];
+    //$scope.playersOnDeck = [];
+    //$scope.playersInTheHole = [];
+    $scope.whoIsOnDeck = function (name) {
+           alert("Here");
+                lookup(name); 
+         function lookup(name) {
+     
+                for (var i = 0, len = $scope.playersOnDeck.length; i < len; i++) {
+                    if ($scope.playersOnDeck[i] === name) return true;
+                }
+                return false;
+            }  
+
+    };
+        $scope.whoIsInTheHole = function (name) {
+                lookup(name); 
+         function lookup(name) {
+     
+                for (var i = 0, len = $scope.playersInTheHole.length; i < len; i++) {
+                    if ($scope.playersInTheHole[i] === name) return true;
+                }
+                return false;
+            }  
+
+    };
+        $scope.whoIsUp = function (name) {
+            //alert("Here");
+                lookup(name); 
+                alert(lookup(name));
+         function lookup(name) {
+     
+                for (var i = 0, len = $scope.playersUpToBat.length; i < len; i++) {
+                    if ($scope.playersUpToBat[i] === name) return true;
+                }
+                return false;
+            }  
+
+    };
     $scope.init = function () {
         //$scope.changeDate(0);
         $scope.total = 0;
@@ -167,19 +209,31 @@ var baseball = [];
         $scope.Joel = [];
         baseball = [];
         $scope.daysGames = [];
+        $scope.playersUpToBat = [];
+        $scope.playersOnDeck = [];
+        $scope.playersInTheHole = [];
         //alert($scope.month + "/" + $scope.day + "/" + $scope.year);
         $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json';
         //alert($scope.scoreBoard);
         $http.get($scope.scoreBoard).success(function (data) {
             //alert("");
             //alert(data);
+             angular.forEach(data.data.games.game, function (batter) {
+                 var thisSession = batter;
+               if(thisSession.hasOwnProperty('inhole')){
+                    $scope.playersUpToBat.push(batter.batter.id);
+                    $scope.playersOnDeck.push(batter.ondeck.id);
+                    $scope.playersInTheHole.push(batter.inhole.id);
+                }
+             });
+
             angular.forEach(data.data.games.game, function (links) {
                 var JSONlink = links.game_data_directory;
+
                 $scope.daysGames.push('http://gd2.mlb.com' + JSONlink + "/boxscore.json");
             });
             //alert($scope.daysGames);
             angular.forEach($scope.daysGames, function (games) {
-               // alert("Here");
                 $scope.game = $http.get(games);
                 $q.all([$scope.game]).then(function (values) {
 

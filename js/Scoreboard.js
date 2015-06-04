@@ -28,6 +28,7 @@ var baseball = [];
         if ($scope.month < 10) {
             $scope.month = '0' + $scope.month;
         }
+        $scope. init();
     };
      $scope.gatherIds = function (id) {
          function lookup(name) {
@@ -54,7 +55,6 @@ var baseball = [];
             }
             //console.log(id + " " + score);
             if(!(isNaN(score))){
-                console.log(score);
                 if (!lookup(id)) {
                         $scope.Joel.push({
                             key: id,

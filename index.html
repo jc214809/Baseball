@@ -8,6 +8,9 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
     <link rel="stylesheet" type="text/css" href="../Baseball/css/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="../Baseball/js/Scoreboard.js"></script>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="../Baseball/images/favicon.ico" sizes="16x16">
@@ -24,22 +27,75 @@
 </head>
 
 <body>
-    <div ng-app="myApp" style="width:700px">
-        <div ng-controller="baseballController" data-ng-init="init(); changeDate(0);">
-            <table style="width:700px">
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div ng-app="myApp" style="width:900px">
+        <div ng-controller="baseballController" data-ng-init="changeDate(0);">
+            <table style="width:1000px">
                 <td>
                     <a style="float:left; display:inline;">
-                        <input type="button" value=" < " ng-click="changeDate(-1); init();" />
+                        <a ng-click="changeDate(-1);" class="glyphicon glyphicon-chevron-left"/>
                     </a>
 
                 </td>
                 <td>
-                    <a style="color:red;display:inline;" data-ng-init="init()">
+                    <a style="color:red;display:inline;">
                         <b><center>{{month}}/{{day}}/{{year}}</center></b>
                     </a>
                 </td>
                 <td><a style="float:right;display:inline;"> 
-        <input type="button" value=" > " ng-click="changeDate(1); init();"/>
+        <a ng-click="changeDate(1);" class="glyphicon glyphicon-chevron-right"/>
       </a>
             </table>
             <div ng-repeat="game in baseballGame">
@@ -47,10 +103,10 @@
                     <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
                  <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
                     <div ng-repeat="x in team.batter" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1)">
-                        <!--{{numberInTheOrder(x.bo)}}-->{{ x.name_display_first_last }}, {{x.pos}} <b>({{x.id}})</b>
-                        <a style="float:right" ng-value="$index"> 
-                          <a style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)"> {{getScore($index, x) }}</a> <a style="float:right">Points: </a>
-                        </a>
+                        <span ng-class="(x.pos=='3B') ? 'Joel' : ''"><!--{{numberInTheOrder(x.bo)}}-->{{ x.name_display_first_last }}</span>, {{x.pos}}
+                        <span style="float:right" ng-value="$index"> 
+                          <span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)"> {{getScore($index, x) }}</span> <span style="float:right">Points: </span>
+                        </span>
                         <b>                
                       <table>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -76,7 +132,6 @@
                             <td ng-if="x.r != 0  && (x.sb != 0 || x.cs != 0)">,</td>
                         </td>
                         <td ng-if="x.sb != 0">&nbsp;{{x.sb}} SB
-                    
                             <td ng-if="x.sb != 0  && (x.cs != 0)">,</td>
                         </td>
                         <td ng-if="x.cs != 0">&nbsp;{{x.cs}} CS</td>
@@ -86,35 +141,35 @@
 
             </div>
             <div id="pitchingTable">
-            <div>Los Angeles Dodgers, P<a style="float:right">Points: {{pitchingScore}}</a></div>
+            <div>Los Angeles Dodgers, P<span style="float:right">Points: {{pitchingScore}}</span></div>
             <b>
             <table>     
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
     <td>
-        <a ng-if="pitchingStaffStats._w > 0">W</a>
-        <a ng-if="pitchingStaffStats._l > 0">L</a>
-        <a ng-if="(pitchingStaffStats._w != 0 || pitchingStaffStats._l != 0)">,</a>
+        <span ng-if="pitchingStaffStats._w > 0">W</span>
+        <span ng-if="pitchingStaffStats._l > 0">L</span>
+        <span ng-if="(pitchingStaffStats._w != 0 || pitchingStaffStats._l != 0)">,</span>
     </td>
     <td ng-if="pitchingStaffStats._ip != 0">&nbsp;{{pitchingStaffStats._ip}} IP
-        <a ng-if="pitchingStaffStats._ip != 0  && (pitchingStaffStats._h != 0 || pitchingStaffStats._er != 0 || pitchingStaffStats._bb != 0 || pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</a>
+        <span ng-if="pitchingStaffStats._ip != 0  && (pitchingStaffStats._h != 0 || pitchingStaffStats._er != 0 || pitchingStaffStats._bb != 0 || pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</span>
     </td>
     <td ng-if="pitchingStaffStats._h != 0">&nbsp;{{pitchingStaffStats._h}} H
-        <a ng-if="pitchingStaffStats._h != 0  && (pitchingStaffStats._er != 0 || pitchingStaffStats._bb != 0 || pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</a>
+        <span ng-if="pitchingStaffStats._h != 0  && (pitchingStaffStats._er != 0 || pitchingStaffStats._bb != 0 || pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</span>
     </td>
     <td ng-if="pitchingStaffStats._er != 0">&nbsp;{{pitchingStaffStats._er}} ER
-        <a ng-if="pitchingStaffStats._er != 0  && (pitchingStaffStats._bb != 0 || pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</a>
+        <span ng-if="pitchingStaffStats._er != 0  && (pitchingStaffStats._bb != 0 || pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</span>
     </td>
     <td ng-if="pitchingStaffStats._bb != 0">&nbsp;{{pitchingStaffStats._bb}} BB
-        <a ng-if="pitchingStaffStats._bb != 0  && (pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</a>
+        <span ng-if="pitchingStaffStats._bb != 0  && (pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</span>
     </td>
     <td ng-if="pitchingStaffStats._k != 0">&nbsp;{{pitchingStaffStats._k}} K
-        <a ng-if="pitchingStaffStats._k != 0  && (pitchingStaffStats._sho != 0)">,</a>
+        <span ng-if="pitchingStaffStats._k != 0  && (pitchingStaffStats._sho != 0)">,</span>
     </td>
     <td ng-if="pitchingStaffStats._sho != 0">&nbsp;{{pitchingStaffStats._sho}} SHO</td>
             </table>
             </b>
           </div>
-            <div><a style="float:right" data-ng-init=getTotal()"><b>Total Points for The Day:    {{ getTotal() }}</b></a></div>
+            <div><span class="total" style="float:right" data-ng-init="getTotal()"><b>Total Points for The Day:    {{ getTotal() }}</b></span></div>
                     
         </div>
 

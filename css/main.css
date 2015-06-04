@@ -8,6 +8,12 @@ body{
 .up-to-bat{
 	background-color: green;
 }
+.on-deck{
+	background-color: yellow;
+}
+.in-hole{
+	background-color: red;
+}
 .total{
 	 font-size: 225%;
 }

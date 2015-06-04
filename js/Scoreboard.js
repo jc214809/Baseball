@@ -14,12 +14,21 @@ var baseball = [];
     $scope.Joel = [];
     $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
     $scope.idsToLookFor = [];
-    $scope.myPichingStaff = 'lan'
+    $scope.myPichingStaff = 'lan';
     $scope.playersUpToBat = [];
     $scope.playersOnDeck = [];
     $scope.playersInTheHole = [];
     //  '592626', '570256', '457763', '543760', '471865',"475582"
-
+//My Team
+//'630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'
+//Boston
+//'456030', '434670', '120074', '435063', '593428', '467055', '605141', '596119', '628329'
+//Phillies
+//'519184', '425796', '400284', '429667', '596748', '605125', '520471', '434563'
+//Reds
+//'408252', '458015', '453943', '457803', '430910', '446359', '435401', '571740'
+//Reds and Philles
+//'519184', '425796', '400284', '429667', '596748', '605125', '520471', '434563', '408252', '458015', '453943', '457803', '430910', '446359', '435401', '571740'
     $scope.changeDate = function (value) {
         selectedDate.setDate(selectedDate.getDate() + value);
         $scope.day = selectedDate.getDate();
@@ -47,16 +56,13 @@ var baseball = [];
     $scope.getTotal = function () {
         angular.forEach($scope.idsToLookFor, function (id) {
             var score = parseInt($("#"+ id).text());
-            //console.log(Joel);
-            //alert("Joel "+ $("#"+ id).text());
-            //var num = Joel.substr(Joel.length - 1);
+
             function lookup(name) {
                 for (var i = 0, len = $scope.Joel.length; i < len; i++) {
                     if ($scope.Joel[i].key === name) return true;
                 }
                 return false;
             }
-            //console.log(id + " " + score);
             if(!(isNaN(score))){
                 if (!lookup(id)) {
                         $scope.Joel.push({
@@ -74,25 +80,6 @@ var baseball = [];
 
         var angi = parseInt(index);
         var score = ((((parseFloat(x.h)) - (parseFloat(x.d) + parseFloat(x.t) + parseFloat(x.hr))) * 1) + (parseFloat(x.d) * 2) + (parseFloat(x.t) * 3) + (parseFloat(x.hr) * 4) + (parseFloat(x.r) * 1) + (parseFloat(x.rbi) * 1) + (parseFloat(x.bb) * 1) + (parseFloat(x.sb) * 2) + (parseFloat(x.cs) * -1));
-
-        //var newArray = .slice();
-        /*if ($.inArray(x.id, $scope.myTeam) > -1) {
-            var ia = $.inArray(x.id, $scope.myTeam);
-
-            
-            angular.element(document).ready(function () {
-                if (x.id == '592518') {
-                    //alert($("#592518").text());
-                    if (!lookup(x.id)) {
-                        $scope.Joel.push({
-                            key: x.id,
-                            value: score
-                        });
-                        //$scope.total += parseInt(score);
-                    }
-                }
-            });
-        }*/
         return score;
     };
     $scope.getPitchingStaffScore = function (x) {
@@ -163,45 +150,7 @@ var baseball = [];
         if (orderNumber.charAt(1) === "0" && orderNumber.charAt(2) === "0") return orderNumber.charAt(0) + ".";
         else return "-";
     };
-    //$scope.playersUpToBat = [];
-    //$scope.playersOnDeck = [];
-    //$scope.playersInTheHole = [];
-    $scope.whoIsOnDeck = function (name) {
-           alert("Here");
-                lookup(name); 
-         function lookup(name) {
-     
-                for (var i = 0, len = $scope.playersOnDeck.length; i < len; i++) {
-                    if ($scope.playersOnDeck[i] === name) return true;
-                }
-                return false;
-            }  
-
-    };
-        $scope.whoIsInTheHole = function (name) {
-                lookup(name); 
-         function lookup(name) {
-     
-                for (var i = 0, len = $scope.playersInTheHole.length; i < len; i++) {
-                    if ($scope.playersInTheHole[i] === name) return true;
-                }
-                return false;
-            }  
-
-    };
-        $scope.whoIsUp = function (name) {
-            //alert("Here");
-                lookup(name); 
-                alert(lookup(name));
-         function lookup(name) {
-     
-                for (var i = 0, len = $scope.playersUpToBat.length; i < len; i++) {
-                    if ($scope.playersUpToBat[i] === name) return true;
-                }
-                return false;
-            }  
-
-    };
+    
     $scope.init = function () {
         //$scope.changeDate(0);
         $scope.total = 0;

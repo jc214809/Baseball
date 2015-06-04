@@ -33,18 +33,6 @@
 <body>
     <div ng-app="myApp">
         <div ng-controller="baseballController" data-ng-init="changeDate(0);">
-            <!-- <table>
-                <td style="float:left">
-                  <a ng-click="changeDate(-1);" class=""><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></a>  
-                </td>
-                <td>
-                  <center><span><b>{{month}}/{{day}}/{{year}}</b></span></center>
-                </td>
-                <td style="float:right">
-                   <a ng-click="changeDate(1);" class=""><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></a>
-                </td>
-            </table> -->
-
             <div class="header" >
                 <span>
                    <a ng-click="changeDate(-1);" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></a>  
@@ -62,7 +50,7 @@
             <divs ng-repeat="team in game[0].data.data.boxscore.batting;">
                     <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
                     <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
-                    <div ng-repeat="x in team.batter" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1)" ng-class="(whoIsUp(x.id)) ? 'in-hole' : ''">
+                    <div ng-repeat="x in team.batter" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1, 'at-bat' : playersUpToBat.indexOf(x.id) != -1, 'in-hole' : playersInTheHole.indexOf(x.id) != -1}" >
                         <span class="player-label"><span class="player-label"><!--{{numberInTheOrder(x.bo)}}-->{{ x.name_display_first_last }}</span>, {{x.pos}}</span>
                         <span style="float:right" ng-value="$index"> 
                           <span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)"> {{getScore($index, x) }}</span> <span style="float:right">Points: </span>
@@ -129,9 +117,6 @@
                 </b>
             </div>
             <div><span class="total" style="float:right" data-ng-init="getTotal()"><b>Total Points for The Day:    {{ getTotal() }}</b></span></div>
-{{ playersUpToBat}}
-              {{playersOnDeck}}
-                            {{playersInTheHole}}
         </div>
 
     </div>

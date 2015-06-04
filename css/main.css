@@ -5,6 +5,10 @@ body{
 *{
 	font-size: 114%;
 }
+.key {
+    border-style: solid;
+    border-width: 5px;
+}
 .at-bat{
 	background-color: green;
 }

@@ -14,7 +14,7 @@
     <script src="../Baseball/js/Scoreboard.js"></script>
 
     <meta name="Baseball" content="width=device-width, initial-scale=1.0">
-    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <!--<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">-->
 
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="../Baseball/images/favicon.ico" sizes="16x16">
@@ -62,7 +62,7 @@
             <divs ng-repeat="team in game[0].data.data.boxscore.batting;">
                     <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
                     <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
-                    <div ng-repeat="x in team.batter" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1)" ng-class="(x.pos=='3B') ? 'up-to-bat' : ''">
+                    <div ng-repeat="x in team.batter" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1)" ng-class="(whoIsUp(x.id)) ? 'in-hole' : ''">
                         <span class="player-label"><span class="player-label"><!--{{numberInTheOrder(x.bo)}}-->{{ x.name_display_first_last }}</span>, {{x.pos}}</span>
                         <span style="float:right" ng-value="$index"> 
                           <span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)"> {{getScore($index, x) }}</span> <span style="float:right">Points: </span>
@@ -96,7 +96,7 @@
                         <td ng-if="x.cs != 0">&nbsp;{{x.cs}} CS</td>
                     </table>
                 </div>
-
+                <!-- <img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/434670.jpg"> -->
             </div>
             <div id="pitchingTable">
                 <span class="player-label">Los Angeles Dodgers, P</span>
@@ -129,7 +129,9 @@
                 </b>
             </div>
             <div><span class="total" style="float:right" data-ng-init="getTotal()"><b>Total Points for The Day:    {{ getTotal() }}</b></span></div>
-
+{{ playersUpToBat}}
+              {{playersOnDeck}}
+                            {{playersInTheHole}}
         </div>
 
     </div>

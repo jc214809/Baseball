@@ -1,9 +1,90 @@
-* {
-    font-size: 114%;
+body{
+	padding: 0 2%;
+	font-size: 114%;
 }
-.Joel{
-	color: green;
+*{
+	font-size: 114%;
+}
+.up-to-bat{
+	background-color: green;
 }
 .total{
 	 font-size: 225%;
+}
+.stats-table{
+	font-size: 20px;
+	font-weight: bold;
+}
+.header{
+	display: inline block;
+}
+.points{
+	font-size: 114%;
+}
+.center-date{
+padding-left: 37%;
+	/*text-align: center;*/
+}
+
+.right{
+	padding-left: 31%;
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+	* {
+		font-size: 25px;
+	}
+
+	.player-label{
+		color : #191970;
+	}
+
+	.total{
+	 	font-size: 65px;
+	}
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+	* {
+		font-size: 40px;
+	}
+
+	.player-label{
+		color : #191970;
+	}
+
+	.total{
+	 	font-size: 55px;
+	}
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+	* {
+		font-size: 25px;
+	}
+
+	.player-label{
+		color : #191970;
+	}
+
+		.total{
+	 	font-size: 40px;
+	}
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	* {
+		font-size: 114%;
+	}
+
+	.player-label{
+		color : #191970;
+	}
+
+		.total{
+	 	font-size: 25px;
+	}
 }

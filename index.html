@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <div ng-app="myApp">
+      <div ng-app="myApp">
         <div ng-controller="baseballController" data-ng-init="changeDate(0);">
             <div class="header" >
                 <span>
@@ -57,8 +57,9 @@
                     <table class="">
   <tr class="">
     <th class="" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg"/></th>
-    <th class="" colspan="2" ><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span> <img ng-if="gameinfo.status_ind == 'F'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg"/></th>
-    <th  style="float:right"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore($index, x) }}</span> <span class="points" style="float:right">Points: </span></th>
+    <th class="" colspan="2" ><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span> <img ng-if="gameinfo.status_ind == 'F'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg"/><blink ng-if="gameinfo.status_ind == 'DR'"><img ng-if="gameinfo.status_ind == 'DR'" class="status-indicators" width="50" src="..\Baseball\images\pictures\PPD.jpg"/></blink> {{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}
+</th>
+    <th  style="float:right"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore($index, x) }}</span> <span class="points" style="float:right">Points: </span></th>
   </tr>
   <tr>
     <td colspan="3" class="stats-table">
@@ -90,7 +91,8 @@
                         <span ng-if="x.cs != 0">&nbsp;{{x.cs}} CS</span>
                         </td>
   </tr>
-                    </table>   
+                    </table>
+
             </div>
             </div>
             <div ng-repeat="pitchedGames in allPitchingStaffGames" id="pitchingTable">
@@ -98,7 +100,7 @@
   <tr>
     <th rowspan="2"><img height="75" width="62" src="http://mlb.mlb.com/images/logos/42x50/la.png"></th>
     <th colspan="2"><span class="pitching-staff-label">{{pitchingStaffTeamName}}, P</span>&nbsp;<img ng-if="(pitchedGames._w > 0 || pitchedGames._l > 0)" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg"/></th>
-    <th style="float:right"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span class="pitching-staff-points" style="float:right">Points:{{getPitchingStaffScore(pitchedGames)}}</span></th>
+    <th style="float:right"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span class="pitching-staff-points" style="float:right">Points:<span ng-attr-id="{{$index}}">{{getPitchingStaffScore(pitchedGames)}}</span></span></th>
   </tr>
   <tr>
     <td colspan="3" class="stats-table">
@@ -128,8 +130,10 @@
     </td>
   </tr>
 </table>
+            {{$scope.Joel}}
             </div>
             <div><span class="total" style="float:right" data-ng-init="getTotal()"><b>Total Points for The Day:    {{ getTotal() }}</b></span></div>
+
         </div>
         <br>
                 <br>

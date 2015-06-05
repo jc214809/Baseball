@@ -1,4 +1,16 @@
 
+function blink() {
+    var blinks = document.getElementsByTagName('blink');
+    for (var i = blinks.length - 1; i >= 0; i--) {
+      var s = blinks[i];
+      s.style.visibility = (s.style.visibility === 'visible') ? 'hidden' : 'visible';
+    }
+    window.setTimeout(blink, 1000);
+  }
+  if (document.addEventListener) document.addEventListener("DOMContentLoaded", blink, false);
+  else if (window.addEventListener) window.addEventListener("load", blink, false);
+  else if (window.attachEvent) window.attachEvent("onload", blink);
+  else window.onload = blink;
 
 var myApp = angular.module('myApp', []);
 myApp.controller('baseballController', function($scope, $http,$q){
@@ -55,8 +67,8 @@ var baseball = [];
                 return false;
             }
             if (!lookup(id)) {
-         $scope.idsToLookFor.push(id);
-     }
+                $scope.idsToLookFor.push(id);
+            }
      }
     $scope.getTotal = function () {
         angular.forEach($scope.idsToLookFor, function (id) {
@@ -168,6 +180,10 @@ var baseball = [];
         $scope.playersUpToBat = [];
         $scope.playersOnDeck = [];
         $scope.playersInTheHole = [];
+                     $scope.allPitchingStaffGames =[];
+             $scope.pitchingStaffGames = [];
+             $scope.pitchingGame =[];
+        $scope.doubleHeader = false;
         //alert($scope.month + "/" + $scope.day + "/" + $scope.year);
         $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json';
         //alert($scope.scoreBoard);
@@ -206,13 +222,12 @@ var baseball = [];
                     //$scope.reds = baseball[0][0].data.data.boxscore.batting;
                 });
             });
-
+            $scope.pitchingStaff();
         });
-        $scope.pitchingStaff();
+
         $scope.getTotal();
     };
            $scope.pitchingStaff = function () {
-             $scope.pitchingStaffGames = [];
              $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/'+ $scope.myPichingStaff+'_1.xml';
              $scope.pitchingStaffGames.push($scope.game1);
              if ($scope.doubleHeader) {
@@ -230,7 +245,7 @@ var baseball = [];
                 $scope.pitchingStaffStats = convertedData.pitching;
                 //alert("here3");
                 $scope.allPitchingStaffGames.push($scope.pitchingStaffStats);
-                ('#pitchingTable').show();
+                $('#pitchingTable').show();
 
 
             });

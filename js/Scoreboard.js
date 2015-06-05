@@ -18,6 +18,7 @@ var baseball = [];
     $scope.playersUpToBat = [];
     $scope.playersOnDeck = [];
     $scope.playersInTheHole = [];
+    $scope.eachGame = null;
     //  '592626', '570256', '457763', '543760', '471865',"475582"
 //My Team
 //'630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'
@@ -75,9 +76,7 @@ var baseball = [];
         });
         return $scope.total;
     };
-    $scope.getScore = function (theIndex, x) {
-        index = theIndex;
-
+    $scope.getScore = function (index, x) {
         var angi = parseInt(index);
         var score = ((((parseFloat(x.h)) - (parseFloat(x.d) + parseFloat(x.t) + parseFloat(x.hr))) * 1) + (parseFloat(x.d) * 2) + (parseFloat(x.t) * 3) + (parseFloat(x.hr) * 4) + (parseFloat(x.r) * 1) + (parseFloat(x.rbi) * 1) + (parseFloat(x.bb) * 1) + (parseFloat(x.sb) * 2) + (parseFloat(x.cs) * -1));
         return score;
@@ -88,9 +87,11 @@ var baseball = [];
         var pointsForStrikeOuts = 0;
         var pointsForEarnedRuns = 0;
         var pointsForWin = 0;
+        
         if (x._w == 1) {
             pointsForWin = 3;
         }
+        
         if (x._k < 6 ) {
             pointsForStrikeOuts = 0;
         } else if (x._k > 5 && x._k < 8) {
@@ -106,6 +107,7 @@ var baseball = [];
         } else {
             pointsForStrikeOuts = 10;
         }
+        
         if (x._er == 0) {
             pointsForEarnedRuns = 7;
         } else if (x._er == 1) {
@@ -119,7 +121,9 @@ var baseball = [];
         } else if (x._er > 5) {
             pointsForEarnedRuns = 0;
         }
+        
         var walksPlusHits = parseInt(x._bb) + parseInt(x._h);
+        
         if (walksPlusHits == 0) {
             pointsForHitsAndWalks = 20;
         } else if (walksPlusHits == 1) {
@@ -150,7 +154,7 @@ var baseball = [];
         if (orderNumber.charAt(1) === "0" && orderNumber.charAt(2) === "0") return orderNumber.charAt(0) + ".";
         else return "-";
     };
-    
+
     $scope.init = function () {
         //$scope.changeDate(0);
         $scope.total = 0;
@@ -165,22 +169,18 @@ var baseball = [];
         $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json';
         //alert($scope.scoreBoard);
         $http.get($scope.scoreBoard).success(function (data) {
-            //alert("");
-            //alert(data);
-             angular.forEach(data.data.games.game, function (batter) {
+            $scope.eachGame = data.data.games.game;
+             angular.forEach($scope.eachGame, function (batter) {
                  var thisSession = batter;
                if(thisSession.hasOwnProperty('inhole')){
                     $scope.playersUpToBat.push(batter.batter.id);
                     $scope.playersOnDeck.push(batter.ondeck.id);
                     $scope.playersInTheHole.push(batter.inhole.id);
                 }
-             });
-
-            angular.forEach(data.data.games.game, function (links) {
-                var JSONlink = links.game_data_directory;
+                var JSONlink = batter.game_data_directory;
 
                 $scope.daysGames.push('http://gd2.mlb.com' + JSONlink + "/boxscore.json");
-            });
+             });
             //alert($scope.daysGames);
             angular.forEach($scope.daysGames, function (games) {
                 $scope.game = $http.get(games);

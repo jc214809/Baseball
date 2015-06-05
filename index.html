@@ -56,7 +56,7 @@
                     <table class="">
   <tr>
     <th class="" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg"/></th>
-    <th class="" colspan="2" class="player-label">{{ x.name_display_first_last }}, {{x.pos}} <img ng-if="gameinfo.status_ind == 'F'" width="90" src="..\Baseball\images\pictures\final.jpg"/></th>
+    <th class="" colspan="2" class="player-label">{{ x.name_display_first_last }}, {{x.pos}} <img ng-if="gameinfo.status_ind == 'F'" width="90" src="..\Baseball\images\pictures\Final.jpg"/></th>
     <th class="" style="float:right"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)"> {{getScore($index, x) }}</span> <span style="float:right">Points: </span></th>
   </tr>
   <tr>

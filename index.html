@@ -91,45 +91,43 @@
                         </td>
   </tr>
                     </table>   
-
             </div>
-                <!-- <img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/434670.jpg"> -->
             </div>
-            <div id="pitchingTable">
+            <div ng-repeat="pitchedGames in allPitchingStaffGames" id="pitchingTable">
                 <table>
   <tr>
     <th rowspan="2"><img height="75" width="62" src="http://mlb.mlb.com/images/logos/42x50/la.png"></th>
-    <th colspan="2"><span class="pitching-staff-label">Los Angeles Dodgers, P</span></th>
-    <th style="float:right"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span class="pitching-staff-points" style="float:right">Points:{{pitchingScore}}</span></th>
+    <th colspan="2"><span class="pitching-staff-label">{{pitchingStaffTeamName}}, P</span>&nbsp;<img ng-if="(pitchedGames._w > 0 || pitchedGames._l > 0)" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg"/></th>
+    <th style="float:right"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span class="pitching-staff-points" style="float:right">Points:{{getPitchingStaffScore(pitchedGames)}}</span></th>
   </tr>
   <tr>
     <td colspan="3" class="stats-table">
         <span>&nbsp;&nbsp;</span>
                         <span>
-                            <span ng-if="pitchingStaffStats._w > 0">W</span>
-                            <span ng-if="pitchingStaffStats._l > 0">L</span>
-                            <span ng-if="(pitchingStaffStats._w != 0 || pitchingStaffStats._l != 0)">,</span>
+                            <span ng-if="pitchedGames._w > 0">W</span>
+                            <span ng-if="pitchedGames._l > 0">L</span>
+                            <span ng-if="(pitchedGames._w != 0 || pitchedGames._l != 0)">,</span>
                         </span>
-                        <span ng-if="pitchingStaffStats._ip != 0">&nbsp;{{pitchingStaffStats._ip}} IP
-                            <span ng-if="pitchingStaffStats._ip != 0  && (pitchingStaffStats._h != 0 || pitchingStaffStats._er != 0 || pitchingStaffStats._bb != 0 || pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</span>
+                        <span ng-if="pitchedGames._ip != 0">&nbsp;{{pitchedGames._ip}} IP
+                            <span ng-if="pitchedGames._ip != 0  && (pitchedGames._h != 0 || pitchedGames._er != 0 || pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
                         </span>
-                        <span ng-if="pitchingStaffStats._h != 0">&nbsp;{{pitchingStaffStats._h}} H
-                            <span ng-if="pitchingStaffStats._h != 0  && (pitchingStaffStats._er != 0 || pitchingStaffStats._bb != 0 || pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</span>
+                        <span ng-if="pitchedGames._h != 0">&nbsp;{{pitchedGames._h}} H
+                            <span ng-if="pitchedGames._h != 0  && (pitchedGames._er != 0 || pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
                         </span>
-                        <span ng-if="pitchingStaffStats._er != 0">&nbsp;{{pitchingStaffStats._er}} ER
-                            <span ng-if="pitchingStaffStats._er != 0  && (pitchingStaffStats._bb != 0 || pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</span>
+                        <span ng-if="pitchedGames._er != 0">&nbsp;{{pitchedGames._er}} ER
+                            <span ng-if="pitchedGames._er != 0  && (pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
                         </span>
-                        <span ng-if="pitchingStaffStats._bb != 0">&nbsp;{{pitchingStaffStats._bb}} BB
-                            <span ng-if="pitchingStaffStats._bb != 0  && (pitchingStaffStats._k != 0 || pitchingStaffStats._sho != 0)">,</span>
+                        <span ng-if="pitchedGames._bb != 0">&nbsp;{{pitchedGames._bb}} BB
+                            <span ng-if="pitchedGames._bb != 0  && (pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
                         </span>
-                        <span ng-if="pitchingStaffStats._k != 0">&nbsp;{{pitchingStaffStats._k}} K
-                            <span ng-if="pitchingStaffStats._k != 0  && (pitchingStaffStats._sho != 0)">,</span>
+                        <span ng-if="pitchedGames._k != 0">&nbsp;{{pitchedGames._k}} K
+                            <span ng-if="pitchedGames._k != 0  && (pitchedGames._sho != 0)">,</span>
                         </span>
-                        <span ng-if="pitchingStaffStats._sho != 0">&nbsp;{{pitchingStaffStats._sho}} SHO</span>
+                        <span ng-if="pitchedGames._sho != 0">&nbsp;{{pitchedGames._sho}} SHO</span>
+
     </td>
   </tr>
 </table>
-
             </div>
             <div><span class="total" style="float:right" data-ng-init="getTotal()"><b>Total Points for The Day:    {{ getTotal() }}</b></span></div>
         </div>
@@ -137,7 +135,7 @@
                 <br>
                                 <br>
 
-<center><div class="points">
+<center><div class="points" >
                 <span class="at-bat key">
                     &nbsp;Batting&nbsp;
                </span>

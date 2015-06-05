@@ -1,153 +1,195 @@
-<!DOCTYPE html>
-<html>
+html{
+	padding: 5px 10px 5px 5px;
+}
+body{
+	padding: 0 2%;
+	font-size: 114%;
+}
+*{
+	font-size: 114%;
+}
+.status-indicators{
+	padding-bottom: .1cm;
+}
+.player-outline {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+.key {
+    border-style: solid;
+    border-width: 5px;
+    font-weight: bold;
+}
+.table-player{
+	background-color: gray;
+}
+.at-bat{
+	background-color: green;
+}
+.on-deck{
+	background-color: yellow;
+}
+.in-hole{
+	background-color: red;
+}
+.total{
+	 font-size: 225%;
+}
+.stats-table{
+	font-size: 20px;
+	font-weight: bold;
+}
+.header{
+	display: inline block;
+}
+.points{
+	font-size: 150%;
+}
 
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
-    <link rel="stylesheet" type="text/css" href="../Baseball/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="../Baseball/css/main.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="../Baseball/js/Scoreboard.js"></script>
+.pitching-staff-points{
+	font-size: 195%;
+}
+.center-date{
+padding-left: 40%;
+font-size: 115%;
+	/*text-align: center;*/
+}
+.each-stat{
+		vertical-align: text-top;
+}
+.right{
+	padding-left: 36%;
+}
 
-    <meta name="Baseball" content="width=device-width, initial-scale=1.0">
-    <!--<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">-->
+.player-label{
+	color : #191970;
+	font-size: 230%;
+}
+.pitching-staff-label{
+	color : #191970;
+	font-size: 300%;
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+	* {
+		font-size: 25px;
+	}
+	
+	.player-label{
+		color : #191970;
+		font-size: 25px;
+	}
 
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="../Baseball/images/favicon.ico" sizes="16x16">
-    <link rel="shortcut icon" href="../Baseball/images/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="../Baseball/images/apple-touch-icon.png" />
-    <link rel="apple-touch-icon" sizes="57x57" href="../Baseball/images/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="../Baseball/images/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../Baseball/images/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="../Baseball/images/apple-touch-icon-114x114.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="../Baseball/images/apple-touch-icon-120x120.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="../Baseball/images/apple-touch-icon-144x144.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="../Baseball/images/apple-touch-icon-152x152.png" />
-    <title>MLB.com Fantasy Scoreboard</title>
-</head>
+	.status-indicators{
+		padding-bottom: .33cm;
+	}
+	
+	.total{
+	 	font-size: 65px;
+	}
 
-<body>
-    <div ng-app="myApp">
-        <div ng-controller="baseballController" data-ng-init="changeDate(0);">
-            <div class="header" >
-                <span>
-                   <a ng-click="changeDate(-1);" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></a>  
-               </span>
-               <span>
-                  &nbsp;<span class="center-date" style="font-size: 195%;"><b>{{month}}/{{day}}/{{year}}</b></span>&nbsp;
-              </span>   
-              <span class="right">
-                 <a ng-click="changeDate(1);"  ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></a>
-             </span>  
-         </div>
+	.pitching-staff-points{
+		font-size: 195%;
+	}
+	.points{
+		font-size: 25px;
+	}
+	.pitching-staff-label{
+		color : #191970;
+		font-size: 200%;
+	}
+}
 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+	* {
+		font-size: 30px;
+	}
 
-         <div ng-repeat="game in baseballGame">
-                       <divs ng-repeat="gameinfo in game[0].data.data;">
-            <divs ng-repeat="team in game[0].data.data.boxscore.batting;">
-                    <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
-                    <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
-                    <div ng-repeat="x in team.batter" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1, 'at-bat' : playersUpToBat.indexOf(x.id) != -1, 'in-hole' : playersInTheHole.indexOf(x.id) != -1}" class="">
+	.player-label{
+		color : #191970;
+		font-size: 25px;
+	}
 
-                    <table class="">
-  <tr class="">
-    <th class="" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg"/></th>
-    <th class="" colspan="2" ><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span> <img ng-if="gameinfo.status_ind == 'F'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg"/></th>
-    <th  style="float:right"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore($index, x) }}</span> <span class="points" style="float:right">Points: </span></th>
-  </tr>
-  <tr>
-    <td colspan="3" class="stats-table">
-    <span>&nbsp;&nbsp;</span>
-                        <span class="each-stat">{{ x.h }} - {{x.ab}}
-                            <span class="each-stat" ng-if="x.d != 0 || x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0">,</span>
-                        </span>
-                        <span class="each-stat" ng-if="x.d != 0">&nbsp;{{x.d}} 2B
-                            <span ng-if="x.d != 0  && (x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                        </span>
-                        <span ng-if="x.t != 0">&nbsp;{{x.t}} 3B
-                            <span ng-if="x.t != 0  && ( x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                        </span>
-                        <span ng-if="x.hr != 0">&nbsp;{{x.hr}} HR
-                            <span ng-if="x.hr != 0  && (x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                        </span>
-                        <span ng-if="x.rbi != 0">&nbsp;{{x.rbi}} RBI
-                            <span ng-if="x.rbi != 0  && (x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                        </span>
-                        <span ng-if="x.bb != 0">&nbsp;{{x.bb}} BB
-                            <span ng-if="x.bb != 0  && (x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                        </span>
-                        <span ng-if="x.r != 0">&nbsp;{{x.r}} R
-                            <span ng-if="x.r != 0  && (x.sb != 0 || x.cs != 0)">,</span>
-                        </span>
-                        <span ng-if="x.sb != 0">&nbsp;{{x.sb}} SB
-                            <span ng-if="x.sb != 0  && (x.cs != 0)">,</span>
-                        </span>
-                        <span ng-if="x.cs != 0">&nbsp;{{x.cs}} CS</span>
-                        </td>
-  </tr>
-                    </table>   
-            </div>
-            </div>
-            <div ng-repeat="pitchedGames in allPitchingStaffGames" id="pitchingTable">
-                <table>
-  <tr>
-    <th rowspan="2"><img height="75" width="62" src="http://mlb.mlb.com/images/logos/42x50/la.png"></th>
-    <th colspan="2"><span class="pitching-staff-label">{{pitchingStaffTeamName}}, P</span>&nbsp;<img ng-if="(pitchedGames._w > 0 || pitchedGames._l > 0)" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg"/></th>
-    <th style="float:right"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span class="pitching-staff-points" style="float:right">Points:{{getPitchingStaffScore(pitchedGames)}}</span></th>
-  </tr>
-  <tr>
-    <td colspan="3" class="stats-table">
-        <span>&nbsp;&nbsp;</span>
-                        <span>
-                            <span ng-if="pitchedGames._w > 0">W</span>
-                            <span ng-if="pitchedGames._l > 0">L</span>
-                            <span ng-if="(pitchedGames._w != 0 || pitchedGames._l != 0)">,</span>
-                        </span>
-                        <span ng-if="pitchedGames._ip != 0">&nbsp;{{pitchedGames._ip}} IP
-                            <span ng-if="pitchedGames._ip != 0  && (pitchedGames._h != 0 || pitchedGames._er != 0 || pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
-                        </span>
-                        <span ng-if="pitchedGames._h != 0">&nbsp;{{pitchedGames._h}} H
-                            <span ng-if="pitchedGames._h != 0  && (pitchedGames._er != 0 || pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
-                        </span>
-                        <span ng-if="pitchedGames._er != 0">&nbsp;{{pitchedGames._er}} ER
-                            <span ng-if="pitchedGames._er != 0  && (pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
-                        </span>
-                        <span ng-if="pitchedGames._bb != 0">&nbsp;{{pitchedGames._bb}} BB
-                            <span ng-if="pitchedGames._bb != 0  && (pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
-                        </span>
-                        <span ng-if="pitchedGames._k != 0">&nbsp;{{pitchedGames._k}} K
-                            <span ng-if="pitchedGames._k != 0  && (pitchedGames._sho != 0)">,</span>
-                        </span>
-                        <span ng-if="pitchedGames._sho != 0">&nbsp;{{pitchedGames._sho}} SHO</span>
+	.status-indicators{
+		padding-bottom: .33cm;
+	}
 
-    </td>
-  </tr>
-</table>
-            </div>
-            <div><span class="total" style="float:right" data-ng-init="getTotal()"><b>Total Points for The Day:    {{ getTotal() }}</b></span></div>
-        </div>
-        <br>
-                <br>
-                                <br>
+	.total{
+	 	font-size: 55px;
+	}
 
-<center><div class="points" >
-                <span class="at-bat key">
-                    &nbsp;Batting&nbsp;
-               </span>
-               &nbsp;
-               <span class="on-deck key">
-                  &nbsp;On Deck&nbsp;
-              </span>  
-              &nbsp; 
-              <span class="in-hole key">
-                 &nbsp;In The Hole&nbsp;
-             </span>  
-    </div></center>
-</body>
+	.pitching-staff-points{
+		font-size: 40px;
+	}
+	.points{
+		font-size: 25px;
+	}
+	.pitching-staff-label{
+		color : #191970;
+		font-size: 200%;
+	}
+}
 
-</html>
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+	* {
+		font-size: 25px;
+	}
+
+	.player-label{
+		color : #191970;
+		font-size: 25px;
+	}
+
+	.status-indicators{
+		padding-bottom: .33cm;
+	}
+
+	.total{
+	 	font-size: 40px;
+	}
+
+	.pitching-staff-points{
+		font-size: 25px;
+	}
+	.points{
+		font-size: 25px;
+	}
+	.pitching-staff-label{
+		color : #191970;
+		font-size: 200%;
+	}
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	* {
+		font-size: 114%;
+	}
+	
+	.player-label{
+		color : #191970;
+		font-size: 114%;;
+	}
+
+	.status-indicators{
+		padding-bottom: .33cm;
+	}
+
+	.total{
+	 	font-size: 25px;
+	}
+
+	.pitching-staff-points{
+		font-size: 195%;
+	}
+	.points{
+		font-size: 114%;
+	}
+	.pitching-staff-label{
+		color : #191970;
+		font-size: 200%;
+	}
+}

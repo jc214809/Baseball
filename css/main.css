@@ -1,9 +1,15 @@
+html{
+	padding: 5px 10px 5px 5px;
+}
 body{
 	padding: 0 2%;
 	font-size: 114%;
 }
 *{
 	font-size: 114%;
+}
+.status-indicators{
+	padding-bottom: .1cm;
 }
 .player-outline {
     border-style: solid;
@@ -14,6 +20,9 @@ body{
     border-style: solid;
     border-width: 5px;
     font-weight: bold;
+}
+.table-player{
+	background-color: gray;
 }
 .at-bat{
 	background-color: green;
@@ -35,43 +44,91 @@ body{
 	display: inline block;
 }
 .points{
-	font-size: 114%;
-}
-.center-date{
-padding-left: 37%;
-	/*text-align: center;*/
+	font-size: 150%;
 }
 
+.pitching-staff-points{
+	font-size: 195%;
+}
+.center-date{
+padding-left: 40%;
+font-size: 115%;
+	/*text-align: center;*/
+}
+.each-stat{
+		vertical-align: text-top;
+}
 .right{
-	padding-left: 31%;
+	padding-left: 36%;
+}
+
+.player-label{
+	color : #191970;
+	font-size: 230%;
+}
+.pitching-staff-label{
+	color : #191970;
+	font-size: 300%;
 }
 /* Large desktop */
 @media (min-width: 1200px) {
 	* {
 		font-size: 25px;
 	}
-
+	
 	.player-label{
 		color : #191970;
+		font-size: 25px;
 	}
 
+	.status-indicators{
+		padding-bottom: .33cm;
+	}
+	
 	.total{
 	 	font-size: 65px;
+	}
+
+	.pitching-staff-points{
+		font-size: 195%;
+	}
+	.points{
+		font-size: 25px;
+	}
+	.pitching-staff-label{
+		color : #191970;
+		font-size: 200%;
 	}
 }
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
 	* {
-		font-size: 40px;
+		font-size: 30px;
 	}
 
 	.player-label{
 		color : #191970;
+		font-size: 25px;
+	}
+
+	.status-indicators{
+		padding-bottom: .33cm;
 	}
 
 	.total{
 	 	font-size: 55px;
+	}
+
+	.pitching-staff-points{
+		font-size: 40px;
+	}
+	.points{
+		font-size: 25px;
+	}
+	.pitching-staff-label{
+		color : #191970;
+		font-size: 200%;
 	}
 }
 
@@ -83,10 +140,26 @@ padding-left: 37%;
 
 	.player-label{
 		color : #191970;
+		font-size: 25px;
 	}
 
-		.total{
+	.status-indicators{
+		padding-bottom: .33cm;
+	}
+
+	.total{
 	 	font-size: 40px;
+	}
+
+	.pitching-staff-points{
+		font-size: 25px;
+	}
+	.points{
+		font-size: 25px;
+	}
+	.pitching-staff-label{
+		color : #191970;
+		font-size: 200%;
 	}
 }
 
@@ -95,12 +168,28 @@ padding-left: 37%;
 	* {
 		font-size: 114%;
 	}
-
+	
 	.player-label{
 		color : #191970;
+		font-size: 114%;;
 	}
 
-		.total{
+	.status-indicators{
+		padding-bottom: .33cm;
+	}
+
+	.total{
 	 	font-size: 25px;
+	}
+
+	.pitching-staff-points{
+		font-size: 195%;
+	}
+	.points{
+		font-size: 114%;
+	}
+	.pitching-staff-label{
+		color : #191970;
+		font-size: 200%;
 	}
 }

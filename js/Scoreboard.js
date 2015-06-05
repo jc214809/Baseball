@@ -19,6 +19,10 @@ var baseball = [];
     $scope.playersOnDeck = [];
     $scope.playersInTheHole = [];
     $scope.eachGame = null;
+    $scope.doubleHeader= false;
+    $scope.pitchingStaffTeamName = null;
+    $scope.pitchingStaffGames = [];
+    $scope.allPitchingStaffGames = [];
     //  '592626', '570256', '457763', '543760', '471865',"475582"
 //My Team
 //'630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'
@@ -82,7 +86,6 @@ var baseball = [];
         return score;
     };
     $scope.getPitchingStaffScore = function (x) {
-        var startingScore = 27;
         var pointsForHitsAndWalks = 0;
         var pointsForStrikeOuts = 0;
         var pointsForEarnedRuns = 0;
@@ -147,7 +150,7 @@ var baseball = [];
         //alert("W" + pointsForWin);
         //alert(parseInt(pointsForHitsAndWalks) + parseInt(pointsForEarnedRuns) + parseInt(pointsForStrikeOuts) + parseInt(pointsForWin));
         pitchingScore = parseInt(pointsForHitsAndWalks) + parseInt(pointsForEarnedRuns) + parseInt(pointsForStrikeOuts) + parseInt(pointsForWin);
-        $scope.total += pitchingScore;
+        //$scope.total += pitchingScore;
         return pitchingScore;
     };
     $scope.numberInTheOrder = function (orderNumber) {
@@ -172,6 +175,18 @@ var baseball = [];
             $scope.eachGame = data.data.games.game;
              angular.forEach($scope.eachGame, function (batter) {
                  var thisSession = batter;
+                 if (batter.away_code == $scope.myPichingStaff || batter.home_code == $scope.myPichingStaff) {
+                    if (batter.double_header_sw != 'N') {
+                            $scope.doubleHeader = true;
+                    };
+
+                    if (batter.away_code == $scope.myPichingStaff ) {
+                        $scope.pitchingStaffTeamName =  batter.away_team_city + ' ' + batter.away_team_name;
+                    }else{
+                         $scope.pitchingStaffTeamName = batter.home_team_city + ' ' + batter.home_team_name;
+                    }
+                 };
+                 
                if(thisSession.hasOwnProperty('inhole')){
                     $scope.playersUpToBat.push(batter.batter.id);
                     $scope.playersOnDeck.push(batter.ondeck.id);
@@ -197,17 +212,38 @@ var baseball = [];
         $scope.getTotal();
     };
            $scope.pitchingStaff = function () {
-           //alert("");
-        $http.get('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/'+ $scope.myPichingStaff+'_1.xml').success(function (data, status, headers, config) {
-            var x2js = new X2JS();
-            convertedData = x2js.xml_str2json(data.replace(/<!--[\s\S]*?-->/g, ""));
-            $scope.pitchingStaffStats = convertedData.pitching;
-            $scope.pitchingScore = $scope.getPitchingStaffScore($scope.pitchingStaffStats);
-            $('#pitchingTable').show();
-        }).
-        error(function (data, status, headers, config) {
-            $('#pitchingTable').hide();
-            //alert("Error");
-        });
+             $scope.pitchingStaffGames = [];
+             $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/'+ $scope.myPichingStaff+'_1.xml';
+             $scope.pitchingStaffGames.push($scope.game1);
+             if ($scope.doubleHeader) {
+                $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/'+ $scope.myPichingStaff+'_2.xml';
+                $scope.pitchingStaffGames.push($scope.game2);
+             };
+             angular.forEach($scope.pitchingStaffGames, function (pitching) {
+                $scope.pitchingGame = $http.get(pitching);
+            $q.all([$scope.pitchingGame]).then(function (data) {
+
+                var x2js = new X2JS();
+                //alert("here1");
+                convertedData = x2js.xml_str2json(data[0].data.replace(/<!--[\s\S]*?-->/g, ""));
+                //alert("here2");
+                $scope.pitchingStaffStats = convertedData.pitching;
+                //alert("here3");
+                $scope.allPitchingStaffGames.push($scope.pitchingStaffStats);
+                ('#pitchingTable').show();
+
+
+            });
+            });
+
+        // $http.get('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/'+ $scope.myPichingStaff+'_1.xml').success(function (data, status, headers, config) {
+  
+        //     $scope.pitchingScore = $scope.getPitchingStaffScore($scope.pitchingStaffStats);
+        //     $
+        // }).
+        // error(function (data, status, headers, config) {
+        //     $('#pitchingTable').hide();
+        //     //alert("Error");
+        // });
     };    
 });

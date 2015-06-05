@@ -50,12 +50,56 @@
             <divs ng-repeat="team in game[0].data.data.boxscore.batting;">
                     <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
                     <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
-                    <div ng-repeat="x in team.batter" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1, 'at-bat' : playersUpToBat.indexOf(x.id) != -1, 'in-hole' : playersInTheHole.indexOf(x.id) != -1}" >
-                        <span class="player-label"><span class="player-label"><!--{{numberInTheOrder(x.bo)}}-->{{ x.name_display_first_last }}</span>, {{x.pos}}</span>
-                        <span style="float:right" ng-value="$index"> 
-                          <span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)"> {{getScore($index, x) }}</span> <span style="float:right">Points: </span>
-                      </span>              
-                      <table class="stats-table">
+                    <div ng-repeat="x in team.batter" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1, 'at-bat' : playersUpToBat.indexOf(x.id) != -1, 'in-hole' : playersInTheHole.indexOf(x.id) != -1}" class="">
+<table class="">
+  <tr>
+    <th class="" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg"/></th>
+    <th class="" colspan="2" class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</th>
+    <th class="" style="float:right"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)"> {{getScore($index, x) }}</span> <span style="float:right">Points: </span></th>
+  </tr>
+  <tr>
+    <td colspan="3" class="stats-table">
+    <span>&nbsp;&nbsp;</span>
+                        <span>{{ x.h }} - {{x.ab}}
+                            <span ng-if="x.d != 0 || x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0">,</span>
+                        </span>
+                        <span ng-if="x.d != 0">&nbsp;{{x.d}} 2B
+                            <span ng-if="x.d != 0  && (x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
+                        </span>
+                        <span ng-if="x.t != 0">&nbsp;{{x.t}} 3B
+                            <span ng-if="x.t != 0  && ( x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
+                        </span>
+                        <span ng-if="x.hr != 0">&nbsp;{{x.hr}} HR
+                            <span ng-if="x.hr != 0  && (x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
+                        </span>
+                        <span ng-if="x.rbi != 0">&nbsp;{{x.rbi}} RBI
+                            <span ng-if="x.rbi != 0  && (x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
+                        </span>
+                        <span ng-if="x.bb != 0">&nbsp;{{x.bb}} BB
+                            <span ng-if="x.bb != 0  && (x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
+                        </span>
+                        <span ng-if="x.r != 0">&nbsp;{{x.r}} R
+                            <span ng-if="x.r != 0  && (x.sb != 0 || x.cs != 0)">,</span>
+                        </span>
+                        <span ng-if="x.sb != 0">&nbsp;{{x.sb}} SB
+                            <span ng-if="x.sb != 0  && (x.cs != 0)">,</span>
+                        </span>
+                        <span ng-if="x.cs != 0">&nbsp;{{x.cs}} CS</span>
+                        </td>
+  </tr>
+</table>
+<!--                         <table>
+                            <td>
+                                <td>
+                        <span class="key"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg"></span>
+                        </td>
+                       <td>                         
+                        <span class="player-label"><span class="player-label"><!--{{numberInTheOrder(x.bo)}}--><!-- {{ x.name_display_first_last }}</span>, {{x.pos}}</span> -->
+
+                      <!-- <span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)"> {{getScore($index, x) }}</span> <span style="float:right">Points: </span>
+                      </td>
+                      </td>              
+                      <tr class="stats-table">
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                         <td>{{ x.h }} - {{x.ab}}
                             <td ng-if="x.d != 0 || x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0">,</td>
@@ -82,7 +126,8 @@
                             <td ng-if="x.sb != 0  && (x.cs != 0)">,</td>
                         </td>
                         <td ng-if="x.cs != 0">&nbsp;{{x.cs}} CS</td>
-                    </table>
+                    </tr>
+                    </table> --> 
                 </div>
                 <!-- <img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/434670.jpg"> -->
             </div>
@@ -119,6 +164,9 @@
             <div><span class="total" style="float:right" data-ng-init="getTotal()"><b>Total Points for The Day:    {{ getTotal() }}</b></span></div>
         </div>
         <br>
+                <br>
+                                <br>
+
 <center><div class="header" >
                 <span class="at-bat key">
                     Batting 

@@ -5,6 +5,11 @@ body{
 *{
 	font-size: 114%;
 }
+.player-outline {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
 .key {
     border-style: solid;
     border-width: 5px;

@@ -57,7 +57,9 @@ var baseball = [];
         if ($scope.month < 10) {
             $scope.month = '0' + $scope.month;
         }
-        $scope. init();
+        $scope.Joel= [];
+        //alert($scope.Joel);
+        $scope.init();
     };
      $scope.gatherIds = function (id) {
          function lookup(name) {
@@ -70,9 +72,9 @@ var baseball = [];
                 $scope.idsToLookFor.push(id);
             }
      }
-    $scope.getTotal = function () {
-        angular.forEach($scope.idsToLookFor, function (id) {
-            var score = parseInt($("#"+ id).text());
+    $scope.getTotal = function() {
+        angular.forEach($scope.idsToLookFor, function(id) {
+            var score = parseInt($("#" + id).text());
 
             function lookup(name) {
                 for (var i = 0, len = $scope.Joel.length; i < len; i++) {
@@ -80,15 +82,48 @@ var baseball = [];
                 }
                 return false;
             }
-            if(!(isNaN(score))){
+            if (!(isNaN(score))) {
                 if (!lookup(id)) {
-                        $scope.Joel.push({
-                            key: id,
-                            value: score
+                    $scope.Joel.push({
+                        key: id,
+                        value: score
                     });
-                    $scope.total += score;   
+                    $scope.total += score;
                 }
             }
+        });
+        var pitchingTotals = [0, 1];
+        angular.forEach(pitchingTotals, function(id2) {
+            function lookup(name) {
+                for (var i = 0, len = $scope.Joel.length; i < len; i++) {
+                    if ($scope.Joel[i].key === name) return true;
+                }
+                return false;
+            }
+
+            if (!lookup(id2)) {
+                if (!(isNaN(parseInt($('#' + id2).text())))) {
+                    if (!lookup(0)) { 
+                                                //alert("first");
+                    $scope.total += parseInt($('#' + id2).text());
+                    $scope.Joel.push({
+                        key: id2,
+                        value: parseInt($('#' + id2).text())
+                    });
+                }
+                    if ($scope.doubleHeader) {
+                        if (!lookup(1)) { 
+                        $scope.total += parseInt($('#' + id2).text());
+                         //alert("double");
+                        $scope.Joel.push({
+                            key: id2,
+                            value: parseInt($('#' + id2).text())
+                        });
+                                        }
+                    };
+                }
+            }
+            //alert($scope.Joel);
         });
         return $scope.total;
     };

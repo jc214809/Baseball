@@ -57,17 +57,17 @@
                     <table class="">
   <tr class="">
     <th class="" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg"/></th>
-    <th class="" colspan="2" ><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span> <img ng-if="gameinfo.status_ind == 'F'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg"/><blink ng-if="gameinfo.status_ind == 'DR'"><img ng-if="gameinfo.status_ind == 'DR'" class="status-indicators" width="50" src="..\Baseball\images\pictures\PPD.jpg"/></blink> 
+    <th class="" colspan="2" ><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span> <img ng-if="gameinfo.status_ind == 'F'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg"/><blink ng-if="gameinfo.status_ind == 'DR'"><img ng-if="gameinfo.status_ind == 'DR'" class="status-indicators" width="50" src="..\Baseball\images\pictures\PPD.jpg"/></blink> <!-- {{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}} -->
 </th>
     <th  style="float:right"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore($index, x) }}</span> <span class="points" style="float:right">Points: </span></th>
   </tr>
   <tr>
     <td colspan="3" class="stats-table">
     <span>&nbsp;&nbsp;</span>
-                        <span class="each-stat">{{ x.h }} - {{x.ab}}
-                            <span class="each-stat" ng-if="x.d != 0 || x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0">,</span>
+                        <span class="">{{ x.h }} - {{x.ab}}
+                            <span class="" ng-if="x.d != 0 || x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0">,</span>
                         </span>
-                        <span class="each-stat" ng-if="x.d != 0">&nbsp;{{x.d}} 2B
+                        <span class="" ng-if="x.d != 0">&nbsp;{{x.d}} 2B
                             <span ng-if="x.d != 0  && (x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
                         </span>
                         <span ng-if="x.t != 0">&nbsp;{{x.t}} 3B
@@ -131,6 +131,7 @@
   </tr>
 </table>
             </div>
+            <!-- {{Joel}} -->
             <div><span class="total" style="float:right" data-ng-init="getTotal()"><b>Total Points for The Day:    {{ getTotal() }}</b></span></div>
 
         </div>

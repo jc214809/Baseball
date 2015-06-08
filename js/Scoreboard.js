@@ -58,9 +58,32 @@ var baseball = [];
             $scope.month = '0' + $scope.month;
         }
         $scope.Joel= [];
-        //alert($scope.Joel);
         $scope.init();
+        $scope.pitchingPoints();
     };
+
+     $scope.pitchingPoints = function () {
+        $scope.pitchingStaffGamesTotals =[];
+             $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/'+ $scope.myPichingStaff+'_1.xml';
+             $scope.pitchingStaffGamesTotals.push($scope.game1);
+             //if ($scope.doubleHeader) {
+                $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/'+ $scope.myPichingStaff+'_2.xml';
+                $scope.pitchingStaffGamesTotals.push($scope.game2);
+             //};
+                         
+            angular.forEach($scope.pitchingStaffGamesTotals, function (pitchingTotals) {
+            $scope.pitchingGame = $http.get(pitchingTotals);
+            $q.all([$scope.pitchingGame]).then(function (dataTotals) {
+
+                var x2js = new X2JS();
+                convertedData = x2js.xml_str2json(dataTotals[0].data.replace(/<!--[\s\S]*?-->/g, "")); 
+                var gameTotal = $scope.getPitchingStaffScore(convertedData.pitching);
+                $scope.total = gameTotal;
+
+            });
+            });
+         };
+
      $scope.gatherIds = function (id) {
          function lookup(name) {
                 for (var i = 0, len = $scope.idsToLookFor.length; i < len; i++) {
@@ -92,39 +115,41 @@ var baseball = [];
                 }
             }
         });
-        var pitchingTotals = [0, 1];
-        angular.forEach(pitchingTotals, function(id2) {
-            function lookup(name) {
-                for (var i = 0, len = $scope.Joel.length; i < len; i++) {
-                    if ($scope.Joel[i].key === name) return true;
-                }
-                return false;
-            }
 
-            if (!lookup(id2)) {
-                if (!(isNaN(parseInt($('#' + id2).text())))) {
-                    if (!lookup(0)) { 
-                                                //alert("first");
-                    $scope.total += parseInt($('#' + id2).text());
-                    $scope.Joel.push({
-                        key: id2,
-                        value: parseInt($('#' + id2).text())
-                    });
-                }
-                    if ($scope.doubleHeader) {
-                        if (!lookup(1)) { 
-                        $scope.total += parseInt($('#' + id2).text());
-                         //alert("double");
-                        $scope.Joel.push({
-                            key: id2,
-                            value: parseInt($('#' + id2).text())
-                        });
-                                        }
-                    };
-                }
-            }
-            //alert($scope.Joel);
-        });
+
+        // var pitchingTotals = [0, 1];
+        // angular.forEach(pitchingTotals, function(id2) {
+        //     function lookup(name) {
+        //         for (var i = 0, len = $scope.Joel.length; i < len; i++) {
+        //             if ($scope.Joel[i].key === name) return true;
+        //         }
+        //         return false;
+        //     }
+
+        //     if (!lookup(id2)) {
+        //         if (!(isNaN(parseInt($('#' + id2).text())))) {
+        //             if (!lookup(0)) { 
+        //                                         //alert("first");
+        //             $scope.total += parseInt($('#' + id2).text());
+        //             $scope.Joel.push({
+        //                 key: id2,
+        //                 value: parseInt($('#' + id2).text())
+        //             });
+        //         }
+        //             if ($scope.doubleHeader) {
+        //                 if (!lookup(1)) { 
+        //                 $scope.total += parseInt($('#' + id2).text());
+        //                  //alert("double");
+        //                 $scope.Joel.push({
+        //                     key: id2,
+        //                     value: parseInt($('#' + id2).text())
+        //                 });
+        //                                 }
+        //             };
+        //         }
+        //     }
+        //     //alert($scope.Joel);
+        // });
         return $scope.total;
     };
     $scope.getScore = function (index, x) {
@@ -137,11 +162,11 @@ var baseball = [];
         var pointsForStrikeOuts = 0;
         var pointsForEarnedRuns = 0;
         var pointsForWin = 0;
-        
+
         if (x._w == 1) {
             pointsForWin = 3;
         }
-        
+
         if (x._k < 6 ) {
             pointsForStrikeOuts = 0;
         } else if (x._k > 5 && x._k < 8) {
@@ -281,7 +306,6 @@ var baseball = [];
                 //alert("here3");
                 $scope.allPitchingStaffGames.push($scope.pitchingStaffStats);
                 $('#pitchingTable').show();
-
 
             });
             });

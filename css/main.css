@@ -70,6 +70,10 @@ font-size: 115%;
 	color : #191970;
 	font-size: 300%;
 }
+.game-info{
+	color : #800000;
+	font-size: 19px;
+}
 /* Large desktop */
 @media (min-width: 1200px) {
 	* {

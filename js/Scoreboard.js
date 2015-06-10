@@ -14,10 +14,12 @@ else window.onload = blink;
 var myApp = angular.module('myApp', []);
 myApp.controller('baseballController', function($scope, $http, $q) {
     var baseball = [];
+    $scope.baseballGame = null;
     $scope.game = null;
     $scope.daysGames = [];
     var d = new Date();
     var selectedDate = new Date(d);
+    var mondayDateHelper = new Date(selectedDate);
     $scope.day = d.getDate();
     $scope.month = d.getMonth() + 1;
     $scope.year = d.getFullYear();
@@ -36,6 +38,10 @@ myApp.controller('baseballController', function($scope, $http, $q) {
     $scope.allPitchingStaffGames = [];
     $scope.topOrBottom = null;
     $scope.inning = null;
+    $scope.lastMonday = mondayDateHelper.previous().monday().toString('M/d/yyyy');
+    $scope.lastSunday = mondayDateHelper.previous().sunday().toString('M/d/yyyy');
+    $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
+    $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
     //  '592626', '570256', '457763', '543760', '471865',"475582"
     //My Team
     //'630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'
@@ -58,21 +64,30 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         if ($scope.month < 10) {
             $scope.month = '0' + $scope.month;
         }
+        //finds out when Monday is for each week ***only work going backwards***
+
+        if($scope.lastSunday == selectedDate.toString('M/d/yyyy') || $scope.nextSunday == selectedDate.toString('M/d/yyyy')){
+            mondayDateHelper = new Date(selectedDate);
+            $scope.lastMonday =mondayDateHelper.previous().monday().toString('M/d/yyyy');
+            $scope.lastSunday = mondayDateHelper.previous().sunday().toString('M/d/yyyy');
+            $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
+            $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
+        }
+       
         $scope.pointsPerPlayerID = [];
         $scope.init();
         $scope.pitchingPoints();
     };
-
+     $scope.backToTodaysDate = function() {
+        selectedDate = Date.today();
+        $scope.changeDate(0);
+     };
     $scope.getInning = function(gameinfo) {
-        //alert();
-        //$scope.lineScore = gameinfo.boxscore.linescore.inning_line_score;
-
-        //var lastItem = [];
         var linescore = gameinfo.linescore.inning_line_score;
         var inning = null;
         if (linescore.inning == 1) {
             inning = linescore.inning;
-            if (linescore.home == undefined) { //maybe just lastItem.home no == undefined
+            if (linescore.home == undefined) {
                 TopOrBottom = "T";
             } else {
                 TopOrBottom = "B";
@@ -81,23 +96,13 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         } else {
             lastItem = linescore[gameinfo.linescore.inning_line_score.length - 1];
             inning = lastItem.inning;
-            if (lastItem.home == undefined) { //maybe just lastItem.home no == undefined
+            if (lastItem.home == undefined) { 
                 TopOrBottom = "T";
             } else {
                 TopOrBottom = "B";
             }
             return TopOrBottom + inning;
         }
-        //alert(JSON.stringify(gameinfo.linescore.inning_line_score));
-
-        // var TopOrBottom = null;
-
-        // if (lastItem.away.value == '') { //maybe just lastItem.home no == undefined
-        //     TopOrBottom = "T";
-        // }else{
-        //     TopOrBottom = "B";
-        // }
-
     };
     $scope.getTeamAbbreviation = function(teamAbbreviation) {
         switch (teamAbbreviation) {
@@ -143,7 +148,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         //if ($scope.doubleHeader) {
         $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPichingStaff + '_2.xml';
         $scope.pitchingStaffGamesTotals.push($scope.game2);
-        //alert("GOt here");
+        //alert("Got here");
         //};
 
         angular.forEach($scope.pitchingStaffGamesTotals, function(pitchingTotals) {
@@ -190,41 +195,6 @@ myApp.controller('baseballController', function($scope, $http, $q) {
                 }
             }
         });
-
-
-        // var pitchingTotals = [0, 1];
-        // angular.forEach(pitchingTotals, function(id2) {
-        //     function lookup(name) {
-        //         for (var i = 0, len = $scope.pointsPerPlayerID.length; i < len; i++) {
-        //             if ($scope.pointsPerPlayerID[i].key === name) return true;
-        //         }
-        //         return false;
-        //     }
-
-        //     if (!lookup(id2)) {
-        //         if (!(isNaN(parseInt($('#' + id2).text())))) {
-        //             if (!lookup(0)) { 
-        //                                         //alert("first");
-        //             $scope.total += parseInt($('#' + id2).text());
-        //             $scope.pointsPerPlayerID.push({
-        //                 key: id2,
-        //                 value: parseInt($('#' + id2).text())
-        //             });
-        //         }
-        //             if ($scope.doubleHeader) {
-        //                 if (!lookup(1)) { 
-        //                 $scope.total += parseInt($('#' + id2).text());
-        //                  //alert("double");
-        //                 $scope.pointsPerPlayerID.push({
-        //                     key: id2,
-        //                     value: parseInt($('#' + id2).text())
-        //                 });
-        //                                 }
-        //             };
-        //         }
-        //     }
-        //     //alert($scope.pointsPerPlayerID);
-        // });
         return $scope.total;
     };
     $scope.getScore = function(index, x) {
@@ -297,7 +267,6 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         //alert("W" + pointsForWin);
         //alert(parseInt(pointsForHitsAndWalks) + parseInt(pointsForEarnedRuns) + parseInt(pointsForStrikeOuts) + parseInt(pointsForWin));
         pitchingScore = parseInt(pointsForHitsAndWalks) + parseInt(pointsForEarnedRuns) + parseInt(pointsForStrikeOuts) + parseInt(pointsForWin);
-        //$scope.total += pitchingScore;
         return pitchingScore;
     };
     $scope.numberInTheOrder = function(orderNumber) {
@@ -328,6 +297,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         $scope.idsToLookFor = [];
         $scope.pointsPerPlayerID = [];
         baseball = [];
+        $scope.baseballGame = null;
         $scope.daysGames = [];
         $scope.playersUpToBat = [];
         $scope.playersOnDeck = [];
@@ -337,6 +307,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         $scope.pitchingGame = [];
         //$scope.doubleHeader = false;
         $scope.pitchingStaffStatus = null;
+       
         //alert($scope.month + "/" + $scope.day + "/" + $scope.year);
         $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json';
         //alert($scope.scoreBoard);
@@ -403,15 +374,5 @@ myApp.controller('baseballController', function($scope, $http, $q) {
 
             });
         });
-
-        // $http.get('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/'+ $scope.myPichingStaff+'_1.xml').success(function (data, status, headers, config) {
-
-        //     $scope.pitchingScore = $scope.getPitchingStaffScore($scope.pitchingStaffStats);
-        //     $
-        // }).
-        // error(function (data, status, headers, config) {
-        //     $('#pitchingTable').hide();
-        //     //alert("Error");
-        // });
     };
 });

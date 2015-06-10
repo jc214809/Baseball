@@ -22,7 +22,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
     $scope.month = d.getMonth() + 1;
     $scope.year = d.getFullYear();
     $scope.total = 0;
-    $scope.Joel = [];
+    $scope.pointsPerPlayerID = [];
     $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
     $scope.idsToLookFor = [];
     $scope.myPichingStaff = 'lan';
@@ -58,7 +58,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         if ($scope.month < 10) {
             $scope.month = '0' + $scope.month;
         }
-        $scope.Joel = [];
+        $scope.pointsPerPlayerID = [];
         $scope.init();
         $scope.pitchingPoints();
     };
@@ -175,14 +175,14 @@ myApp.controller('baseballController', function($scope, $http, $q) {
             var score = parseInt($("#" + id).text());
 
             function lookup(name) {
-                for (var i = 0, len = $scope.Joel.length; i < len; i++) {
-                    if ($scope.Joel[i].key === name) return true;
+                for (var i = 0, len = $scope.pointsPerPlayerID.length; i < len; i++) {
+                    if ($scope.pointsPerPlayerID[i].key === name) return true;
                 }
                 return false;
             }
             if (!(isNaN(score))) {
                 if (!lookup(id)) {
-                    $scope.Joel.push({
+                    $scope.pointsPerPlayerID.push({
                         key: id,
                         value: score
                     });
@@ -195,8 +195,8 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         // var pitchingTotals = [0, 1];
         // angular.forEach(pitchingTotals, function(id2) {
         //     function lookup(name) {
-        //         for (var i = 0, len = $scope.Joel.length; i < len; i++) {
-        //             if ($scope.Joel[i].key === name) return true;
+        //         for (var i = 0, len = $scope.pointsPerPlayerID.length; i < len; i++) {
+        //             if ($scope.pointsPerPlayerID[i].key === name) return true;
         //         }
         //         return false;
         //     }
@@ -206,7 +206,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         //             if (!lookup(0)) { 
         //                                         //alert("first");
         //             $scope.total += parseInt($('#' + id2).text());
-        //             $scope.Joel.push({
+        //             $scope.pointsPerPlayerID.push({
         //                 key: id2,
         //                 value: parseInt($('#' + id2).text())
         //             });
@@ -215,7 +215,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         //                 if (!lookup(1)) { 
         //                 $scope.total += parseInt($('#' + id2).text());
         //                  //alert("double");
-        //                 $scope.Joel.push({
+        //                 $scope.pointsPerPlayerID.push({
         //                     key: id2,
         //                     value: parseInt($('#' + id2).text())
         //                 });
@@ -223,7 +223,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         //             };
         //         }
         //     }
-        //     //alert($scope.Joel);
+        //     //alert($scope.pointsPerPlayerID);
         // });
         return $scope.total;
     };
@@ -304,12 +304,29 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         if (orderNumber.charAt(1) === "0" && orderNumber.charAt(2) === "0") return orderNumber.charAt(0) + ".";
         else return "-";
     };
+    $scope.stillInGame = function(team, player) {
+       //  playerInQuestion = player.bo;
+       //  keepGoing = true;
+       //  angular.forEach(team, function(dataObj) {
+       //      angular.forEach(dataObj, function(batterObj) {
+       //      if (batterObj.bo != undefined) {
+       //      if (batterObj.bo > playerInQuestion && playerInQuestion.charAt(0) == batterObj.bo.charAt(0)) {
+       //          keepGoing = false;
+       //          return "Joel";
+       //      }
+       //      };
+       //    });
+       //  });
+       // if(keepGoing) {
+       //  return "Joel1";
+       //   }
+    };
 
     $scope.init = function() {
         //$scope.changeDate(0);
         $scope.total = 0;
         $scope.idsToLookFor = [];
-        $scope.Joel = [];
+        $scope.pointsPerPlayerID = [];
         baseball = [];
         $scope.daysGames = [];
         $scope.playersUpToBat = [];
@@ -327,7 +344,6 @@ myApp.controller('baseballController', function($scope, $http, $q) {
             $scope.eachGame = data.data.games.game;
             angular.forEach($scope.eachGame, function(batter) {
                 var thisSession = batter;
-
                 if (batter.away_code == $scope.myPichingStaff || batter.home_code == $scope.myPichingStaff) {
                     if (batter.double_header_sw != 'N') {
                         $scope.doubleHeader = true;

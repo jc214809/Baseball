@@ -46,16 +46,16 @@
              </span>
             </div>
 
-
             <div ng-repeat="game in baseballGame">
                 <divs ng-repeat="gameinfo in game[0].data.data;">
                     <divs ng-repeat="team in game[0].data.data.boxscore.batting;">
                         <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
                     <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
-                        <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1, 'at-bat' : playersUpToBat.indexOf(x.id) != -1, 'in-hole' : playersInTheHole.indexOf(x.id) != -1}" class="">
+                        <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1, 'at-bat' : playersUpToBat.indexOf(x.id) != -1, 'in-hole' : playersInTheHole.indexOf(x.id) != -1}" class="player-container">
+
                             <table class="">
                                 <tr class="">
-                                    <th class="" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg" /></th>
+                                    <th class="player-photo" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg" /></th>
                                     <th class="" colspan="2"><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span><span class="game-info" ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'IR' || gameinfo.status_ind == 'I'"> {{getGamesScore(gameinfo)}}<span ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'DR'">, {{ getInning(gameinfo) }}</span></span> <img ng-if="gameinfo.status_ind == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" /> <img ng-if="gameinfo.status_ind == 'F'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" />
                                         <blink ng-if="gameinfo.status_ind == 'DR' || gameinfo.status_ind == 'IR'"><img ng-if="gameinfo.status_ind == 'DR'" class="status-indicators" width="50" src="..\Baseball\images\pictures\PPD.jpg" /><img ng-if="gameinfo.status_ind == 'IR'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Delay.jpg" /></blink>
                                         <!-- {{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}} -->
@@ -94,7 +94,7 @@
                                     </td>
                                 </tr>
                             </table>
-
+                                        {{stillInGame(team, x)}}
                         </div>
             </div>
             <div ng-repeat="pitchedGames in allPitchingStaffGames" id="pitchingTable">

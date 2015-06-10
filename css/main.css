@@ -56,22 +56,21 @@ font-size: 115%;
 	/*text-align: center;*/
 }
 .each-stat{
-		vertical-align: text-top;
+	vertical-align: text-top;
 }
 .right{
 	padding-left: 36%;
 }
 
 .player-label{
-	color : #191970;
+	color : #000099;
 	font-size: 230%;
 }
 .pitching-staff-label{
-	color : #191970;
+	color : #000099;
 	font-size: 300%;
 }
 .game-info{
-	color : #800000;
 	font-size: 19px;
 }
 /* Large desktop */
@@ -81,7 +80,7 @@ font-size: 115%;
 	}
 	
 	.player-label{
-		color : #191970;
+		color : #000099;
 		font-size: 25px;
 	}
 
@@ -100,7 +99,7 @@ font-size: 115%;
 		font-size: 25px;
 	}
 	.pitching-staff-label{
-		color : #191970;
+		color : #000099;
 		font-size: 200%;
 	}
 }
@@ -112,7 +111,7 @@ font-size: 115%;
 	}
 
 	.player-label{
-		color : #191970;
+		color : #000099;
 		font-size: 25px;
 	}
 
@@ -131,7 +130,7 @@ font-size: 115%;
 		font-size: 25px;
 	}
 	.pitching-staff-label{
-		color : #191970;
+		color : #000099;
 		font-size: 200%;
 	}
 }
@@ -143,7 +142,7 @@ font-size: 115%;
 	}
 
 	.player-label{
-		color : #191970;
+		color : #000099;
 		font-size: 25px;
 	}
 
@@ -162,7 +161,7 @@ font-size: 115%;
 		font-size: 25px;
 	}
 	.pitching-staff-label{
-		color : #191970;
+		color : #000099;
 		font-size: 200%;
 	}
 }
@@ -174,7 +173,7 @@ font-size: 115%;
 	}
 	
 	.player-label{
-		color : #191970;
+		color : #000099;
 		font-size: 114%;;
 	}
 
@@ -193,7 +192,7 @@ font-size: 115%;
 		font-size: 114%;
 	}
 	.pitching-staff-label{
-		color : #191970;
+		color : #000099;
 		font-size: 200%;
 	}
 }

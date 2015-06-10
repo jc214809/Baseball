@@ -320,6 +320,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
                         $scope.doubleHeader = true;
                         alert("doubleHeader");
                     };
+                    $scope.pitchingStaffGameID = batter.game_pk;
                     $scope.pitchingStaffStatus = batter.status;
                     if (batter.away_code == $scope.myPichingStaff) {
                         $scope.pitchingStaffTeamName = batter.away_team_city + ' ' + batter.away_team_name;

@@ -318,7 +318,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
                 if (batter.away_code == $scope.myPichingStaff || batter.home_code == $scope.myPichingStaff) {
                     if (batter.double_header_sw != 'N') {
                         $scope.doubleHeader = true;
-                        alert("doubleHeader");
+                        //alert("doubleHeader");
                     };
                     $scope.pitchingStaffGameID = batter.game_pk;
                     $scope.pitchingStaffStatus = batter.status;

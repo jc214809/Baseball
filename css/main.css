@@ -1,15 +1,15 @@
-html{
-	padding: 5px 10px 5px 5px;
+html {
+    padding: 5px 10px 5px 5px;
 }
-body{
-	padding: 0 2%;
-	font-size: 114%;
+body {
+    padding: 0 2%;
+    font-size: 114%;
 }
-*{
-	font-size: 114%;
+* {
+    font-size: 114%;
 }
-.status-indicators{
-		vertical-align:5px;
+.status-indicators {
+    vertical-align: 5px;
 }
 .player-outline {
     border-style: solid;
@@ -21,179 +21,193 @@ body{
     border-width: 5px;
     font-weight: bold;
 }
-.table-player{
-	background-color: gray;
+.table-player {
+    background-color: gray;
 }
-.at-bat{
-	background-color: green;
+.at-bat {
+    background-color: green;
 }
-.on-deck{
-	background-color: yellow;
+.on-deck {
+    background-color: yellow;
 }
-.in-hole{
-	background-color: red;
+.in-hole {
+    background-color: red;
 }
-.total{
-	 font-size: 225%;
+.total {
+    font-size: 55px;
 }
-.stats-table{
-	font-size: 20px;
-	font-weight: bold;
-
+.stats-table {
+    font-size: 20px;
+    font-weight: bold;
 }
-.header{
-	display: inline block;
+.header {
+    display: inline block;
 }
-.points{
-	font-size: 150%;
+.points {
+    font-size: 30px;
 }
-
-.pitching-staff-points{
-	font-size: 195%;
+.pitching-staff-points {
+    font-size: 195%;
 }
-.center-date{
-padding-left: 40%;
-font-size: 115%;
-	/*text-align: center;*/
+.center-date {
+    padding-left: 40%;
+    font-size: 115%;
 }
-.each-stat{
-	vertical-align: text-top;
+.each-stat {
+    vertical-align: text-top;
 }
-.right{
-	padding-left: 36%;
+.right {
+    padding-left: 36%;
 }
-
-.player-label{
-	color : #000099;
-	font-size: 230%;
+.player-label {
+    color: #000099;
+    font-size: 230%;
 }
-.pitching-staff-label{
-	color : #000099;
-	font-size: 300%;
-}
-.game-info{
-	font-size: 18px;
+.game-info {
+    font-size: 18px;
 }
 /* Large desktop */
+
 @media (min-width: 1200px) {
-	* {
-		font-size: 25px;
-	}
-	
-	.player-label{
-		color : #000099;
-		font-size: 25px;
-	}
-
-	.status-indicators{
-		vertical-align: 2px;
-	}
-	
-	.total{
-	 	font-size: 65px;
-	}
-
-	.pitching-staff-points{
-		font-size: 195%;
-	}
-	.points{
-		font-size: 25px;
-	}
-	.pitching-staff-label{
-		color : #000099;
-		font-size: 200%;
-	}
+    * {
+        font-size: 35px;
+    }
+    .player-label {
+        color: #000099;
+        font-size: 35px;
+    }
+    .status-indicators {
+        vertical-align: 2px;
+    }
+    .total {
+        font-size: 55px;
+    }
+    .points {
+        font-size: 35px;
+    }
+    .game-info {
+        font-size: 18px;
+        vertical-align: 4px;
+    }
+    .stats-table {
+        font-size: 20px;
+        font-weight: bold;
+        vertical-align: 5px;
+    }
+    .right {
+        padding-left: 42%;
+    }
+    .center-date {
+        padding-left: 42%;
+        font-size: 115%;
+    }
 }
-
 /* Portrait tablet to landscape and desktop */
+
 @media (min-width: 768px) and (max-width: 979px) {
-	* {
-		font-size: 30px;
-	}
-
-	.player-label{
-		color : #000099;
-		font-size: 25px;
-	}
-
-	.status-indicators{
-		vertical-align: 2px;
-	}
-
-	.total{
-	 	font-size: 55px;
-	}
-
-	.pitching-staff-points{
-		font-size: 40px;
-	}
-	.points{
-		font-size: 25px;
-	}
-	.pitching-staff-label{
-		color : #000099;
-		font-size: 200%;
-	}
+    * {
+        font-size: 30px;
+    }
+    .player-label {
+        color: #000099;
+        font-size: 30px;
+    }
+    .status-indicators {
+        vertical-align: 2px;
+    }
+    .total {
+        font-size: 45px;
+    }
+    .points {
+        font-size: 25px;
+    }
+    .game-info {
+        font-size: 12px;
+        vertical-align: 3px;
+    }
+    .stats-table {
+        font-size: 20px;
+        font-weight: bold;
+        vertical-align: 5px;
+    }
+    .right {
+        padding-left: 35%;
+    }
+    .center-date {
+        padding-left: 35%;
+        font-size: 115%;
+    }
 }
-
 /* Landscape phone to portrait tablet */
+
 @media (max-width: 767px) {
-	* {
-		font-size: 25px;
-	}
-
-	.player-label{
-		color : #000099;
-		font-size: 25px;
-	}
-
-	.status-indicators{
-		vertical-align: 3px;
-	}
-
-	.total{
-	 	font-size: 40px;
-	}
-
-	.pitching-staff-points{
-		font-size: 25px;
-	}
-	.points{
-		font-size: 25px;
-	}
-	.pitching-staff-label{
-		color : #000099;
-		font-size: 200%;
-	}
+    * {
+        font-size: 25px;
+    }
+    .player-label {
+        color: #000099;
+        font-size: 25px;
+    }
+    .status-indicators {
+        vertical-align: 1px;
+    }
+    .total {
+        font-size: 32px;
+    }
+    .points {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .game-info {
+        font-size: 10px;
+        vertical-align: 4px;
+    }
+    .stats-table {
+        font-size: 16px;
+        font-weight: bold;
+        vertical-align: 5px;
+    }
+    .right {
+        padding-left: 25%;
+    }
+    .center-date {
+        padding-left: 28%;
+        font-size: 115%;
+    }
 }
-
 /* Landscape phones and down */
+
 @media (max-width: 480px) {
-	* {
-		font-size: 114%;
-	}
-	
-	.player-label{
-		color : #000099;
-		font-size: 114%;;
-	}
-
-	.status-indicators{
-		vertical-align: 1spx;
-	}
-
-	.total{
-	 	font-size: 25px;
-	}
-
-	.pitching-staff-points{
-		font-size: 195%;
-	}
-	.points{
-		font-size: 114%;
-	}
-	.pitching-staff-label{
-		color : #000099;
-		font-size: 200%;
-	}
+    * {
+        font-size: 114%;
+    }
+    .player-label {
+        color: #000099;
+        font-size: 20px;
+    }
+    .status-indicators {
+        vertical-align: 1px;
+    }
+    .total {
+        font-size: 25px;
+    }
+    .points {
+        font-size: 114%;
+    }
+    .game-info {
+        font-size: 10px;
+        vertical-align: 2px;
+    }
+    .stats-table {
+        font-size: 15px;
+        font-weight: bold;
+        vertical-align: 5px;
+    }
+    .right {
+        padding-left: 21%;
+    }
+    .center-date {
+        padding-left: 20%;
+        font-size: 115%;
+    }
 }

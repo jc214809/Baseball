@@ -14,7 +14,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="../Baseball/js/Scoreboard.js"></script>
     <script src="../Baseball/js/date.js"></script>
-
+    <script> 
+    $(function(){
+      $("#navBar").load("../Baseball/navbar.html"); 
+    });
+    </script> 
     <meta name="Baseball" content="width=device-width, initial-scale=1.0">
     <!--<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">-->
 
@@ -33,6 +37,7 @@
 </head>
 
 <body>
+    <div id="navBar"></div>
     <div ng-app="myApp">
         <div ng-controller="baseballController" data-ng-init="changeDate(0);">
             <div class="header">
@@ -56,6 +61,7 @@
                         <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1, 'at-bat' : playersUpToBat.indexOf(x.id) != -1, 'in-hole' : playersInTheHole.indexOf(x.id) != -1}" class="player-container">
 
                             <table class="">
+                                    <thead>
                                 <tr class="">
                                     <th class="player-photo" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg" /></th>
                                     <th class="" colspan="2"><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span><span class="game-info status-indicators" ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O' || gameinfo.status_ind == 'IR' || gameinfo.status_ind == 'I'|| gameinfo.status_ind == 'MA'"> <b>{{getGamesScore(gameinfo)}}</b><span ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O'  && gameinfo.status_ind != 'DR'">, <b>{{ getInning(gameinfo) }}</b></span></span> <img ng-if="gameinfo.status_ind == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" /> <img ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" />
@@ -95,6 +101,7 @@
                                         <span class="" ng-if="x.cs != 0">&nbsp;{{x.cs}} CS</span>
                                     </td>
                                 </tr>
+                                    </thead>
                             </table>
                             {{stillInGame(team, x)}}
                         </div>

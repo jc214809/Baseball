@@ -135,6 +135,8 @@ myApp.controller('baseballController', function($scope, $http, $q) {
                 return "NYM";
             case "sdn":
                 return "SD";
+            case "sln":
+                return "STL";
             default:
                 return teamAbbreviation
         }

@@ -20,6 +20,8 @@ myApp.controller('baseballController', function($scope, $http, $q) {
     var d = new Date();
     var selectedDate = new Date(d);
     var mondayDateHelper = new Date(selectedDate);
+    $scope.todaysDate = d.toString('M/d/yyyy');
+    $scope.currentSelectedDate = selectedDate.toString('M/d/yyyy');
     $scope.day = d.getDate();
     $scope.month = d.getMonth() + 1;
     $scope.year = d.getFullYear();
@@ -54,7 +56,12 @@ myApp.controller('baseballController', function($scope, $http, $q) {
     //Reds and Philles
     //'519184', '425796', '400284', '429667', '596748', '605125', '520471', '434563', '408252', '458015', '453943', '457803', '430910', '446359', '435401', '571740'
     $scope.changeDate = function(value) {
+
         selectedDate.setDate(selectedDate.getDate() + value);
+        var date1 = new Date(d);
+        var date2 = new Date(selectedDate);
+        $scope.todaysDate = date1.addDays(-1).toString('M/d/yyyy');
+        $scope.currentSelectedDate = date2.addDays(-1).toString('M/d/yyyy');
         $scope.day = selectedDate.getDate();
         $scope.month = selectedDate.getMonth() + 1;
         $scope.year = selectedDate.getFullYear();

@@ -52,6 +52,7 @@ body {
 .center-date {
     padding-left: 33.75%;
     font-size: 115%;
+    vertical-align: -8px;    
 }
 .each-stat {
     vertical-align: text-top;
@@ -69,30 +70,108 @@ body {
 /* Larger desktop */
 
 @media (min-width: 1851px) {
+     * {
+        font-size: 35px;
+    }
+    .player-label {
+        color: #000099;
+        font-size: 35px;
+    }
+    .status-indicators {
+        vertical-align: 2px;
+    }
+    .total {
+        font-size: 55px;
+    }
+    .points {
+        font-size: 35px;
+    }
+    .game-info {
+        font-size: 18px;
+        vertical-align: 4px;
+    }
+    .stats-table {
+        font-size: 20px;
+        font-weight: bold;
+        vertical-align: 5px;
+    }
     .right {
         padding-left: 42.5%;
     }
     .center-date {
         padding-left: 42.5%;
         font-size: 115%;
+        vertical-align: -8px;        
     }
 }
 @media (min-width: 1600px) and (max-width: 1850px) {
+     * {
+        font-size: 35px;
+    }
+    .player-label {
+        color: #000099;
+        font-size: 35px;
+    }
+    .status-indicators {
+        vertical-align: 2px;
+    }
+    .total {
+        font-size: 55px;
+    }
+    .points {
+        font-size: 35px;
+    }
+    .game-info {
+        font-size: 18px;
+        vertical-align: 4px;
+    }
+    .stats-table {
+        font-size: 20px;
+        font-weight: bold;
+        vertical-align: 5px;
+    }
     .right {
         padding-left: 41.5%;
     }
     .center-date {
         padding-left: 41.5%;
         font-size: 115%;
+        vertical-align: -8px;        
     }
 }
 @media (min-width: 1400px) and (max-width: 1599px) {
+     * {
+        font-size: 35px;
+    }
+    .player-label {
+        color: #000099;
+        font-size: 35px;
+    }
+    .status-indicators {
+        vertical-align: 2px;
+    }
+    .total {
+        font-size: 55px;
+    }
+    .points {
+        font-size: 35px;
+    }
+    .game-info {
+        font-size: 18px;
+        vertical-align: 4px;
+    }
+    .stats-table {
+        font-size: 20px;
+        font-weight: bold;
+        vertical-align: 5px;
+    }
     .right {
         padding-left: 40%;
     }
     .center-date {
         padding-left: 40%;
         font-size: 115%;
+        vertical-align: -8px;
     }
 }
 /* Large desktop */
@@ -129,6 +208,7 @@ body {
     .center-date {
         padding-left: 38%;
         font-size: 115%;
+        vertical-align: -8px;
     }
 }
 /* Portrait tablet to landscape and desktop */
@@ -165,6 +245,7 @@ body {
     .center-date {
         padding-left: 30.75%;
         font-size: 115%;
+        vertical-align: -8px;
     }
 }
 /* Landscape phone to portrait tablet */
@@ -202,6 +283,7 @@ body {
     .center-date {
         padding-left: 21.5%;
         font-size: 115%;
+                vertical-align: -8px;
     }
 }
 /* Landscape phones and down */
@@ -238,5 +320,6 @@ body {
     .center-date {
         padding-left: 15.25%;
         font-size: 115%;
+        vertical-align: -8px;
     }
 }

@@ -66,22 +66,22 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         }
         //finds out when Monday is for each week ***only work going backwards***
 
-        if($scope.lastSunday == selectedDate.toString('M/d/yyyy') || $scope.nextSunday == selectedDate.toString('M/d/yyyy')){
+        if ($scope.lastSunday == selectedDate.toString('M/d/yyyy') || $scope.nextSunday == selectedDate.toString('M/d/yyyy')) {
             mondayDateHelper = new Date(selectedDate);
-            $scope.lastMonday =mondayDateHelper.previous().monday().toString('M/d/yyyy');
+            $scope.lastMonday = mondayDateHelper.previous().monday().toString('M/d/yyyy');
             $scope.lastSunday = mondayDateHelper.previous().sunday().toString('M/d/yyyy');
             $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
             $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
         }
-       
+        $scope.Joel = [];
         $scope.pointsPerPlayerID = [];
         $scope.init();
         $scope.pitchingPoints();
     };
-     $scope.backToTodaysDate = function() {
+    $scope.backToTodaysDate = function() {
         selectedDate = Date.today();
         $scope.changeDate(0);
-     };
+    };
     $scope.getInning = function(gameinfo) {
         var linescore = gameinfo.linescore.inning_line_score;
         var inning = null;
@@ -96,7 +96,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         } else {
             lastItem = linescore[gameinfo.linescore.inning_line_score.length - 1];
             inning = lastItem.inning;
-            if (lastItem.home == undefined) { 
+            if (lastItem.home == undefined) {
                 TopOrBottom = "T";
             } else {
                 TopOrBottom = "B";
@@ -274,21 +274,21 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         else return "-";
     };
     $scope.stillInGame = function(team, player) {
-       //  playerInQuestion = player.bo;
-       //  keepGoing = true;
-       //  angular.forEach(team, function(dataObj) {
-       //      angular.forEach(dataObj, function(batterObj) {
-       //      if (batterObj.bo != undefined) {
-       //      if (batterObj.bo > playerInQuestion && playerInQuestion.charAt(0) == batterObj.bo.charAt(0)) {
-       //          keepGoing = false;
-       //          return "Joel";
-       //      }
-       //      };
-       //    });
-       //  });
-       // if(keepGoing) {
-       //  return "Joel1";
-       //   }
+        //  playerInQuestion = player.bo;
+        //  keepGoing = true;
+        //  angular.forEach(team, function(dataObj) {
+        //      angular.forEach(dataObj, function(batterObj) {
+        //      if (batterObj.bo != undefined) {
+        //      if (batterObj.bo > playerInQuestion && playerInQuestion.charAt(0) == batterObj.bo.charAt(0)) {
+        //          keepGoing = false;
+        //          return "Joel";
+        //      }
+        //      };
+        //    });
+        //  });
+        // if(keepGoing) {
+        //  return "Joel1";
+        //   }
     };
 
     $scope.init = function() {
@@ -307,7 +307,7 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         $scope.pitchingGame = [];
         //$scope.doubleHeader = false;
         $scope.pitchingStaffStatus = null;
-       
+
         //alert($scope.month + "/" + $scope.day + "/" + $scope.year);
         $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json';
         //alert($scope.scoreBoard);

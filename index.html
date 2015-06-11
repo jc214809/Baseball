@@ -46,10 +46,10 @@
                  <a ng-click="changeDate(1);"  ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></a>
              </span>
             </div>
-<!--             {{lastMonday}} -->
+            <!--             {{lastMonday}} -->
             <div ng-repeat="game in baseballGame">
-                <divs ng-repeat="gameinfo in game[0].data.data;">
-                    <divs ng-repeat="team in game[0].data.data.boxscore.batting;">
+                <div ng-repeat="gameinfo in game[0].data.data;">
+                    <div ng-repeat="team in game[0].data.data.boxscore.batting;">
                         <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
                     <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
                         <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1, 'at-bat' : playersUpToBat.indexOf(x.id) != -1, 'in-hole' : playersInTheHole.indexOf(x.id) != -1}" class="player-container">
@@ -95,11 +95,15 @@
                                     </td>
                                 </tr>
                             </table>
-                                        {{stillInGame(team, x)}}
+                            {{stillInGame(team, x)}}
                         </div>
+                    </div>
+                </div>
             </div>
+            <!--                            <div ng-repeat="game in baseballGame"> -->
+
             <div ng-repeat="pitchedGames in allPitchingStaffGames" id="pitchingTable">
-                <!--< div ng-repeat="pitchingGameInfo in baseballGame[0].data.data;"> -->
+                <!--     <div ng-repeat="pitchingGameInfo in baseballGame[0][0].data.data;"> -->
                 <table>
                     <tr>
                         <th rowspan="2"><img height="75" width="62" src="http://mlb.mlb.com/images/logos/42x50/la.png"></th>
@@ -132,33 +136,29 @@
                             <span ng-if="pitchedGames._k != 0  && (pitchedGames._sho != 0)">,</span>
                             </span>
                             <span ng-if="pitchedGames._sho != 0">&nbsp;{{pitchedGames._sho}} SHO</span>
-
                         </td>
                     </tr>
                 </table>
             </div>
-                        <!-- </div> -->
-            <!-- {{Joel}} -->
+            <!--             </div>-->
+            <!-- </div>   -->
             <div><span class="total" style="float:right" data-ng-init="getTotal()"><b>Total Points for The Day:    {{ getTotal() }}</b></span></div>
-
-        </div>
-        <br>
-        <br>
-        <br>
-
-        <center>
-            <div class="points">
-                <span class="at-bat key">
+            <br>
+            <br>
+            <br>
+            <center>
+                <div class="points">
+                    <span class="at-bat key">
                     &nbsp;Batting&nbsp;
                </span> &nbsp;
-                <span class="on-deck key">
+                    <span class="on-deck key">
                   &nbsp;On Deck&nbsp;
               </span> &nbsp;
-                <span class="in-hole key">
+                    <span class="in-hole key">
                  &nbsp;In The Hole&nbsp;
              </span>
-            </div>
-        </center>
+                </div>
+            </center>
 </body>
 
 </html>

@@ -50,14 +50,14 @@ body {
     font-size: 195%;
 }
 .center-date {
-    padding-left: 40%;
+    padding-left: 37%;
     font-size: 115%;
 }
 .each-stat {
     vertical-align: text-top;
 }
 .right {
-    padding-left: 36%;
+    padding-left: 35%;
 }
 .player-label {
     color: #000099;
@@ -66,9 +66,38 @@ body {
 .game-info {
     font-size: 18px;
 }
+/* Larger desktop */
+
+@media (min-width: 1851px) {
+    .right {
+        padding-left: 42.5%;
+    }
+    .center-date {
+        padding-left: 42.5%;
+        font-size: 115%;
+    }
+}
+@media (min-width: 1600px) and (max-width: 1850px) {
+    .right {
+        padding-left: 41.5%;
+    }
+    .center-date {
+        padding-left: 41.5%;
+        font-size: 115%;
+    }
+}
+@media (min-width: 1400px) and (max-width: 1599px) {
+    .right {
+        padding-left: 40%;
+    }
+    .center-date {
+        padding-left: 40%;
+        font-size: 115%;
+    }
+}
 /* Large desktop */
 
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (max-width: 1399px) {
     * {
         font-size: 35px;
     }
@@ -95,10 +124,10 @@ body {
         vertical-align: 5px;
     }
     .right {
-        padding-left: 42%;
+        padding-left: 39%;
     }
     .center-date {
-        padding-left: 42%;
+        padding-left: 38%;
         font-size: 115%;
     }
 }
@@ -131,10 +160,10 @@ body {
         vertical-align: 5px;
     }
     .right {
-        padding-left: 35%;
+        padding-left: 30.75%;
     }
     .center-date {
-        padding-left: 35%;
+        padding-left: 30.75%;
         font-size: 115%;
     }
 }
@@ -168,10 +197,10 @@ body {
         vertical-align: 5px;
     }
     .right {
-        padding-left: 25%;
+        padding-left: 21.25%;
     }
     .center-date {
-        padding-left: 28%;
+        padding-left: 21.5%;
         font-size: 115%;
     }
 }
@@ -204,10 +233,10 @@ body {
         vertical-align: 5px;
     }
     .right {
-        padding-left: 21%;
+        padding-left: 15.5%;
     }
     .center-date {
-        padding-left: 20%;
+        padding-left: 15.25%;
         font-size: 115%;
     }
 }

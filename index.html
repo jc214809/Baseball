@@ -14,11 +14,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="../Baseball/js/Scoreboard.js"></script>
     <script src="../Baseball/js/date.js"></script>
-    <script> 
-    $(function(){
-      $("#navBar").load("../Baseball/navbar.html"); 
-    });
-    </script> 
+    <script>
+        $(function() {
+            $("#navBar").load("../Baseball/navbar.html");
+        });
+    </script>
     <meta name="Baseball" content="width=device-width, initial-scale=1.0">
     <!--<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">-->
 
@@ -61,47 +61,47 @@
                         <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1, 'at-bat' : playersUpToBat.indexOf(x.id) != -1, 'in-hole' : playersInTheHole.indexOf(x.id) != -1}" class="player-container">
 
                             <table class="">
-                                    <thead>
-                                <tr class="">
-                                    <th class="player-photo" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg" /></th>
-                                    <th class="" colspan="2"><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span><span class="game-info status-indicators" ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O' || gameinfo.status_ind == 'IR' || gameinfo.status_ind == 'I'|| gameinfo.status_ind == 'MA'"> <b>{{getGamesScore(gameinfo)}}</b><span ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O'  && gameinfo.status_ind != 'DR'">, <b>{{ getInning(gameinfo) }}</b></span></span> <img ng-if="gameinfo.status_ind == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" /> <img ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" />
-                                        <blink ng-if="gameinfo.status_ind == 'DR' || gameinfo.status_ind == 'IR' || gameinfo.status_ind == 'MA'|| gameinfo.status_ind == 'DE'"><img ng-if="gameinfo.status_ind == 'DR' || gameinfo.status_ind == 'DE'" class="status-indicators" width="50" src="..\Baseball\images\pictures\PPD.jpg" /><img ng-if="gameinfo.status_ind == 'IR'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Delay.jpg" /><img ng-if="gameinfo.status_ind == 'MA'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Challenge.jpg" /></blink>
-                                        <!-- {{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}} -->
-                                    </th>
-                                    <th style="float:right">
-                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore($index, x) }}</span> <span class="points" style="float:right">Points: </span></th>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" class="stats-table">
-                                        <span>&nbsp;&nbsp;</span>
-                                        <span class="">{{ x.h }} - {{x.ab}}
+                                <thead>
+                                    <tr class="">
+                                        <th class="player-photo" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg" /></th>
+                                        <th class="" colspan="2"><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span><span class="game-info status-indicators" ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O' || gameinfo.status_ind == 'IR' || gameinfo.status_ind == 'I'|| gameinfo.status_ind == 'MA'"> <b>{{getGamesScore(gameinfo)}}</b><span ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O'  && gameinfo.status_ind != 'DR'">, <b>{{ getInning(gameinfo) }}</b></span></span> <img ng-if="gameinfo.status_ind == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" /> <img ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" />
+                                            <blink ng-if="gameinfo.status_ind == 'DR' || gameinfo.status_ind == 'IR' || gameinfo.status_ind == 'MA'|| gameinfo.status_ind == 'DE'"><img ng-if="gameinfo.status_ind == 'DR' || gameinfo.status_ind == 'DE'" class="status-indicators" width="50" src="..\Baseball\images\pictures\PPD.jpg" /><img ng-if="gameinfo.status_ind == 'IR'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Delay.jpg" /><img ng-if="gameinfo.status_ind == 'MA'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Challenge.jpg" /></blink>
+                                            <!-- {{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}} -->
+                                        </th>
+                                        <th style="float:right">
+                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore($index, x) }}</span> <span class="points" style="float:right">Points: </span></th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="stats-table">
+                                            <span>&nbsp;&nbsp;</span>
+                                            <span class="">{{ x.h }} - {{x.ab}}
                             <span class="" ng-if="x.d != 0 || x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0">,</span>
-                                        </span>
-                                        <span class="" ng-if="x.d != 0">&nbsp;{{x.d}} 2B
+                                            </span>
+                                            <span class="" ng-if="x.d != 0">&nbsp;{{x.d}} 2B
                             <span class="" ng-if="x.d != 0  && (x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                        </span>
-                                        <span class="" ng-if="x.t != 0">&nbsp;{{x.t}} 3B
+                                            </span>
+                                            <span class="" ng-if="x.t != 0">&nbsp;{{x.t}} 3B
                             <span class="" ng-if="x.t != 0  && ( x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                        </span>
-                                        <span class="" ng-if="x.hr != 0">&nbsp;{{x.hr}} HR
+                                            </span>
+                                            <span class="" ng-if="x.hr != 0">&nbsp;{{x.hr}} HR
                             <span class="" ng-if="x.hr != 0  && (x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                        </span>
-                                        <span class="" ng-if="x.rbi != 0">&nbsp;{{x.rbi}} RBI
+                                            </span>
+                                            <span class="" ng-if="x.rbi != 0">&nbsp;{{x.rbi}} RBI
                             <span class="" ng-if="x.rbi != 0  && (x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                        </span>
-                                        <span class="" ng-if="x.bb != 0">&nbsp;{{x.bb}} BB
+                                            </span>
+                                            <span class="" ng-if="x.bb != 0">&nbsp;{{x.bb}} BB
                             <span class="" ng-if="x.bb != 0  && (x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                        </span>
-                                        <span class="" ng-if="x.r != 0">&nbsp;{{x.r}} R
+                                            </span>
+                                            <span class="" ng-if="x.r != 0">&nbsp;{{x.r}} R
                             <span class="" ng-if="x.r != 0  && (x.sb != 0 || x.cs != 0)">,</span>
-                                        </span>
-                                        <span class="" ng-if="x.sb != 0">&nbsp;{{x.sb}} SB
+                                            </span>
+                                            <span class="" ng-if="x.sb != 0">&nbsp;{{x.sb}} SB
                             <span class="" ng-if="x.sb != 0  && (x.cs != 0)">,</span>
-                                        </span>
-                                        <span class="" ng-if="x.cs != 0">&nbsp;{{x.cs}} CS</span>
-                                    </td>
-                                </tr>
-                                    </thead>
+                                            </span>
+                                            <span class="" ng-if="x.cs != 0">&nbsp;{{x.cs}} CS</span>
+                                        </td>
+                                    </tr>
+                                </thead>
                             </table>
                             {{stillInGame(team, x)}}
                         </div>
@@ -153,37 +153,37 @@
             <!-- </div>   -->
             <table>
                 <tr>
-                <div>
-                    <span class="total" style="float:right;" data-ng-init="getTotal()">
+                    <div>
+                        <span class="total" style="float:right;" data-ng-init="getTotal()">
                         <b>Total Points for The Day:    {{ getTotal() }}</b>
                     </span>
-                </div>
+                    </div>
                 </tr>
                 <tr>&nbsp;</tr>
                 <tr>&nbsp;</tr>
             </table>
-                    <br>
-                    <br>
-                    <br>
-                    <div class="center-date">
-                            <span class="at-bat key">
+            <br>
+            <br>
+            <br>
+            <div class="center-date">
+                <span class="at-bat key">
                     &nbsp;Batting&nbsp;
                </span> &nbsp;
-                            <span class="on-deck key">
+                <span class="on-deck key">
                   &nbsp;On Deck&nbsp;
               </span> &nbsp;
-                            <span class="in-hole key">
+                <span class="in-hole key">
                  &nbsp;In The Hole&nbsp;
              </span>
-                    </div>
- 
             </div>
-<footer>
-  <center>
-    <br>
-    <p>&copy; 2015 Joel Clark</p>
-  </center>
-</footer>
+
+        </div>
+        <footer>
+            <center>
+                <br>
+                <p>&copy; 2015 Joel Clark</p>
+            </center>
+        </footer>
 </body>
 
 </html>

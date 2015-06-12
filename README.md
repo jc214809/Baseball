@@ -8,3 +8,6 @@ If you have nodejs installed, you can download an http server:
 4) Run the server: $ http-server ., which will produce the message Starting up http-server, serving . on: http://0.0.0.0:8080. That allows you to use urls in your browser like localhost:8080/index.html.
 
 http://stackoverflow.com/questions/10752055/cross-origin-requests-are-only-supported-for-http-error-when-loading-a-local
+
+
+http://losangeles.angels.mlb.com/images/players/525x330/545361.jpg

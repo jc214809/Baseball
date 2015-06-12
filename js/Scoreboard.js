@@ -12,7 +12,7 @@ else if (window.attachEvent) window.attachEvent("onload", blink);
 else window.onload = blink;
 
 var myApp = angular.module('myApp', []);
-myApp.controller('baseballController', function($scope, $http, $q) {
+myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     var baseball = [];
     $scope.baseballGame = null;
     $scope.game = null;
@@ -211,6 +211,30 @@ myApp.controller('baseballController', function($scope, $http, $q) {
         var score = ((((parseFloat(x.h)) - (parseFloat(x.d) + parseFloat(x.t) + parseFloat(x.hr))) * 1) + (parseFloat(x.d) * 2) + (parseFloat(x.t) * 3) + (parseFloat(x.hr) * 4) + (parseFloat(x.r) * 1) + (parseFloat(x.rbi) * 1) + (parseFloat(x.bb) * 1) + (parseFloat(x.sb) * 2) + (parseFloat(x.cs) * -1));
         return score;
     };
+
+    $scope.players = function() {
+        $http.get('../Baseball/json/PlayerID.json').success(function(data) {
+            $scope.playerIDs = data;
+
+            $(document).ready(function() {
+                $timeout(function() {
+                    $('#myTable').DataTable({
+                        "bScrollCollapse": true,
+                        "bPaginate": true,
+                        "bJQueryUI": false,
+                        "aoColumnDefs": [{
+                            "sWidth": "10%",
+                            "aTargets": [-1]
+                        }]
+                    });
+                }, 0);
+            });
+
+
+        });
+    };
+
+
     $scope.getPitchingStaffScore = function(x) {
         var pointsForHitsAndWalks = 0;
         var pointsForStrikeOuts = 0;

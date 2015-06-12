@@ -52,7 +52,7 @@ body {
 .center-date {
     padding-left: 33.75%;
     font-size: 115%;
-    vertical-align: -8px;    
+    vertical-align: -8px;
 }
 .each-stat {
     vertical-align: text-top;
@@ -67,10 +67,16 @@ body {
 .game-info {
     font-size: 18px;
 }
+.logo {
+    vertical-align: 12px;
+}
+.navbar-brand {
+    padding: 5px 10px;
+}
 /* Larger desktop */
 
 @media (min-width: 1851px) {
-     * {
+    * {
         font-size: 35px;
     }
     .player-label {
@@ -101,11 +107,11 @@ body {
     .center-date {
         padding-left: 42.5%;
         font-size: 115%;
-        vertical-align: -8px;        
+        vertical-align: -8px;
     }
 }
 @media (min-width: 1600px) and (max-width: 1850px) {
-     * {
+    * {
         font-size: 35px;
     }
     .player-label {
@@ -136,11 +142,11 @@ body {
     .center-date {
         padding-left: 41.5%;
         font-size: 115%;
-        vertical-align: -8px;        
+        vertical-align: -8px;
     }
 }
 @media (min-width: 1400px) and (max-width: 1599px) {
-     * {
+    * {
         font-size: 35px;
     }
     .player-label {
@@ -283,7 +289,7 @@ body {
     .center-date {
         padding-left: 21.5%;
         font-size: 115%;
-                vertical-align: -8px;
+        vertical-align: -8px;
     }
 }
 /* Landscape phones and down */

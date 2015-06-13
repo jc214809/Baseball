@@ -117,8 +117,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                 return "LAD";
             case "ana":
                 return "LAA";
-            case "tba":
-                return "LA";
             case "chn":
                 return "CHC";
             case "tba":
@@ -221,11 +219,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                     $('#myTable').DataTable({
                         "bScrollCollapse": true,
                         "bPaginate": true,
-                        "bJQueryUI": false,
-                        "aoColumnDefs": [{
-                            "sWidth": "10%",
-                            "aTargets": [-1]
-                        }]
+                        "bJQueryUI": false
                     });
                 }, 0);
             });

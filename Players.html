@@ -51,14 +51,16 @@
                             <th>PlayerName</th>
                             <th>MLB Team</th>
                             <th>Pos</th>
+                            <th>MLB Depth</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="player in playerIDs">
+                        <tr ng-repeat="player in playerIDs" ng-if="player.mlb_depth != '' && player.mlb_pos != 'P'">
                             <td><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.mlb_id}}.jpg" /></td>
                             <td>{{player.mlb_name}}</td>
                             <td>{{player.mlb_team}}</td>
                             <td>{{player.mlb_pos}}</td>
+                            <td>{{player.mlb_depth}}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -62,10 +62,28 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         var d2 = new Date(selectedDate.getFullYear() +'-'+ (selectedDate.getMonth() + 1) +'-'+ selectedDate.getDate());
         if (d2 > d1) {
             //Should show CARGO NOT IAN DESMOND on my team for any date after 6/15
+            //alert("CARGO");
             $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '471865', '592626', '592518', '457763'];
         }else{
+            //alert("IAN");
             $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
         }
+    };
+    $scope.showTeam = function() {
+        $scope.players = [];
+        angular.forEach($scope.myTeam, function(player_ID) {
+            //alert(player_ID);
+            $scope.player = "http://mlb.com/lookup/json/named.player_info.bam?sport_code='mlb'&player_id='" + player_ID +"'";
+            $http.get($scope.player).success(function(data, status, headers, config) {
+                //alert(data);
+                $scope.players.push(data.player_info.queryResults.row);
+            }).error(function(data, status, headers, config) {
+                $scope.players.push(data);
+                $scope.players.push(status);
+                $scope.players.push(headers);
+                $scope.players.push(config);
+            });
+        });
     };
     $scope.changeDate = function(value, pageLoad) {
 
@@ -74,8 +92,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $('#dateForward').attr('disabled','disabled');
 
         //Goes back to previous day if between midnight and 10am
-        var today = new Date().getHours();
-        if ((today >= 0 && today <= 10) && pageLoad) {
+        var hourOfday = new Date().getHours();
+        if ((hourOfday >= 0 && hourOfday <= 10) && pageLoad) {
             console.log("Ran!!");
             selectedDate.setDate(selectedDate.getDate() - 1);
         }

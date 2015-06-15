@@ -38,7 +38,37 @@
 
 <body>
     <div id="navBar"></div>
-Joel was here
+    <div ng-app="myApp">
+        <div ng-controller="baseballController" data-ng-init="findMyTeam(); showTeam();">
+            <table id="myTeam">
+              <thead>
+                        <tr>
+                            <th></th>
+                            <th>PlayerName</th>
+                            <th>Age</th>
+                            <th>MLB Team</th>
+                            <th>Pos</th>
+                            <th>Status</th>
+                            <th>Twitter</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="player in players">
+                            <td><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" /></td>
+                            <td>{{player.name_display_first_last}}</td>
+                            <td>{{player.age}}</td>
+                            <td>{{player.team_abbrev}}</td>
+                            <td>{{player.primary_position_txt}}</td>
+                            <td>{{player.status}}</td>
+                            <td ng-if="player.twitter_id != ''"><a href="https://twitter.com/{{player.twitter_id}}">Twitter</a></td>  
+                        </tr>
+                    </tbody>
+            </table>
+                <div >
+                    {{player.player_id}}
+                </div> 
+        </div>
+        </div>
 <footer>
   <center>
     <br>

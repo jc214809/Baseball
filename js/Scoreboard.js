@@ -70,9 +70,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     $scope.changeDate = function(value, pageLoad) {
 
         selectedDate.setDate(selectedDate.getDate() + value);
+        $('#dateBack').attr('disabled','disabled');
+        $('#dateForward').attr('disabled','disabled');
+
         //Goes back to previous day if between midnight and 10am
         var today = new Date().getHours();
         if ((today >= 0 && today <= 10) && pageLoad) {
+            console.log("Ran!!");
             selectedDate.setDate(selectedDate.getDate() - 1);
         }
         var date1 = new Date(d);
@@ -103,11 +107,16 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.pointsPerPlayerID = [];
         $scope.init();
         $scope.pitchingPoints();
+        $timeout(function() {
+            $('#dateBack').removeAttr('disabled');
+            $('#dateForward').removeAttr('disabled');
+        }, 1500);
+
     };
 
     $scope.backToTodaysDate = function() {
         selectedDate = Date.today();
-        $scope.changeDate(0);
+        $scope.changeDate(0, false);
     };
     $scope.getInning = function(gameinfo) {
         var linescore = gameinfo.linescore.inning_line_score;

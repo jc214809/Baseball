@@ -42,13 +42,13 @@
         <div ng-controller="baseballController" data-ng-init="changeDate(0, true);">
             <div class="header">
                 <span>
-                   <button ng-click="changeDate(-1, false);" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  
+                   <button id="dateBack" ng-click="changeDate(-1, false);" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  
                </span>
                 <span>
                   &nbsp;<span class="center-date" style="font-size: 195%;"><b><a ng-click="backToTodaysDate()">{{month}}/{{day}}/{{year}}</a></b></span>&nbsp;
                 </span>
                 <span class="right">
-                 <button ng-click="changeDate(1, false);" ng-disabled="todaysDate == currentSelectedDate" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
+                 <button id="dateForward" ng-click="changeDate(1, false);" ng-disabled="todaysDate == currentSelectedDate" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
              </span>
             </div>
 
@@ -103,7 +103,7 @@
                                     </tr>
                                 </thead>
                             </table>
-                            {{stillInGame(team, x)}}
+                            <!-- {{stillInGame(team, x)}} -->
                         </div>
                     </div>
                 </div>

@@ -81,8 +81,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         }
         var date1 = new Date(d);
         var date2 = new Date(selectedDate);
-        $scope.todaysDate = date1.addDays(-1).toString('M/d/yyyy');
-        $scope.currentSelectedDate = date2.addDays(-1).toString('M/d/yyyy');
+        $scope.todaysDate = date1.addDays(0).toString('M/d/yyyy');
+        $scope.currentSelectedDate = date2.addDays(0).toString('M/d/yyyy');
         $scope.day = selectedDate.getDate();
         $scope.month = selectedDate.getMonth() + 1;
         $scope.year = selectedDate.getFullYear();
@@ -109,7 +109,9 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.pitchingPoints();
         $timeout(function() {
             $('#dateBack').removeAttr('disabled');
-            $('#dateForward').removeAttr('disabled');
+            if ($scope.todaysDate != $scope.currentSelectedDate) {
+                $('#dateForward').removeAttr('disabled');
+            };
         }, 1500);
 
     };

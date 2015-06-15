@@ -18,3 +18,6 @@ Google --http://mlb.mlb.com/lookup/json/named
 
 http://mlb.com/lookup/json/named.player_info.bam?sport_code=%27mlb%27&player_id=%27489002%27
 https://github.com/wellsoliver/py-mlb/blob/master/py_mlb/fetcher.py
+
+40 Man Roster Call
+http://mlb.mlb.com/lookup/json/named.roster_40.bam?team_id=%27113%27

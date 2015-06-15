@@ -1,4 +1,4 @@
-function blink() {
+ function blink() {
     var blinks = document.getElementsByTagName('blink');
     for (var i = blinks.length - 1; i >= 0; i--) {
         var s = blinks[i];
@@ -61,15 +61,20 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         var d1 = new Date('2015-06-15');
         var d2 = new Date(selectedDate.getFullYear() +'-'+ (selectedDate.getMonth() + 1) +'-'+ selectedDate.getDate());
         if (d2 > d1) {
-            alert("1");
+            //Should show CARGO NOT IAN DESMOND on my team for any date after 6/15
             $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '471865', '592626', '592518', '457763'];
         }else{
             $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
         }
     };
-    $scope.changeDate = function(value) {
+    $scope.changeDate = function(value, pageLoad) {
 
         selectedDate.setDate(selectedDate.getDate() + value);
+        //Goes back to previous day if between midnight and 10am
+        var today = new Date().getHours();
+        if ((today >= 0 && today <= 10) && pageLoad) {
+            selectedDate.setDate(selectedDate.getDate() - 1);
+        }
         var date1 = new Date(d);
         var date2 = new Date(selectedDate);
         $scope.todaysDate = date1.addDays(-1).toString('M/d/yyyy');
@@ -98,29 +103,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.pointsPerPlayerID = [];
         $scope.init();
         $scope.pitchingPoints();
-    };
-    $scope.goBackToPreviousDay = function() {
-        var today = new Date().getHours();
-        if (today >= 0 && today <= 10) {
-            selectedDate.setDate(selectedDate.getDate() - 1);
-            alert(selectedDate.toString('M/d/yyyy'));
-            var date1 = new Date(d);
-            var date2 = new Date(selectedDate);
-            $scope.todaysDate = date1.addDays(-1).toString('M/d/yyyy');
-            $scope.currentSelectedDate = date2.addDays(-1).toString('M/d/yyyy');
-            $scope.day = selectedDate.getDate();
-            $scope.month = selectedDate.getMonth() + 1;
-            $scope.year = selectedDate.getFullYear();
-            if ($scope.day < 10) {
-                $scope.day = '0' + $scope.day;
-            }
-            if ($scope.month < 10) {
-                $scope.month = '0' + $scope.month;
-            }
-            $scope.findMyTeam();
-            $scope.init();
-            $scope.pitchingPoints();
-        }
     };
 
     $scope.backToTodaysDate = function() {

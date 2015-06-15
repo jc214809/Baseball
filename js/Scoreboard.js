@@ -71,7 +71,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         if ($scope.month < 10) {
             $scope.month = '0' + $scope.month;
         }
-        //finds out when Monday is for each week ***only work going backwards***
+
+        //finds out when Monday is for each week ***only works going backwards***
 
         if ($scope.lastSunday == selectedDate.toString('M/d/yyyy') || $scope.nextSunday == selectedDate.toString('M/d/yyyy')) {
             mondayDateHelper = new Date(selectedDate);
@@ -85,6 +86,26 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.init();
         $scope.pitchingPoints();
     };
+    $scope.goBackToPreviousDay = function() {
+        var today = new Date().getHours();
+        if (today >= 0 && today <= 10) {
+            selectedDate.setDate(selectedDate.getDate() - 1);
+            var date1 = new Date(d);
+            var date2 = new Date(selectedDate);
+            $scope.todaysDate = date1.addDays(-1).toString('M/d/yyyy');
+            $scope.currentSelectedDate = date2.addDays(-1).toString('M/d/yyyy');
+            $scope.day = selectedDate.getDate();
+            $scope.month = selectedDate.getMonth() + 1;
+            $scope.year = selectedDate.getFullYear();
+            if ($scope.day < 10) {
+                $scope.day = '0' + $scope.day;
+            }
+            if ($scope.month < 10) {
+                $scope.month = '0' + $scope.month;
+            }
+        }
+    };
+
     $scope.backToTodaysDate = function() {
         selectedDate = Date.today();
         $scope.changeDate(0);

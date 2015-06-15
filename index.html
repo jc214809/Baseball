@@ -39,7 +39,7 @@
 <body>
     <div id="navBar"></div>
     <div ng-app="myApp">
-        <div ng-controller="baseballController" data-ng-init="changeDate(0);">
+        <div ng-controller="baseballController" data-ng-init="changeDate(0); goBackToPreviousDay();">
             <div class="header">
                 <span>
                    <button ng-click="changeDate(-1);" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  

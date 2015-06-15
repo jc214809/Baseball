@@ -27,7 +27,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     $scope.year = d.getFullYear();
     $scope.total = 0;
     $scope.pointsPerPlayerID = [];
-    $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
+    $scope.myTeam = [];
     $scope.idsToLookFor = [];
     $scope.myPichingStaff = 'lan';
     $scope.playersUpToBat = [];
@@ -55,6 +55,18 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     //'408252', '458015', '453943', '457803', '430910', '446359', '435401', '571740'
     //Reds and Philles
     //'519184', '425796', '400284', '429667', '596748', '605125', '520471', '434563', '408252', '458015', '453943', '457803', '430910', '446359', '435401', '571740'
+    //Ian Desmond 
+    //'435622'
+    $scope.findMyTeam = function() {
+        var d1 = new Date('2015-06-15');
+        var d2 = new Date(selectedDate.getFullYear() +'-'+ (selectedDate.getMonth() + 1) +'-'+ selectedDate.getDate());
+        if (d2 > d1) {
+            alert("1");
+            $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '471865', '592626', '592518', '457763'];
+        }else{
+            $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
+        }
+    };
     $scope.changeDate = function(value) {
 
         selectedDate.setDate(selectedDate.getDate() + value);
@@ -81,6 +93,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
             $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
         }
+        $scope.findMyTeam();
         $scope.Joel = [];
         $scope.pointsPerPlayerID = [];
         $scope.init();
@@ -90,6 +103,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         var today = new Date().getHours();
         if (today >= 0 && today <= 10) {
             selectedDate.setDate(selectedDate.getDate() - 1);
+            alert(selectedDate.toString('M/d/yyyy'));
             var date1 = new Date(d);
             var date2 = new Date(selectedDate);
             $scope.todaysDate = date1.addDays(-1).toString('M/d/yyyy');
@@ -103,6 +117,9 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             if ($scope.month < 10) {
                 $scope.month = '0' + $scope.month;
             }
+            $scope.findMyTeam();
+            $scope.init();
+            $scope.pitchingPoints();
         }
     };
 

@@ -14,9 +14,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="../Baseball/js/Scoreboard.js"></script>
     <script src="../Baseball/js/date.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css" />
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script>
         $(function() {
             $("#navBar").load("../Baseball/navbar.html");
@@ -44,26 +43,31 @@
     <div ng-app="myApp">
         <div ng-controller="baseballController" data-ng-init="players()">
             <div>
-                <table id="myTable">
+                <table id="myTable2" class="stripe">
                     <thead>
                         <tr>
                             <th></th>
+                            <th>#</th>
                             <th>PlayerName</th>
-                            <th>MLB Team</th>
                             <th>Pos</th>
-                            <th>MLB Depth</th>
+                            <th>MLB Team</th>
+                            <th>Throws</th>
+                            <th>Bats</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="player in playerIDs" ng-if="player.mlb_depth != '' && player.mlb_pos != 'P'">
-                            <td><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.mlb_id}}.jpg" /></td>
-                            <td>{{player.mlb_name}}</td>
-                            <td>{{player.mlb_team}}</td>
-                            <td>{{player.mlb_pos}}</td>
-                            <td>{{player.mlb_depth}}</td>
+                        <tr ng-repeat="player in playerJSON" ng-if="player.position_txt != 'P'">
+                            <td><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" /></td>
+                            <td>{{player.jersey_number}}</td>
+                            <td>{{player.name_display_first_last}} <span ng-if="player.status_code == 'D15'" style="color:red; border: 1px solid red;font-weight: bold;">&nbsp;DL&nbsp;</span></td>
+                            <td>{{player.position_txt}}</td>
+                            <td>{{player.team_abbrev}}</td>
+                            <td>{{player.throws}}</td>
+                            <td>{{player.bats}}</td>
                         </tr>
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>

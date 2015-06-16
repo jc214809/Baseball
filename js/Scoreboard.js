@@ -82,13 +82,10 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             //alert(player_ID);
             $scope.player = "http://mlb.com/lookup/json/named.player_info.bam?sport_code='mlb'&player_id='" + player_ID +"'";
             $http.get($scope.player).success(function(data, status, headers, config) {
-                //alert(data);
+
                 $scope.players.push(data.player_info.queryResults.row);
             }).error(function(data, status, headers, config) {
-                $scope.players.push(data);
-                $scope.players.push(status);
-                $scope.players.push(headers);
-                $scope.players.push(config);
+                alert(status);
             });
         });
     };

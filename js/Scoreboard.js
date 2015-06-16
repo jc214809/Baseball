@@ -49,6 +49,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     $scope.lastSunday = mondayDateHelper.previous().sunday().toString('M/d/yyyy');
     $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
     $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
+    $scope.mlbTeamIDs = [145,143,113,144,147,120,141,114,119,115,118,142,109,133,136,134,110,116,111,146,121,139,112,140,117,158,138,108,135,137];
     //  '592626', '570256', '457763', '543760', '471865',"475582"
     //My Team
     //'630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'
@@ -86,6 +87,18 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                 $scope.players.push(data.player_info.queryResults.row);
             }).error(function(data, status, headers, config) {
                 alert(status);
+            });
+        });
+    };
+    $scope.grabFourtyMan = function() {
+        $scope.fourtyManRosters = [];
+        angular.forEach($scope.mlbTeamIDs, function(team_ID) {
+            //alert(player_ID);
+            $scope.fourtyManURL = "http://mlb.mlb.com/lookup/json/named.roster_40.bam?team_id='" + team_ID +"'";
+            $http.get($scope.fourtyManURL).success(function(data, status, headers, config) {
+               $scope.fourtyManRosters.push(data.roster_40.queryResults.row);
+            }).error(function(data, status, headers, config) {
+                alert(data);
             });
         });
     };
@@ -264,21 +277,36 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     };
 
     $scope.players = function() {
-        $http.get('../Baseball/json/PlayerID.json').success(function(data) {
-            $scope.playerIDs = data;
+        $http.get('../Baseball/json/fourtyMan.json').success(function(data) {
+                   $scope.playerJSON = data;
 
             $(document).ready(function() {
                 $timeout(function() {
-                    $('#myTable').DataTable({
+                    $('#myTable2').DataTable({
                         "bScrollCollapse": true,
                         "bPaginate": true,
-                        "bJQueryUI": false
+                        "bJQueryUI": false,
+                        "sPaginationType": "full_numbers",
+                        "order": [[ 2, "asc" ]]
                     });
                 }, 0);
             });
+               });
+        // $http.get('../Baseball/json/PlayerID.json').success(function(data) {
+        //     $scope.playerIDs = data;
+
+        //     $(document).ready(function() {
+        //         $timeout(function() {
+        //             $('#myTable').DataTable({
+        //                 "bScrollCollapse": true,
+        //                 "bPaginate": true,
+        //                 "bJQueryUI": false
+        //             });
+        //         }, 0);
+        //     });
 
 
-        });
+        // });
     };
 
 

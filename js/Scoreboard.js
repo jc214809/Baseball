@@ -65,14 +65,14 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     $scope.findMyTeam = function() {
         var d1 = parseDate('2015-06-15');
         var d2 = parseDate(selectedDate.getFullYear() +'-'+ (selectedDate.getMonth() + 1) +'-'+ selectedDate.getDate());
-        alert(d2.toString('M/d/yyyy'));
-        alert(d1.toString('M/d/yyyy'));
+        //alert(d2.toString('M/d/yyyy'));
+        //alert(d1.toString('M/d/yyyy'));
         if (d2.toString('M/d/yyyy') >= d1.toString('M/d/yyyy')) {
             //Should show CARGO NOT IAN DESMOND on my team for any date after 6/15
-            alert("CARGO");
+            //alert("CARGO");
             $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '471865', '592626', '592518', '457763'];
         }else{
-            alert("IAN");
+            //alert("IAN");
             $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
         }
     };

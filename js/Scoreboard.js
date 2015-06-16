@@ -11,6 +11,11 @@ else if (window.addEventListener) window.addEventListener("load", blink, false);
 else if (window.attachEvent) window.attachEvent("onload", blink);
 else window.onload = blink;
 
+function parseDate(input) {
+  var parts = input.match(/(\d+)/g);
+  return new Date(parts[0], parts[1]-1, parts[2]);
+}
+
 var myApp = angular.module('myApp', []);
 myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     var baseball = [];
@@ -58,9 +63,11 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     //Ian Desmond 
     //'435622'
     $scope.findMyTeam = function() {
-        var d1 = new Date('2015-06-15');
-        var d2 = new Date(selectedDate.getFullYear() +'-'+ (selectedDate.getMonth() + 1) +'-'+ selectedDate.getDate());
-        if (d2 > d1) {
+        var d1 = parseDate('2015-06-15');
+        var d2 = parseDate(selectedDate.getFullYear() +'-'+ (selectedDate.getMonth() + 1) +'-'+ selectedDate.getDate());
+        alert(d2.toString('M/d/yyyy'));
+        alert(d1.toString('M/d/yyyy'));
+        if (d2.toString('M/d/yyyy') >= d1.toString('M/d/yyyy')) {
             //Should show CARGO NOT IAN DESMOND on my team for any date after 6/15
             alert("CARGO");
             $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '471865', '592626', '592518', '457763'];

@@ -56,7 +56,7 @@
                     <div ng-repeat="team in game[0].data.data.boxscore.batting;">
                         <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
                     <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
-                        <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1, 'at-bat' : playersUpToBat.indexOf(x.id) != -1, 'in-hole' : playersInTheHole.indexOf(x.id) != -1}" class="player-container">
+                        <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1 && gameinfo.status_ind != 'P', 'at-bat' : playersUpToBat.indexOf(x.id) != -1 && gameinfo.status_ind != 'P', 'in-hole' : playersInTheHole.indexOf(x.id) != -1 && gameinfo.status_ind != 'P'} " class="player-container">
                             {{stillInGame(team, x)}}
                             <table class="">
                                 <thead>

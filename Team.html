@@ -14,29 +14,32 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="../Baseball/js/Scoreboard.js"></script>
     <script src="../Baseball/js/date.js"></script>
-    <script> 
-    $(function(){
-      $("#navBar").load("../Baseball/navbar.html"); 
+    <script>
+    $(function() {
+        $("#navBar").load("../Baseball/navbar.html");
     });
-    </script> 
+    </script>
     <meta name="Baseball" content="width=device-width, initial-scale=1.0">
     <!--<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">-->
     <style>
-    table{
+    table {
         width: 600px;
-        text-align:center;
+        text-align: center;
     }
-table, td, th {
-    border: 1px solid red;
-    text-align: center;
-}
-
-th {
-    background-color: red;
-    color: white;
-    font-weight: bold;
-}
-</style>
+    
+    table,
+    td,
+    th {
+        border: 1px solid red;
+        text-align: center;
+    }
+    
+    th {
+        background-color: red;
+        color: white;
+        font-weight: bold;
+    }
+    </style>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="../Baseball/images/favicon.ico" sizes="16x16">
     <link rel="shortcut icon" href="../Baseball/images/favicon.ico" type="image/x-icon" />
@@ -56,8 +59,8 @@ th {
     <div ng-app="myApp">
         <div ng-controller="baseballController" data-ng-init="findMyTeam(); showTeam();">
             <center>
-            <table id="myTeam" >
-              <thead>
+                <table id="myTeam">
+                    <thead>
                         <tr>
                             <th></th>
                             <th>Player Name</th>
@@ -76,22 +79,22 @@ th {
                             <td>{{player.team_abbrev}}</td>
                             <td>{{player.primary_position_txt}}</td>
                             <td>{{player.status}}</td>
-                            <td><a ng-if="player.twitter_id != ''" href="https://twitter.com/{{player.twitter_id}}">Twitter</a></td>  
+                            <td><a ng-if="player.twitter_id != ''" href="https://twitter.com/{{player.twitter_id}}">Twitter</a></td>
                         </tr>
                     </tbody>
-            </table>
+                </table>
             </center>
-                <div >
-                    {{player.player_id}}
-                </div> 
+            <div>
+                {{player.player_id}}
+            </div>
         </div>
-        </div>
-<footer>
-  <center>
-    <br>
-    <p>&copy; 2015 Joel Clark</p>
-  </center>
-</footer>
+    </div>
+    <footer>
+        <center>
+            <br>
+            <p>&copy; 2015 Joel Clark</p>
+        </center>
+    </footer>
 </body>
 
 </html>

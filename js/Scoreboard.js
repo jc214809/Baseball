@@ -71,7 +71,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         if (d2.toString('M/d/yyyy') >= d1.toString('M/d/yyyy')) {
             //Should show CARGO NOT IAN DESMOND on my team for any date after 6/15
             //alert("CARGO");
-            $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '471865', '592626', '592518', '457763'];
+            $scope.myTeam = ['630111','543829', '434670', '425783', '547989', '471865', '592626', '592518', '457763'];
         }else{
             //alert("IAN");
             $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
@@ -398,7 +398,34 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         //  return "Joel1";
         //   }
     };
-
+    $scope.getMoreGameInfo = function(gameID, needInnings) {
+        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGame[i].game_pk) {
+                $scope.timeOfGame = null
+                $scope.matchUp = null;
+                if (needInnings) {
+                    $scope.pitchingStaffGameStatus =null;
+                    $scope.pitchingGameScore =null;
+                    $scope.pitchingStaffGameStatus = $scope.eachGame[i].status.ind;
+                    $scope.pitchingGameScore = $scope.eachGame[i].away_name_abbrev + " " + $scope.eachGame[i].linescore.r.away + " " + $scope.eachGame[i].home_name_abbrev + " " + $scope.eachGame[i].linescore.r.home;
+                };
+               if ($scope.eachGame[i].status.status == 'Pre-Game') {
+                    $scope.matchUp = $scope.eachGame[i].away_name_abbrev + " @ " + $scope.eachGame[i].home_name_abbrev;
+                    $scope.timeOfGame = $scope.eachGame[i].time + $scope.eachGame[i].ampm;
+               };
+               if ($scope.eachGame[i].status.status == 'In Progress' && needInnings) {
+                    $scope.pitchingStaffInning = $scope.eachGame[i].status.inning;
+                    if ($scope.eachGame[i].status.inning_state = "Bottom") {
+                        $scope.pitchingStaffTopOrBottom = "B";
+                    }else{
+                        $scope.pitchingStaffTopOrBottom = "T";
+                    }
+                    $scope.pitchingGameInning =  $scope.pitchingStaffTopOrBottom + $scope.pitchingStaffInning;
+               };  
+                break;
+            };
+        };
+    };
     $scope.init = function() {
         //$scope.changeDate(0);
         $scope.total = 0;

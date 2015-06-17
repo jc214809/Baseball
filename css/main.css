@@ -73,6 +73,9 @@ body {
 .navbar-brand {
     padding: 5px 10px;
 }
+.game-time {
+    color: orange;
+}
 /* Larger desktop */
 
 @media (min-width: 1851px) {

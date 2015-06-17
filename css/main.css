@@ -1,78 +1,100 @@
 html {
     padding: 5px 10px 5px 5px;
 }
+
 body {
     padding: 0 2%;
     font-size: 114%;
 }
+
 * {
     font-size: 114%;
 }
+
 .status-indicators {
     vertical-align: 5px;
 }
+
 .player-outline {
     border-style: solid;
     border-width: 1px;
     border-color: black;
 }
+
 .key {
     border-style: solid;
     border-width: 5px;
     font-weight: bold;
 }
+
 .table-player {
     background-color: gray;
 }
+
 .at-bat {
     background-color: green;
 }
+
 .on-deck {
     background-color: yellow;
 }
+
 .in-hole {
     background-color: red;
 }
+
 .total {
     font-size: 55px;
 }
+
 .stats-table {
     font-size: 20px;
     font-weight: bold;
 }
+
 .header {
     display: inline block;
 }
+
 .points {
     font-size: 30px;
 }
+
 .pitching-staff-points {
     font-size: 195%;
 }
+
 .center-date {
     padding-left: 33.75%;
     font-size: 115%;
     vertical-align: -8px;
 }
+
 .each-stat {
     vertical-align: text-top;
 }
+
 .right {
     padding-left: 33.75%;
 }
+
 .player-label {
     color: #000099;
     font-size: 230%;
 }
+
 .game-info {
     font-size: 18px;
 }
+
 .logo {
     vertical-align: 12px;
 }
+
 .navbar-brand {
     padding: 5px 10px;
 }
+
 .game-time {
     color: orange;
 }
@@ -113,6 +135,7 @@ body {
         vertical-align: -8px;
     }
 }
+
 @media (min-width: 1600px) and (max-width: 1850px) {
     * {
         font-size: 35px;
@@ -148,6 +171,7 @@ body {
         vertical-align: -8px;
     }
 }
+
 @media (min-width: 1400px) and (max-width: 1599px) {
     * {
         font-size: 35px;

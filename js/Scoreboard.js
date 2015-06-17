@@ -382,21 +382,18 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         else return "-";
     };
     $scope.stillInGame = function(team, player) {
-        //  playerInQuestion = player.bo;
-        //  keepGoing = true;
-        //  angular.forEach(team, function(dataObj) {
-        //      angular.forEach(dataObj, function(batterObj) {
-        //      if (batterObj.bo != undefined) {
-        //      if (batterObj.bo > playerInQuestion && playerInQuestion.charAt(0) == batterObj.bo.charAt(0)) {
-        //          keepGoing = false;
-        //          return "Joel";
-        //      }
-        //      };
-        //    });
-        //  });
-        // if(keepGoing) {
-        //  return "Joel1";
-        //   }
+         playerInQuestion = player.bo;
+         //alert(team.bo);
+         //alert(playerInQuestion);
+         // for (var i = team.length - 1; i >= 0; i--) {
+         //    alert(team[i]);
+         //    if (team[i].bo != undefined) {
+         //            alert(playerInQuestion.charAt(0) == team[i].bo.charAt(0) && team[i].bo > playerInQuestion);
+         //        if (playerInQuestion.charAt(0) == team[i].bo.charAt(0) && team[i].bo > playerInQuestion) {
+         //        }
+         //     };
+         // };
+
     };
     $scope.getMoreGameInfo = function(gameID, needInnings) {
         for (var i = $scope.eachGame.length - 1; i >= 0; i--) {

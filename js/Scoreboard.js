@@ -33,6 +33,8 @@
      $scope.total = 0;
      $scope.pointsPerPlayerID = [];
      $scope.myTeam = [];
+     $scope.opponentsTeam = ['408252', '458015', '453943', '457803', '430910', '446359', '435401', '571740'];
+     $scope.selectedTeam = [];
      $scope.idsToLookFor = [];
      $scope.myPichingStaff = 'lan';
      $scope.playersUpToBat = [];
@@ -74,6 +76,10 @@
              //alert("IAN");
              $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
          }
+         $scope.Teams = [
+             $scope.myTeam,
+             $scope.opponentsTeam
+         ];
      };
      $scope.showTeam = function() {
          $scope.players = [];
@@ -208,7 +214,30 @@
          $scope.awayTeamRuns = gameinfo.linescore.away_team_runs;
          return $scope.awayTeamCode + ' ' + $scope.awayTeamRuns + ' ' + $scope.homeTeamCode + ' ' + $scope.homeTeamRuns;
      };
-
+     $scope.getTotalScore = function(pitchingTotal, hittingTotal) {
+         $scope.total = parseFloat($scope.total) + parseFloat(hittingTotal);
+         return $scope.total;
+     };
+     $scope.setTeam = function(team) {
+         $scope.selectedTeam = team;
+     };
+     $scope.hittingPoints = function() {
+         $scope.totalBattingPoints = 0;
+         angular.forEach($scope.baseballGame, function(Joel) {
+             angular.forEach(Joel, function(eachGame) {
+                 var tryThis = eachGame.data.data.boxscore.batting;
+                 angular.forEach(tryThis, function(eachLineUp) {
+                     var tryThis2 = eachLineUp.batter;
+                     angular.forEach(tryThis2, function(batter) {
+                         if ($scope.selectedTeam.indexOf(batter.id.toString()) > -1) {
+                             $scope.totalBattingPoints += parseFloat($scope.getScore(0, batter));
+                         };
+                     });
+                 });
+             });
+         });
+         return $scope.totalBattingPoints;
+     };
      $scope.pitchingPoints = function() {
          $scope.pitchingStaffGamesTotals = [];
          $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPichingStaff + '_1.xml';
@@ -260,13 +289,14 @@
                          key: id,
                          value: score
                      });
-                     $scope.total += score;
+                     //$scope.total += score;
                  }
              }
          });
          return $scope.total;
      };
      $scope.getScore = function(index, x) {
+
          var angi = parseInt(index);
          var score = ((((parseFloat(x.h)) - (parseFloat(x.d) + parseFloat(x.t) + parseFloat(x.hr))) * 1) + (parseFloat(x.d) * 2) + (parseFloat(x.t) * 3) + (parseFloat(x.hr) * 4) + (parseFloat(x.r) * 1) + (parseFloat(x.rbi) * 1) + (parseFloat(x.bb) * 1) + (parseFloat(x.sb) * 2) + (parseFloat(x.cs) * -1));
          return score;
@@ -290,21 +320,6 @@
                  }, 0);
              });
          });
-         // $http.get('../Baseball/json/PlayerID.json').success(function(data) {
-         //     $scope.playerIDs = data;
-
-         //     $(document).ready(function() {
-         //         $timeout(function() {
-         //             $('#myTable').DataTable({
-         //                 "bScrollCollapse": true,
-         //                 "bPaginate": true,
-         //                 "bJQueryUI": false
-         //             });
-         //         }, 0);
-         //     });
-
-
-         // });
      };
 
 
@@ -402,17 +417,6 @@
                  };
              };
          };
-         //alert(team.bo);
-         //alert(playerInQuestion.bo);
-         // for (var i = team.length - 1; i >= 0; i--) {
-         //    alert(team[i]);
-         //    if (team[i].bo != undefined) {
-         //            alert(playerInQuestion.charAt(0) == team[i].bo.charAt(0) && team[i].bo > playerInQuestion);
-         //        if (playerInQuestion.charAt(0) == team[i].bo.charAt(0) && team[i].bo > playerInQuestion) {
-         //        }
-         //     };
-         // };
-
      };
      $scope.getMoreGameInfo = function(gameID, needInnings) {
          for (var i = $scope.eachGame.length - 1; i >= 0; i--) {

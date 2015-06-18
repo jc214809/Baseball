@@ -46,6 +46,7 @@
                     <thead>
                         <tr>
                             <th></th>
+                            <th>Player ID</th>
                             <th>#</th>
                             <th>PlayerName</th>
                             <th>Pos</th>
@@ -57,6 +58,7 @@
                     <tbody>
                         <tr ng-repeat="player in playerJSON" ng-if="player.position_txt != 'P'">
                             <td><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" /></td>
+                            <td>{{player.player_id}}</td>
                             <td>{{player.jersey_number}}</td>
                             <td>{{player.name_display_first_last}} <span ng-if="player.status_code == 'D15'" style="color:red; border: 1px solid red;font-weight: bold;">&nbsp;DL&nbsp;</span></td>
                             <td>{{player.position_txt}}</td>

@@ -33,7 +33,7 @@
      $scope.total = 0;
      $scope.pointsPerPlayerID = [];
      $scope.myTeam = [];
-     $scope.opponentsTeam = ['408252', '458015', '453943', '457803', '430910', '446359', '435401', '571740'];
+     $scope.opponentsTeam = ['519390', '543333', '456030', '607054', '408314', '460576', '430945', '493114', '451594'];
      $scope.selectedTeam = [];
      $scope.idsToLookFor = [];
      $scope.myPitchingStaff = 'lan';
@@ -83,7 +83,7 @@
          if (staff == 'LAN') {
              $scope.myPitchingStaff = 'lan';
          } else {
-             $scope.myPitchingStaff = 'cin';
+             $scope.myPitchingStaff = 'nyn';
          }
      };
      $scope.showTeam = function() {
@@ -189,6 +189,8 @@
          switch (teamAbbreviation) {
              case "lan":
                  return "la";
+             case "nyn":
+                 return "nym";
              default:
                  return teamAbbreviation
          }

@@ -314,7 +314,7 @@
                          "bJQueryUI": false,
                          "sPaginationType": "full_numbers",
                          "order": [
-                             [2, "asc"]
+                             [3, "asc"]
                          ]
                      });
                  }, 0);

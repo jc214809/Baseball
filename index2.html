@@ -39,21 +39,22 @@
     <div id="navBar"></div>
     <div ng-app="myApp">
         <div ng-controller="baseballController" data-ng-init="changeDate(0, true);">
-            <div class="header">
-                <span>
+            <!-- <div class="header">
+    <span>
                    <button id="dateBack" ng-click="changeDate(-1, false);" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  
                </span>
-                <span>
+    <span>
                   &nbsp;<span class="center-date" style="font-size: 195%;"><b><a ng-click="backToTodaysDate()">{{month}}/{{day}}/{{year}}</a></b></span>&nbsp;
-                </span>
-                <span class="right">
+    </span>
+    <span class="right">
                  <button id="dateForward" ng-click="changeDate(1, false);"  class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
              </span>
-            </div>
-            <iframe width="875px" height="750px" src="../Baseball/MyScoreboard.html">
+</div>
+ -->
+            <iframe width="875px" height="775px" src="../Baseball/MyScoreboard.html">
                 <p>Your browser does not support iframes.</p>
             </iframe>
-            <iframe width="875px" height="750px" src="../Baseball/OpponentScoreboard.html">
+            <iframe width="875px" height="775px" src="../Baseball/OpponentScoreboard.html">
                 <p>Your browser does not support iframes.</p>
             </iframe>
             <div class="center-date">

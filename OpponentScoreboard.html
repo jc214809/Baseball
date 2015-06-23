@@ -29,10 +29,12 @@
     <link rel="apple-touch-icon" sizes="152x152" href="../Baseball/images/apple-touch-icon-152x152.png" />
     <title>MLB.com Fantasy Scoreboard</title>
 </head>
+<!-- selectedTeam=['431145', '425902', '518934', '518626', '516770', '457708', '624577', '136860', '453943']; myPitchingStaff= 'sln'
+ -->
 
 <body>
     <div ng-app="myApp">
-        <div ng-controller="baseballController" data-ng-init="selectedTeam=['519390', '543333', '456030', '607054', '408314', '460576', '430945', '493114', '451594']; myPitchingStaff= 'nyn'; changeDate(0, true); "> {{findMyStaff("Joel")}}
+        <div ng-controller="baseballController" data-ng-init="changeDate(0, true);"> {{findMyTeam('')}}
             <div class="header">
                 <span>
                    <button id="dateBack" ng-click="changeDate(-1, false);" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  

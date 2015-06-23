@@ -65,25 +65,52 @@
      //'519184', '425796', '400284', '429667', '596748', '605125', '520471', '434563', '408252', '458015', '453943', '457803', '430910', '446359', '435401', '571740'
      //Ian Desmond 
      //'435622'
-     $scope.findMyTeam = function() {
+     $scope.findMyTeam = function(tryJoel) {
          var d1 = parseDate('2015-06-15');
-         var d2 = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
-         if (d2.toString('M/d/yyyy') >= d1.toString('M/d/yyyy')) {
-             //Should show CARGO NOT IAN DESMOND on my team for any date after 6/15
-             //alert("CARGO");
-             $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '471865', '592626', '592518', '457763'];
+         var d2 = parseDate('2015-06-21');
+         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
+         if (tryJoel == "Mine") {
+             if (theSelectedDate.between(parseDate('2015-06-22'), parseDate('2015-06-28'))) {
+                 //alert("YADI");
+                 $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '425877', '592626', '592518', '457763'];
+             } else if (theSelectedDate.between(parseDate('2015-06-15'), parseDate('2015-06-21'))) {
+                 //alert("CARGO");
+                 $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '471865', '592626', '592518', '457763'];
+             } else if (theSelectedDate.between(parseDate('2015-06-08'), parseDate('2015-06-14'))) {
+                 //alert("IAN");
+                 $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
+             } else {
+                 //alert("DEFUALT");
+                 $scope.myTeam = ['630111'];
+             }
+             $scope.selectedTeam = $scope.myTeam;
+             $scope.myPitchingStaff = 'lan';
          } else {
-             //alert("IAN");
-             $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
+             if (theSelectedDate.between(parseDate('2015-06-22'), parseDate('2015-06-28'))) {
+                 //alert("WEEK12");
+                 $scope.myTeam = ['431145', '425902', '518934', '518626', '516770', '457708', '624577', '136860', '453943'];
+                 $scope.myPitchingStaff = 'sln';
+             } else if (theSelectedDate.between(parseDate('2015-06-15'), parseDate('2015-06-21'))) {
+                 //alert("Week11");
+                 $scope.myTeam = ['519390', '543333', '456030', '607054', '408314', '460576', '430945', '493114', '451594'];
+                 $scope.myPitchingStaff = 'nyn';
+             } else if (theSelectedDate.between(parseDate('2015-06-8'), parseDate('2015-06-14'))) {
+                 //alert("WEEK10");
+                 $scope.myTeam = ['446308', '502671', '543685', '592178', '425509', '518792', '461314', '519317', '572122'];
+                 $scope.myPitchingStaff = 'sea';
+             } else {
+                 //alert("IAN");
+                 $scope.myTeam = [];
+                 $scope.myPitchingStaff = 'was';
+             }
+             $scope.selectedTeam = $scope.myTeam;
          }
-         $scope.selectedTeam = $scope.myTeam;
-         $scope.myPitchingStaff = 'lan';
      };
      $scope.findMyStaff = function(staff) {
          if (staff == 'LAN') {
              $scope.myPitchingStaff = 'lan';
          } else {
-             $scope.myPitchingStaff = 'nyn';
+             $scope.myPitchingStaff = 'sln';
          }
      };
      $scope.showTeam = function() {
@@ -191,6 +218,8 @@
                  return "la";
              case "nyn":
                  return "nym";
+             case "sln":
+                 return "stl";
              default:
                  return teamAbbreviation
          }

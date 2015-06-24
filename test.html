@@ -50,33 +50,33 @@
                  <button id="dateForward" ng-click="changeDate(1, false);"  class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
              </span>
             </div>
-            <div ng-repeat="team in Teams" data-ng-init="setTeam(team.player,team.staff); pitch(team.staff);">
-                <div ng-repeat="pitchedGames in allPitchingStaffGames" data-ng-init="setTeam(team.player,team.staff);" ng-if="(pitchedGames._game_id.indexOf(selectedStaff) === -1)">
+            <div ng-repeat="team in Teams" data-ng-init="setTeam(team.player,team.staff);">
+                <div ng-repeat="pitchedGames in allPitchingStaffGames" data-ng-init="setTeam(team.player,team.staff);">
                     {{team.staff}}
                     <br>
                     <br> {{allPitchingStaffGames}}
                     <span>&nbsp;&nbsp;</span>
                     <span>
-                            <span ng-if="pitchedGames._w > 0">W</span>
-                    <span ng-if="pitchedGames._l > 0">L</span>
-                    <span ng-if="(pitchedGames._w != 0 || pitchedGames._l != 0)">,</span>
+                            <span ng-if="pitchedGames.data._w > 0">W</span>
+                    <span ng-if="pitchedGames.data._l > 0">L</span>
+                    <span ng-if="(pitchedGames.data._w != 0 || pitchedGames.data._l != 0)">,</span>
                     </span>
-                    <span ng-if="pitchedGames._ip != 0">&nbsp;{{pitchedGames._ip}} IP
-                            <span ng-if="pitchedGames._ip != 0  && (pitchedGames._h != 0 || pitchedGames._er != 0 || pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
+                    <span ng-if="pitchedGames.data._ip != 0">&nbsp;{{pitchedGames.data._ip}} IP
+                            <span ng-if="pitchedGames.data._ip != 0  && (pitchedGames.data._h != 0 || pitchedGames.data._er != 0 || pitchedGames.data._bb != 0 || pitchedGames.data._k != 0 || pitchedGames.data._sho != 0)">,</span>
                     </span>
-                    <span ng-if="pitchedGames._h != 0">&nbsp;{{pitchedGames._h}} H
-                            <span ng-if="pitchedGames._h != 0  && (pitchedGames._er != 0 || pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
+                    <span ng-if="pitchedGames.data._h != 0">&nbsp;{{pitchedGames.data._h}} H
+                            <span ng-if="pitchedGames.data._h != 0  && (pitchedGames.data._er != 0 || pitchedGames.data._bb != 0 || pitchedGames.data._k != 0 || pitchedGames.data._sho != 0)">,</span>
                     </span>
-                    <span ng-if="pitchedGames._er != 0">&nbsp;{{pitchedGames._er}} ER
-                            <span ng-if="pitchedGames._er != 0  && (pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
+                    <span ng-if="pitchedGames.data._er != 0">&nbsp;{{pitchedGames.data._er}} ER
+                            <span ng-if="pitchedGames.data._er != 0  && (pitchedGames.data._bb != 0 || pitchedGames.data._k != 0 || pitchedGames.data._sho != 0)">,</span>
                     </span>
-                    <span ng-if="pitchedGames._bb != 0">&nbsp;{{pitchedGames._bb}} BB
-                            <span ng-if="pitchedGames._bb != 0  && (pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
+                    <span ng-if="pitchedGames.data._bb != 0">&nbsp;{{pitchedGames.data._bb}} BB
+                            <span ng-if="pitchedGames.data._bb != 0  && (pitchedGames.data._k != 0 || pitchedGames.data._sho != 0)">,</span>
                     </span>
-                    <span ng-if="pitchedGames._k != 0">&nbsp;{{pitchedGames._k}} K
-                            <span ng-if="pitchedGames._k != 0  && (pitchedGames._sho != 0)">,</span>
+                    <span ng-if="pitchedGames.data._k != 0">&nbsp;{{pitchedGames.data._k}} K
+                            <span ng-if="pitchedGames.data._k != 0  && (pitchedGames.data._sho != 0)">,</span>
                     </span>
-                    <span ng-if="pitchedGames._sho != 0">&nbsp;{{pitchedGames._sho}} SHO</span>
+                    <span ng-if="pitchedGames.data._sho != 0">&nbsp;{{pitchedGames.data._sho}} SHO</span>
                 </div>
             </div>
         </div>

@@ -144,7 +144,7 @@
 
          //Goes back to previous day if between midnight and 10am
          var hourOfday = new Date().getHours();
-         if ((hourOfday >= 0 && hourOfday <= 12) && pageLoad) {
+         if ((hourOfday >= 0 && hourOfday <= 10) && pageLoad) {
              console.log("Ran!!");
              selectedDate.setDate(selectedDate.getDate() - 1);
          }

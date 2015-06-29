@@ -29,21 +29,19 @@
     <link rel="apple-touch-icon" sizes="152x152" href="../Baseball/images/apple-touch-icon-152x152.png" />
     <title>MLB.com Fantasy Scoreboard</title>
 </head>
-<!-- selectedTeam=['431145', '425902', '518934', '518626', '516770', '457708', '624577', '136860', '453943']; myPitchingStaff= 'sln'
- -->
 
 <body>
     <div ng-app="myApp">
         <div ng-controller="baseballController" data-ng-init="findMyTeam(''); changeDate(0, true);">
             <div class="header">
                 <span>
-                   <button id="dateBack" ng-click="changeDate(-1, false);" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  
+                   <button id="dateBack" ng-click="changeDate(-1, false); findMyTeam('');" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  
                </span>
                 <span>
-                  &nbsp;<span class="center-date" style="font-size: 195%;"><b><a ng-click="backToTodaysDate()">{{month}}/{{day}}/{{year}}</a></b></span>&nbsp;
+                  &nbsp;<span class="center-date" style="font-size: 195%;"><b><a ng-click="backToTodaysDate(); findMyTeam('');">{{month}}/{{day}}/{{year}}</a></b></span>&nbsp;
                 </span>
                 <span class="right">
-                 <button id="dateForward" ng-click="changeDate(1, false);"  class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
+                 <button id="dateForward" ng-click="changeDate(1, false); findMyTeam('');"  class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
              </span>
             </div>
             <div ng-repeat="game in baseballGame">
@@ -51,7 +49,7 @@
                     <div ng-repeat="team in game[0].data.data.boxscore.batting;">
                         <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
                     <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
-                        <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (selectedTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1 && gameinfo.status_ind != 'P', 'at-bat' : playersUpToBat.indexOf(x.id) != -1 && gameinfo.status_ind != 'P', 'in-hole' : playersInTheHole.indexOf(x.id) != -1 && gameinfo.status_ind != 'P'} " class="player-container">
+                        <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (selectedTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F', 'at-bat' : playersUpToBat.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F', 'in-hole' : playersInTheHole.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F'}" class="player-container">
                             {{stillInGame(team, x)}}
                             <table>
                                 <thead>

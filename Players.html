@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="../Baseball/js/Scoreboard.js"></script>
+    <script src="../Baseball/js/Scoreboard2.js"></script>
     <script src="../Baseball/js/date.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" />
     <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
@@ -40,7 +40,10 @@
 <body>
     <div id="navBar"></div>
     <div ng-app="myApp">
-        <div ng-controller="baseballController" data-ng-init="players()">
+        <div ng-controller="baseballController" data-ng-init="players();">
+            <!--  grabFourtyMan();
+
+ -->
             <div>
                 <table id="myTable2" class="stripe">
                     <thead>
@@ -57,7 +60,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="player in playerJSON" ng-if="player.position_txt != 'P'">
-                            <td><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" /></td>
+                            <td>
+                                <img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" />
+                            </td>
                             <td>{{player.player_id}}</td>
                             <td>{{player.jersey_number}}</td>
                             <td>{{player.name_display_first_last}} <span ng-if="player.status_code == 'D15'" style="color:red; border: 1px solid red;font-weight: bold;">&nbsp;DL&nbsp;</span></td>
@@ -69,6 +74,7 @@
                     </tbody>
                 </table>
             </div>
+            <!-- {{fourtyManRosters}} -->
         </div>
     </div>
     <footer>

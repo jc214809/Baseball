@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="../Baseball/js/Scoreboard.js"></script>
+    <script src="../Baseball/js/Scoreboard2.js"></script>
     <script src="../Baseball/js/date.js"></script>
     <script>
     $(function() {
@@ -57,7 +57,7 @@
 <body>
     <div id="navBar"></div>
     <div ng-app="myApp">
-        <div ng-controller="baseballController" data-ng-init="findMyTeam(); showTeam();">
+        <div ng-controller="baseballController" data-ng-init="findMyTeam('Mine'); showTeam();">
             <center>
                 <table id="myTeam">
                     <thead>

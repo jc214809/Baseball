@@ -47,6 +47,7 @@
      $scope.allPitchingStaffGames = [];
      $scope.topOrBottom = null;
      $scope.inning = null;
+     $scope.whichTeam = null;
      $scope.lastMonday = mondayDateHelper.previous().monday().toString('M/d/yyyy');
      $scope.lastSunday = mondayDateHelper.previous().sunday().toString('M/d/yyyy');
      $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
@@ -66,13 +67,12 @@
      //Ian Desmond 
      //'435622'
      $scope.findMyTeam = function(tryJoel) {
-         var d1 = parseDate('2015-06-15');
-         var d2 = parseDate('2015-06-21');
+         $scope.whichTeam = tryJoel;
          var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
          if (tryJoel == "Mine") {
              if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
-                 //alert("IAN");
-                 $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '425877', '592626', '592518', '457763'];
+                 //alert("IAN && CARGO");
+                 $scope.myTeam = ['630111', '543829', '471865', '435622', '547989', '425877', '592626', '592518', '457763'];
                  $scope.myPitchingStaff = 'lan';
              } else if (theSelectedDate.between(parseDate('2015-06-22'), parseDate('2015-06-28'))) {
                  //alert("YADI");
@@ -94,9 +94,9 @@
              $scope.selectedTeam = $scope.myTeam;
          } else {
              if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
-                 //alert("IAN");
+                 //alert("WEEK13");
                  $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
-                 $scope.myPitchingStaff = 'sln';
+                 $scope.myPitchingStaff = 'sfn';
              } else if (theSelectedDate.between(parseDate('2015-06-22'), parseDate('2015-06-28'))) {
                  //alert("WEEK12");
                  $scope.myTeam = ['431145', '425902', '518934', '518626', '516770', '457708', '624577', '136860', '453943'];
@@ -118,18 +118,18 @@
          }
      };
      $scope.findMyStaff = function(staff) {
-         if (staff == 'LAN') {
-             $scope.myPitchingStaff = 'lan';
-         } else {
-             $scope.myPitchingStaff = 'sln';
-         }
+         console.log($scope.myPitchingStaff);
+         // if (staff == 'LAN') {
+         //     $scope.myPitchingStaff = 'lan';
+         // } else {
+         //     $scope.myPitchingStaff = 'sln';
+         // }
      };
      $scope.showTeam = function() {
          $scope.players = [];
          angular.forEach($scope.myTeam, function(player_ID) {
              $scope.player = "http://mlb.com/lookup/json/named.player_info.bam?sport_code='mlb'&player_id='" + player_ID + "'";
              $http.get($scope.player).success(function(data, status, headers, config) {
-
                  $scope.players.push(data.player_info.queryResults.row);
              }).error(function(data, status, headers, config) {
                  alert(status);
@@ -137,15 +137,27 @@
          });
      };
      $scope.grabFourtyMan = function() {
-         $scope.fourtyManRosters = [];
+         $scope.fourtyManRosters = null;
          angular.forEach($scope.mlbTeamIDs, function(team_ID) {
              $scope.fourtyManURL = "http://mlb.mlb.com/lookup/json/named.roster_40.bam?team_id='" + team_ID + "'";
              $http.get($scope.fourtyManURL).success(function(data, status, headers, config) {
-                 $scope.fourtyManRosters.push(data.roster_40.queryResults.row);
+
+                 if ($scope.fourtyManRosters == null) {
+                     $scope.fourtyManRosters = JSON.stringify(data.roster_40.queryResults.row);
+                     $scope.fourtyManRosters = $scope.fourtyManRosters.replace('[', '').replace(']', '');
+                 } else {
+                     $scope.fourtyManRosters = $scope.fourtyManRosters + ',' + JSON.stringify(data.roster_40.queryResults.row);
+                     $scope.fourtyManRosters = $scope.fourtyManRosters.replace('[', '').replace(']', '');
+                 }
+                 $scope.fourtyManRosters = $scope.fourtyManRosters.replace('[', '').replace(']', '');
+                 $scope.fourtyManRosters = "[" + $scope.fourtyManRosters + "]";
              }).error(function(data, status, headers, config) {
                  alert(data);
              });
          });
+         //$scope.fourtyManRosters = "[" + $scope.fourtyManRosters + "]";
+         //alert("2");
+
      };
      $scope.changeDate = function(value, pageLoad) {
 
@@ -182,7 +194,7 @@
              $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
              $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
          }
-         //$scope.findMyTeam();
+         $scope.findMyTeam($scope.whichTeam);
          $scope.Joel = [];
          $scope.pointsPerPlayerID = [];
          $scope.init();
@@ -231,6 +243,8 @@
                  return "nym";
              case "sln":
                  return "stl";
+             case "sfn":
+                 return "sf";
              default:
                  return teamAbbreviation
          }
@@ -378,7 +392,7 @@
                          "bJQueryUI": false,
                          "sPaginationType": "full_numbers",
                          "order": [
-                             [2, "asc"]
+                             [3, "asc"]
                          ]
                      });
                  }, 0);

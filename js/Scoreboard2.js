@@ -95,7 +95,7 @@
          } else {
              if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
                  //alert("WEEK13");
-                 $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
+                 $scope.myTeam = ['519083', '408236', '514888', '572761', '453064', '516782', '493316', '571740', '435522'];
                  $scope.myPitchingStaff = 'sfn';
              } else if (theSelectedDate.between(parseDate('2015-06-22'), parseDate('2015-06-28'))) {
                  //alert("WEEK12");

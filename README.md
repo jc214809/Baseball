@@ -23,3 +23,4 @@ https://github.com/wellsoliver/py-mlb/blob/master/py_mlb/fetcher.py
 http://mlb.mlb.com/lookup/json/named.roster_40.bam?team_id=%27113%27
 
 https://packagecontrol.io/installation
+Joel

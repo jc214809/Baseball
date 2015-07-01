@@ -125,6 +125,80 @@
          //     $scope.myPitchingStaff = 'sln';
          // }
      };
+     $scope.getEachDaysScores = function() {
+         $scope.getWeekRange();
+         $scope.eachGame3 = null;
+         baseball3 = [];
+         $scope.baseballGame3 = [];
+         $scope.daysGames3 = [];
+         $scope.findMyTeam($scope.whichTeam);
+         var dateToFindScores = new Date(selectedDate);
+         while (dateToFindScores.toLocaleDateString() >= $scope.StartDate) {
+             //console.log(dateToFindScores.toString("dddd"));
+             $scope.dayloop = dateToFindScores.getDate();
+             $scope.monthloop = dateToFindScores.getMonth() + 1;
+             $scope.yearloop = dateToFindScores.getFullYear();
+             if ($scope.dayloop < 10) {
+                 $scope.dayloop = '0' + $scope.dayloop;
+             }
+             if ($scope.monthloop < 10) {
+                 $scope.monthloop = '0' + $scope.monthloop;
+             }
+             $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/master_scoreboard.json';
+             //alert($scope.scoreBoard);
+             $http.get($scope.scoreBoard).success(function(data) {
+                 $scope.baseballGame3;
+                 $scope.eachGame3 = data.data.games.game;
+                 angular.forEach($scope.eachGame3, function(batter) {
+                     var JSONlink = batter.game_data_directory;
+                     //alert('http://gd2.mlb.com' + JSONlink + "/boxscore.json");
+                     $scope.daysGames3.push('http://gd2.mlb.com' + JSONlink + "/boxscore.json");
+                 });
+
+                 console.log($scope.daysGames3);
+                 angular.forEach($scope.daysGames3, function(games) {
+                     $scope.game3 = null;
+                     $scope.game3 = $http.get(games);
+                     $q.all([$scope.game3]).then(function(values) {
+                         baseball3.push(values);
+                         //console.log(values);
+                         $scope.baseballGame3 = baseball3;
+                         //console.log($scope.baseballGame2);
+                     });
+                 });
+                 $scope.totalBattingPoints = 0;
+                 //console.log($scope.baseballGame2);
+                 angular.forEach($scope.baseballGame2, function(Joel) {
+                     console.log("1");
+                     angular.forEach(Joel, function(eachGame) {
+                         console.log("2");
+                         var tryThis = eachGame.data.data.boxscore.batting;
+                         angular.forEach(tryThis, function(eachLineUp) {
+                             var tryThis2 = eachLineUp.batter;
+                             angular.forEach(tryThis2, function(batter) {
+                                 console.log($scope.selectedTeam);
+                                 if ($scope.selectedTeam.indexOf(batter.id.toString()) > -1) {
+                                     console.log(batter.id);
+                                     $scope.totalBattingPoints += parseFloat($scope.getScore(0, batter));
+                                 };
+                             });
+                         });
+                     });
+                 });
+                 console.log($scope.totalBattingPoints);
+                 var theDate = parseDate($scope.yearloop + '-' + $scope.monthloop + '-' + $scope.dayloop);
+                 if (theDate.toString("dddd") == "Monday") {
+                     $scope.MondaysScore = 0;
+                     $scope.MondaysScore += $scope.totalBattingPoints;
+                 }
+                 if (theDate.toString("dddd") == "Tuesday") {
+                     $scope.TuesdaysScore = 0;
+                     $scope.TuesdaysScore += $scope.totalBattingPoints;
+                 };
+             });
+             dateToFindScores.setDate(dateToFindScores.getDate() - 1);
+         }
+     };
      $scope.showTeam = function() {
          $scope.players = [];
          angular.forEach($scope.myTeam, function(player_ID) {
@@ -157,10 +231,8 @@
          });
          //$scope.fourtyManRosters = "[" + $scope.fourtyManRosters + "]";
          //alert("2");
-
      };
      $scope.changeDate = function(value, pageLoad) {
-
          selectedDate.setDate(selectedDate.getDate() + value);
          $('#dateBack').attr('disabled', 'disabled');
          $('#dateForward').attr('disabled', 'disabled');
@@ -168,7 +240,7 @@
          //Goes back to previous day if between midnight and 10am
          var hourOfday = new Date().getHours();
          if ((hourOfday >= 0 && hourOfday <= 10) && pageLoad) {
-             console.log("Ran!!");
+             //console.log("Ran!!");
              selectedDate.setDate(selectedDate.getDate() - 1);
          }
          var date1 = new Date(d);
@@ -194,6 +266,7 @@
              $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
              $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
          }
+         $scope.getWeekRange();
          $scope.findMyTeam($scope.whichTeam);
          $scope.Joel = [];
          $scope.pointsPerPlayerID = [];
@@ -206,9 +279,27 @@
                  $('#dateForward').removeAttr('disabled');
              };
          }, 1000);
-
      };
-
+     $scope.getWeekRange = function() {
+         Date.prototype.getWeek = function(start) {
+             //Calcing the starting point
+             start = start || 1; //1 makes it start on Monday and not Sunday
+             var today = new Date(this.setHours(0, 0, 0, 0));
+             if (today.getDay() != 0) {
+                 var day = today.getDay() - start;
+                 var date = today.getDate() - day;
+                 $scope.StartDate = new Date(today.setDate(date)).toLocaleDateString();
+                 $scope.EndDate = new Date(today.setDate(date + 6)).toLocaleDateString();
+             } else {
+                 //finds range if it is sunday
+                 var day = today.getDay();
+                 var date = today.getDate() - day;
+                 $scope.StartDate = new Date(today.setDate(date - 6)).toLocaleDateString();
+                 $scope.EndDate = new Date(today.setDate(date)).toLocaleDateString();
+             };
+         }
+         selectedDate.getWeek();
+     };
      $scope.backToTodaysDate = function() {
          selectedDate = Date.today();
          $scope.changeDate(0, false);
@@ -249,7 +340,6 @@
                  return teamAbbreviation
          }
      };
-
      $scope.getTeamAbbreviation = function(teamAbbreviation) {
          switch (teamAbbreviation) {
              case "lan":
@@ -339,7 +429,6 @@
              });
          });
      };
-
      $scope.gatherIds = function(id) {
          function lookup(name) {
              for (var i = 0, len = $scope.idsToLookFor.length; i < len; i++) {
@@ -379,7 +468,6 @@
          var score = ((((parseFloat(x.h)) - (parseFloat(x.d) + parseFloat(x.t) + parseFloat(x.hr))) * 1) + (parseFloat(x.d) * 2) + (parseFloat(x.t) * 3) + (parseFloat(x.hr) * 4) + (parseFloat(x.r) * 1) + (parseFloat(x.rbi) * 1) + (parseFloat(x.bb) * 1) + (parseFloat(x.sb) * 2) + (parseFloat(x.cs) * -1));
          return score;
      };
-
      $scope.players = function() {
          $http.get('../Baseball/json/fourtyMan.json').success(function(data) {
              $scope.playerJSON = data;
@@ -399,8 +487,6 @@
              });
          });
      };
-
-
      $scope.getPitchingStaffScore = function(x) {
          var pointsForHitsAndWalks = 0;
          var pointsForStrikeOuts = 0;

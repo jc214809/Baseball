@@ -33,6 +33,7 @@
 <body>
     <div ng-app="myApp">
         <div ng-controller="baseballController" data-ng-init="findMyTeam(''); changeDate(0, true);">
+            {{StartDate}}&nbsp;{{EndDate}}
             <div class="header">
                 <span>
                    <button id="dateBack" ng-click="changeDate(-1, false); findMyTeam('');" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  

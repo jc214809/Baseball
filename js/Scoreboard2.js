@@ -127,6 +127,7 @@
          // }
      };
      $scope.weeklyScores = function() {
+               alert("1");
          var dateToFindScores = new Date(selectedDate);
          $scope.getWeekRange();
          alert(dateToFindScores.toLocaleDateString());

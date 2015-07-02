@@ -131,6 +131,9 @@
          var dateToFindScores = new Date(selectedDate);
           alert(dateToFindScores);
          $scope.getWeekRange();
+         alert(dateToFindScores.toLocaleDateString());
+                            alert($scope.StartDate);
+                   alert(dateToFindScores.toLocaleDateString() >= $scope.StartDate);
          while (dateToFindScores.toLocaleDateString() >= $scope.StartDate) {
              //$scope.datesArray.push(dateToFindScores.toLocaleDateString());
              $scope.getEachDaysScores(dateToFindScores);

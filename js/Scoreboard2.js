@@ -127,14 +127,16 @@
          // }
      };
      $scope.weeklyScores = function() {
+                    alert("Joel");
          var dateToFindScores = new Date(selectedDate);
+          alert(dateToFindScores);
          $scope.getWeekRange();
          while (dateToFindScores.toLocaleDateString() >= $scope.StartDate) {
              //$scope.datesArray.push(dateToFindScores.toLocaleDateString());
              $scope.getEachDaysScores(dateToFindScores);
              $scope.addPitchingScoresToWeeklyScoreboard(dateToFindScores);
              dateToFindScores.setDate(dateToFindScores.getDate() - 1);
-              alert("Joel");
+
          }
      };
      $scope.getEachDaysScores = function(predate) {

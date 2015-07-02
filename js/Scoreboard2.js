@@ -126,10 +126,20 @@
          //     $scope.myPitchingStaff = 'sln';
          // }
      };
+     $scope.weeklyScores = function() {
+         var dateToFindScores = new Date(selectedDate);
+         $scope.getWeekRange();
+         while (dateToFindScores.toLocaleDateString() >= $scope.StartDate) {
+             //$scope.datesArray.push(dateToFindScores.toLocaleDateString());
+             $scope.getEachDaysScores(dateToFindScores);
+             $scope.addPitchingScoresToWeeklyScoreboard(dateToFindScores);
+             dateToFindScores.setDate(dateToFindScores.getDate() - 1);
+         }
+     };
      $scope.getEachDaysScores = function(predate) {
          $scope.getWeekRange();
          $scope.findMyTeam($scope.whichTeam);
-         var dateToFindScores = new Date(selectedDate);
+
          $scope.MondaysScore = 0;
          $scope.TuesdaysScore = 0;
          $scope.WednesdayScore = 0;
@@ -137,7 +147,6 @@
          $scope.FridayScore = 0
          $scope.SaturdayScore = 0;
          $scope.SundayScore = 0;
-         alert("Joel");
          $scope.baseballGame3 = null;
          $scope.datesArray = [];
          $scope.daysTotalForWeekly = 0;
@@ -147,7 +156,7 @@
          //     dateToFindScores.setDate(dateToFindScores.getDate() - 1);
          // }
 
-         var date = new Date(parseDate(predate));
+         var date = new Date(predate);
          //console.log(date.toString("dddd"));
          $scope.dayloop = date.getDate();
          $scope.monthloop = date.getMonth() + 1;
@@ -230,7 +239,7 @@
          });
      };
      $scope.addPitchingScoresToWeeklyScoreboard = function(dateOfDay) {
-         var date = new Date(parseDate(dateOfDay));
+         var date = new Date(dateOfDay);
          //console.log(date.toString("dddd"));
          $scope.dayloop = date.getDate();
          $scope.monthloop = date.getMonth() + 1;
@@ -246,8 +255,8 @@
          $scope.pitchingStaffGamesTotals.push($scope.game1);
          //alert($scope.doubleHeader);
          //if ($scope.doubleHeader) {
-         $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
-         $scope.pitchingStaffGamesTotals.push($scope.game2);
+         //$scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
+         //$scope.pitchingStaffGamesTotals.push($scope.game2);
          //alert("Got here");
          //};
 

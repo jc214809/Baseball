@@ -17,25 +17,6 @@
     <meta name="Baseball" content="width=device-width, initial-scale=1.0">
     <!--<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">-->
     <meta charset="utf-8">
-    <style>
-    table.scoreboard {
-        width: 600px;
-        text-align: center;
-    }
-    
-    table.scoreboard,
-    td.scoreboard,
-    th.scoreboard {
-        border: 1px solid black;
-        text-align: center;
-    }
-    
-    th.scoreboard {
-        background-color: red;
-        color: white;
-        font-weight: bold;
-    }
-    </style>
     <link rel="icon" type="image/png" href="../Baseball/images/favicon.ico" sizes="16x16">
     <link rel="shortcut icon" href="../Baseball/images/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="../Baseball/images/apple-touch-icon.png" />
@@ -51,7 +32,7 @@
 
 <body>
     <div ng-app="myApp">
-        <div ng-controller="baseballController" data-ng-init="findMyTeam('Mine'); changeDate(0, true); ">
+        <div ng-controller="baseballController" data-ng-init="findMyTeam('Mine'); changeDate(0, true); addPitchingScoresToWeeklyScoreboard('2015-06-29');addPitchingScoresToWeeklyScoreboard('2015-06-30');addPitchingScoresToWeeklyScoreboard('2015-07-01'); addPitchingScoresToWeeklyScoreboard('2015-07-02'); getEachDaysScores('2015-06-29');getEachDaysScores('2015-06-30');getEachDaysScores('2015-07-01');getEachDaysScores('2015-07-02');">
             <center>
                 <table class="scoreboard">
                     <thead>
@@ -82,13 +63,13 @@
             </center>
             <div class="header">
                 <span>
-                   <button id="dateBack" ng-click="changeDate(-1, false); findMyTeam('Mine');" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  
+                   <button id="dateBack" ng-click="changeDate(-1, false); findMyTeam('Mine'); getEachDaysScores('2015-06-30');" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  
                </span>
                 <span>
-                  &nbsp;<span class="center-date" style="font-size: 195%;"><b><a ng-click="backToTodaysDate(); findMyTeam('Mine');">{{month}}/{{day}}/{{year}}</a></b></span>&nbsp;
+                  &nbsp;<span class="center-date" style="font-size: 195%;"><b><a ng-click="backToTodaysDate(); findMyTeam('Mine'); getEachDaysScores('2015-06-30');">{{month}}/{{day}}/{{year}}</a></b></span>&nbsp;
                 </span>
                 <span class="right">
-                 <button id="dateForward" ng-click="changeDate(1, false);findMyTeam('Mine');"  class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
+                 <button id="dateForward" ng-click="changeDate(1, false);findMyTeam('Mine'); getEachDaysScores('2015-06-30');"  class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
              </span>
             </div>
             <div ng-repeat="game in baseballGame">

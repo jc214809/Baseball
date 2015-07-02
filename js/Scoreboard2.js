@@ -127,12 +127,13 @@
          // }
      };
      $scope.weeklyScores = function() {
-               alert("1");
+         alert("1");
          var dateToFindScores = new Date(selectedDate);
          $scope.getWeekRange();
          alert(dateToFindScores.toString('M/d/yyyy'));
          alert($scope.StartDate);
-         while (dateToFindScores.toString('M/d/yyyy') >= $scope.StartDate) {
+         Date.parseExact(dateToFindScores, "dd-MM-yyyy");
+         while (Date.parseExact(dateToFindScores, "dd-MM-yyyy") >= Date.parseExact($scope.StartDate, "dd-MM-yyyy")) {
              //$scope.datesArray.push(dateToFindScores.toLocaleDateString());
              $scope.getEachDaysScores(dateToFindScores);
              $scope.addPitchingScoresToWeeklyScoreboard(dateToFindScores);

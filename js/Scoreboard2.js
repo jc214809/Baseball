@@ -126,10 +126,20 @@
          //     $scope.myPitchingStaff = 'sln';
          // }
      };
+     $scope.weeklyScores = function() {
+         var dateToFindScores = new Date(selectedDate);
+         $scope.getWeekRange();
+         while (dateToFindScores.toLocaleDateString() >= $scope.StartDate) {
+             //$scope.datesArray.push(dateToFindScores.toLocaleDateString());
+             $scope.getEachDaysScores(dateToFindScores);
+             $scope.addPitchingScoresToWeeklyScoreboard(dateToFindScores);
+             dateToFindScores.setDate(dateToFindScores.getDate() - 1);
+         }
+     };
      $scope.getEachDaysScores = function(predate) {
          $scope.getWeekRange();
          $scope.findMyTeam($scope.whichTeam);
-         var dateToFindScores = new Date(selectedDate);
+
          $scope.MondaysScore = 0;
          $scope.TuesdaysScore = 0;
          $scope.WednesdayScore = 0;
@@ -146,7 +156,7 @@
          //     dateToFindScores.setDate(dateToFindScores.getDate() - 1);
          // }
 
-         var date = new Date(parseDate(predate));
+         var date = new Date(predate);
          //console.log(date.toString("dddd"));
          $scope.dayloop = date.getDate();
          $scope.monthloop = date.getMonth() + 1;
@@ -229,7 +239,7 @@
          });
      };
      $scope.addPitchingScoresToWeeklyScoreboard = function(dateOfDay) {
-         var date = new Date(parseDate(dateOfDay));
+         var date = new Date(dateOfDay);
          //console.log(date.toString("dddd"));
          $scope.dayloop = date.getDate();
          $scope.monthloop = date.getMonth() + 1;

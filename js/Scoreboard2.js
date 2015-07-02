@@ -147,6 +147,7 @@
          $scope.FridayScore = 0
          $scope.SaturdayScore = 0;
          $scope.SundayScore = 0;
+         alert(predate);
          $scope.baseballGame3 = null;
          $scope.datesArray = [];
          $scope.daysTotalForWeekly = 0;

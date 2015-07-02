@@ -130,9 +130,9 @@
                alert("1");
          var dateToFindScores = new Date(selectedDate);
          $scope.getWeekRange();
-         alert(dateToFindScores.toLocaleDateString());
+         alert(parseDate(dateToFindScores));
          alert($scope.StartDate);
-         while (dateToFindScores.toLocaleDateString() >= $scope.StartDate) {
+         while (parseDate(dateToFindScores) >= parseDate($scope.StartDate)) {
              //$scope.datesArray.push(dateToFindScores.toLocaleDateString());
              $scope.getEachDaysScores(dateToFindScores);
              $scope.addPitchingScoresToWeeklyScoreboard(dateToFindScores);

@@ -75,7 +75,7 @@ body {
 }
 
 .right {
-    padding-left: 33.75%;
+    padding-left: 60%;
 }
 
 .player-label {
@@ -97,6 +97,24 @@ body {
 
 .game-time {
     color: orange;
+}
+
+table.scoreboard {
+    width: 600px;
+    text-align: center;
+}
+
+table.scoreboard,
+td.scoreboard,
+th.scoreboard {
+    border: 1px solid black;
+    text-align: center;
+}
+
+th.scoreboard {
+    background-color: red;
+    color: white;
+    font-weight: bold;
 }
 /* Larger desktop */
 
@@ -199,7 +217,7 @@ body {
         vertical-align: 5px;
     }
     .right {
-        padding-left: 40%;
+        padding-left: 40 %;
     }
     .center-date {
         padding-left: 40%;
@@ -236,7 +254,7 @@ body {
         vertical-align: 5px;
     }
     .right {
-        padding-left: 39%;
+        padding-left: 39 %;
     }
     .center-date {
         padding-left: 38%;
@@ -247,6 +265,8 @@ body {
 /* Portrait tablet to landscape and desktop */
 
 @media (min-width: 768px) and (max-width: 979px) {
+    /* INDEX2 CSS Media*/
+    
     * {
         font-size: 30px;
     }
@@ -273,10 +293,10 @@ body {
         vertical-align: 5px;
     }
     .right {
-        padding-left: 30.75%;
+        padding-left: 33%;
     }
     .center-date {
-        padding-left: 30.75%;
+        padding-left: 33%;
         font-size: 115%;
         vertical-align: -8px;
     }

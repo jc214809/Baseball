@@ -127,23 +127,16 @@
          // }
      };
      $scope.weeklyScores = function() {
-                    alert("Joel");
          var dateToFindScores = new Date(selectedDate);
-          alert(dateToFindScores);
          $scope.getWeekRange();
-         alert(dateToFindScores.toLocaleDateString());
-                            alert($scope.StartDate);
-                   alert(dateToFindScores.toLocaleDateString() >= $scope.StartDate);
          while (dateToFindScores.toLocaleDateString() >= $scope.StartDate) {
              //$scope.datesArray.push(dateToFindScores.toLocaleDateString());
              $scope.getEachDaysScores(dateToFindScores);
              $scope.addPitchingScoresToWeeklyScoreboard(dateToFindScores);
              dateToFindScores.setDate(dateToFindScores.getDate() - 1);
-
          }
      };
      $scope.getEachDaysScores = function(predate) {
-                  alert("1" +predate);
          $scope.getWeekRange();
          $scope.findMyTeam($scope.whichTeam);
 
@@ -154,7 +147,6 @@
          $scope.FridayScore = 0
          $scope.SaturdayScore = 0;
          $scope.SundayScore = 0;
-         alert("2" +predate);
          $scope.baseballGame3 = null;
          $scope.datesArray = [];
          $scope.daysTotalForWeekly = 0;
@@ -367,6 +359,7 @@
              $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
              $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
          }
+         $scope.weeklyScores();
          $scope.getWeekRange();
          $scope.findMyTeam($scope.whichTeam);
          $scope.Joel = [];

@@ -48,6 +48,7 @@
      $scope.topOrBottom = null;
      $scope.inning = null;
      $scope.whichTeam = null;
+     $scope.totalBattingPoints = 0;
      $scope.lastMonday = mondayDateHelper.previous().monday().toString('M/d/yyyy');
      $scope.lastSunday = mondayDateHelper.previous().sunday().toString('M/d/yyyy');
      $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
@@ -118,86 +119,168 @@
          }
      };
      $scope.findMyStaff = function(staff) {
-         console.log($scope.myPitchingStaff);
+         //console.log($scope.myPitchingStaff);
          // if (staff == 'LAN') {
          //     $scope.myPitchingStaff = 'lan';
          // } else {
          //     $scope.myPitchingStaff = 'sln';
          // }
      };
-     $scope.getEachDaysScores = function() {
+     $scope.getEachDaysScores = function(predate) {
          $scope.getWeekRange();
-         $scope.eachGame3 = null;
-         baseball3 = [];
-         $scope.baseballGame3 = [];
-         $scope.daysGames3 = [];
          $scope.findMyTeam($scope.whichTeam);
          var dateToFindScores = new Date(selectedDate);
-         while (dateToFindScores.toLocaleDateString() >= $scope.StartDate) {
-             //console.log(dateToFindScores.toString("dddd"));
-             $scope.dayloop = dateToFindScores.getDate();
-             $scope.monthloop = dateToFindScores.getMonth() + 1;
-             $scope.yearloop = dateToFindScores.getFullYear();
-             if ($scope.dayloop < 10) {
-                 $scope.dayloop = '0' + $scope.dayloop;
-             }
-             if ($scope.monthloop < 10) {
-                 $scope.monthloop = '0' + $scope.monthloop;
-             }
-             $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/master_scoreboard.json';
-             //alert($scope.scoreBoard);
-             $http.get($scope.scoreBoard).success(function(data) {
-                 $scope.baseballGame3;
-                 $scope.eachGame3 = data.data.games.game;
-                 angular.forEach($scope.eachGame3, function(batter) {
-                     var JSONlink = batter.game_data_directory;
-                     //alert('http://gd2.mlb.com' + JSONlink + "/boxscore.json");
-                     $scope.daysGames3.push('http://gd2.mlb.com' + JSONlink + "/boxscore.json");
-                 });
+         $scope.MondaysScore = 0;
+         $scope.TuesdaysScore = 0;
+         $scope.WednesdayScore = 0;
+         $scope.ThursdayScore = 0
+         $scope.FridayScore = 0
+         $scope.SaturdayScore = 0;
+         $scope.SundayScore = 0;
+         $scope.baseballGame3 = null;
+         $scope.datesArray = [];
+         $scope.daysTotalForWeekly = 0;
+         // while (dateToFindScores.toLocaleDateString() >= $scope.StartDate) {
+         //     $scope.datesArray.push(dateToFindScores.toLocaleDateString());
+         //     //console.log(dateToFindScores.toString("dddd"));
+         //     dateToFindScores.setDate(dateToFindScores.getDate() - 1);
+         // }
 
-                 console.log($scope.daysGames3);
-                 angular.forEach($scope.daysGames3, function(games) {
-                     $scope.game3 = null;
-                     $scope.game3 = $http.get(games);
-                     $q.all([$scope.game3]).then(function(values) {
-                         baseball3.push(values);
-                         //console.log(values);
-                         $scope.baseballGame3 = baseball3;
-                         //console.log($scope.baseballGame2);
-                     });
-                 });
-                 $scope.totalBattingPoints = 0;
-                 //console.log($scope.baseballGame2);
-                 angular.forEach($scope.baseballGame2, function(Joel) {
-                     console.log("1");
-                     angular.forEach(Joel, function(eachGame) {
-                         console.log("2");
-                         var tryThis = eachGame.data.data.boxscore.batting;
-                         angular.forEach(tryThis, function(eachLineUp) {
-                             var tryThis2 = eachLineUp.batter;
-                             angular.forEach(tryThis2, function(batter) {
-                                 console.log($scope.selectedTeam);
-                                 if ($scope.selectedTeam.indexOf(batter.id.toString()) > -1) {
-                                     console.log(batter.id);
-                                     $scope.totalBattingPoints += parseFloat($scope.getScore(0, batter));
+         var date = new Date(parseDate(predate));
+         //console.log(date.toString("dddd"));
+         $scope.dayloop = date.getDate();
+         $scope.monthloop = date.getMonth() + 1;
+         $scope.yearloop = date.getFullYear();
+         if ($scope.dayloop < 10) {
+             $scope.dayloop = '0' + $scope.dayloop;
+         }
+         if ($scope.monthloop < 10) {
+             $scope.monthloop = '0' + $scope.monthloop;
+         }
+         //console.log($scope.monthloop + '-' + $scope.dayloop + '-' + $scope.yearloop);
+         $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/master_scoreboard.json';
+         //alert($scope.scoreBoard);
+         $scope.getPoints($scope.scoreBoard, date);
+
+     };
+     $scope.getPoints = function(master, dateOfDay) {
+         //console.log(dateOfDay.toString("dddd"));
+         $http.get(master).success(function(data) {
+             $scope.eachGame3 = null;
+             var baseball3 = [];
+             $scope.daysGames3 = [];
+             $scope.baseballGame3 = null;
+             $scope.eachGame3 = data.data.games.game;
+             angular.forEach($scope.eachGame3, function(gameInfo) {
+                 var JSONlink = gameInfo.game_data_directory;
+                 //alert('http://gd2.mlb.com' + JSONlink + "/boxscore.json");
+                 if ($scope.daysGames3.indexOf('http://gd2.mlb.com' + JSONlink + '/boxscore.json') == -1) {
+                     $scope.daysGames3.push('http://gd2.mlb.com' + JSONlink + '/boxscore.json');
+                     //console.log('http://gd2.mlb.com' + JSONlink + '/boxscore.json');
+                 };
+             });
+             $scope.baseballGame3 = null;
+             baseball3 = [];
+             //$scope.totalBattingPoints = 0;
+             angular.forEach($scope.daysGames3, function(games) {
+                 $scope.game3 = null;
+                 $scope.game3 = $http.get(games);
+                 $q.all([$scope.game3]).then(function(values) {
+                     angular.forEach(values, function(eachGame) {
+                         var hittingBoxscore = eachGame.data.data.boxscore.batting;
+                         angular.forEach(hittingBoxscore, function(eachTeamsBoxscore) {
+                             var eachLineUp = eachTeamsBoxscore.batter;
+                             angular.forEach(eachLineUp, function(eachBatter) {
+                                 if ($scope.selectedTeam.indexOf(eachBatter.id.toString()) > -1) {
+                                     $scope.daysTotalForWeekly += parseFloat($scope.getScore(0, eachBatter));
+                                     console.log(eachBatter.id.toString() + '===' + parseFloat($scope.getScore(0, eachBatter)) + '===' + $scope.daysTotalForWeekly);
+                                     //
+                                     //console.log($scope.daysTotalForWeekly);
+                                     var theDate = new Date(dateOfDay);
+                                     if (theDate.toString("dddd") == "Monday") {
+                                         $scope.MondaysScore += parseFloat($scope.getScore(0, eachBatter));
+                                     }
+                                     if (theDate.toString("dddd") == "Tuesday") {
+                                         $scope.TuesdaysScore += parseFloat($scope.getScore(0, eachBatter));
+                                     };
+                                     if (theDate.toString("dddd") == "Wednesday") {
+                                         $scope.WednesdayScore += parseFloat($scope.getScore(0, eachBatter));
+                                     };
+                                     if (theDate.toString("dddd") == "Thursday") {
+                                         $scope.ThursdayScore += parseFloat($scope.getScore(0, eachBatter));
+                                     };
+                                     if (theDate.toString("dddd") == "Friday") {
+                                         $scope.FridayScore += parseFloat($scope.getScore(0, eachBatter));
+                                     };
+                                     if (theDate.toString("dddd") == "Saturday") {
+                                         $scope.SaturdayScore += parseFloat($scope.getScore(0, eachBatter));
+                                     };
+                                     if (theDate.toString("dddd") == "Sunday") {
+                                         console.log(eachBatter.id.toString() + '===' + parseFloat($scope.getScore(0, eachBatter)));
+                                         $scope.SundayScore += parseFloat($scope.getScore(0, eachBatter));
+                                     };
+                                     $scope.WeeksTotalScore = $scope.MondaysScore + $scope.TuesdaysScore + $scope.WednesdayScore + $scope.ThursdayScore + $scope.FridayScore + $scope.SaturdayScore + $scope.SundayScore;
                                  };
                              });
                          });
                      });
                  });
-                 console.log($scope.totalBattingPoints);
-                 var theDate = parseDate($scope.yearloop + '-' + $scope.monthloop + '-' + $scope.dayloop);
-                 if (theDate.toString("dddd") == "Monday") {
-                     $scope.MondaysScore = 0;
-                     $scope.MondaysScore += $scope.totalBattingPoints;
-                 }
-                 if (theDate.toString("dddd") == "Tuesday") {
-                     $scope.TuesdaysScore = 0;
-                     $scope.TuesdaysScore += $scope.totalBattingPoints;
-                 };
              });
-             dateToFindScores.setDate(dateToFindScores.getDate() - 1);
+         });
+     };
+     $scope.addPitchingScoresToWeeklyScoreboard = function(dateOfDay) {
+         var date = new Date(parseDate(dateOfDay));
+         //console.log(date.toString("dddd"));
+         $scope.dayloop = date.getDate();
+         $scope.monthloop = date.getMonth() + 1;
+         $scope.yearloop = date.getFullYear();
+         if ($scope.dayloop < 10) {
+             $scope.dayloop = '0' + $scope.dayloop;
          }
+         if ($scope.monthloop < 10) {
+             $scope.monthloop = '0' + $scope.monthloop;
+         }
+         $scope.pitchingStaffGamesTotals = [];
+         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
+         $scope.pitchingStaffGamesTotals.push($scope.game1);
+         //alert($scope.doubleHeader);
+         //if ($scope.doubleHeader) {
+         $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
+         $scope.pitchingStaffGamesTotals.push($scope.game2);
+         //alert("Got here");
+         //};
+
+         angular.forEach($scope.pitchingStaffGamesTotals, function(pitchingTotals) {
+             $scope.pitchingGame = $http.get(pitchingTotals);
+             $q.all([$scope.pitchingGame]).then(function(dataTotals) {
+
+                 var x2js = new X2JS();
+                 convertedData = x2js.xml_str2json(dataTotals[0].data.replace(/<!--[\s\S]*?-->/g, ""));
+                 var gameTotal = $scope.getPitchingStaffScore(convertedData.pitching);
+                 if (date.toString("dddd") == "Monday") {
+                     $scope.MondaysScore += $scope.getPitchingStaffScore(convertedData.pitching);
+                 }
+                 if (date.toString("dddd") == "Tuesday") {
+                     $scope.TuesdaysScore += $scope.getPitchingStaffScore(convertedData.pitching);
+                 };
+                 if (date.toString("dddd") == "Wednesday") {
+                     $scope.WednesdayScore += $scope.getPitchingStaffScore(convertedData.pitching);
+                 };
+                 if (date.toString("dddd") == "Thursday") {
+                     $scope.ThursdayScore += $scope.getPitchingStaffScore(convertedData.pitching);
+                 };
+                 if (date.toString("dddd") == "Friday") {
+                     $scope.FridayScore += $scope.getPitchingStaffScore(convertedData.pitching);
+                 };
+                 if (date.toString("dddd") == "Saturday") {
+                     $scope.SaturdayScore += $scope.getPitchingStaffScore(convertedData.pitching);
+                 };
+                 if (date.toString("dddd") == "Sunday") {
+                     $scope.SundayScore += $scope.getPitchingStaffScore(convertedData.pitching);
+                 };
+                 $scope.WeeksTotalScore += $scope.MondaysScore + $scope.TuesdaysScore + $scope.WednesdayScore + $scope.ThursdayScore + $scope.FridayScore + $scope.SaturdayScore + $scope.SundayScore;
+             });
+         });
      };
      $scope.showTeam = function() {
          $scope.players = [];
@@ -271,7 +354,7 @@
          $scope.Joel = [];
          $scope.pointsPerPlayerID = [];
          $scope.init();
-         console.log($scope.myPitchingStaff);
+         //console.log($scope.myPitchingStaff);
          $scope.pitchingPoints();
          $timeout(function() {
              $('#dateBack').removeAttr('disabled');
@@ -391,14 +474,19 @@
      };
      $scope.hittingPoints = function() {
          $scope.totalBattingPoints = 0;
-         angular.forEach($scope.baseballGame, function(Joel) {
-             angular.forEach(Joel, function(eachGame) {
-                 var tryThis = eachGame.data.data.boxscore.batting;
-                 angular.forEach(tryThis, function(eachLineUp) {
-                     var tryThis2 = eachLineUp.batter;
-                     angular.forEach(tryThis2, function(batter) {
-                         if ($scope.selectedTeam.indexOf(batter.id.toString()) > -1) {
-                             $scope.totalBattingPoints += parseFloat($scope.getScore(0, batter));
+         angular.forEach($scope.baseballGame, function(eachFullGameJSON) {
+             //console.log(JSON.stringify(eachFullGameJSON));
+             angular.forEach(eachFullGameJSON, function(eachGame) {
+                 //console.log(JSON.stringify(eachGame));
+                 var hittingBoxscore = eachGame.data.data.boxscore.batting;
+                 angular.forEach(hittingBoxscore, function(eachTeamsBoxscore) {
+                     //console.log(JSON.stringify(eachTeamsBoxscore));
+                     var eachLineUp = eachTeamsBoxscore.batter;
+                     //console.log(JSON.stringify(eachLineUp));
+                     angular.forEach(eachLineUp, function(eachBatter) {
+                         //console.log(JSON.stringify(eachBatter));
+                         if ($scope.selectedTeam.indexOf(eachBatter.id.toString()) > -1) {
+                             $scope.totalBattingPoints += parseFloat($scope.getScore(0, eachBatter));
                          };
                      });
                  });

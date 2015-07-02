@@ -134,9 +134,11 @@
              $scope.getEachDaysScores(dateToFindScores);
              $scope.addPitchingScoresToWeeklyScoreboard(dateToFindScores);
              dateToFindScores.setDate(dateToFindScores.getDate() - 1);
+              alert("Joel");
          }
      };
      $scope.getEachDaysScores = function(predate) {
+                  alert("1" +predate);
          $scope.getWeekRange();
          $scope.findMyTeam($scope.whichTeam);
 
@@ -147,7 +149,7 @@
          $scope.FridayScore = 0
          $scope.SaturdayScore = 0;
          $scope.SundayScore = 0;
-         alert(predate);
+         alert("2" +predate);
          $scope.baseballGame3 = null;
          $scope.datesArray = [];
          $scope.daysTotalForWeekly = 0;

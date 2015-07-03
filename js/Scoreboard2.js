@@ -129,7 +129,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     $scope.weeklyScores = function() {
         var dateToFindScores = new Date(selectedDate);
         $scope.getWeekRange();
-        while (dateToFindScores.toLocaleDateString() >= $scope.StartDate) {
+        while (dateToFindScores.toString('M/d/yyyy') >= $scope.StartDate) {
             //$scope.datesArray.push(dateToFindScores.toLocaleDateString());
             $scope.getEachDaysScores(dateToFindScores);
             $scope.addPitchingScoresToWeeklyScoreboard(dateToFindScores);
@@ -147,6 +147,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.FridayScore = 0
         $scope.SaturdayScore = 0;
         $scope.SundayScore = 0;
+        $scope.WeeksTotalScore = 0;
         $scope.baseballGame3 = null;
         $scope.datesArray = [];
         $scope.daysTotalForWeekly = 0;
@@ -382,14 +383,14 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             if (today.getDay() != 0) {
                 var day = today.getDay() - start;
                 var date = today.getDate() - day;
-                $scope.StartDate = new Date(today.setDate(date)).toLocaleDateString();
-                $scope.EndDate = new Date(today.setDate(date + 6)).toLocaleDateString();
+                $scope.StartDate = new Date(today.setDate(date)).toString('M/d/yyyy');
+                $scope.EndDate = new Date(today.setDate(date + 6)).toString('M/d/yyyy');
             } else {
                 //finds range if it is sunday
                 var day = today.getDay();
                 var date = today.getDate() - day;
-                $scope.StartDate = new Date(today.setDate(date - 6)).toLocaleDateString();
-                $scope.EndDate = new Date(today.setDate(date)).toLocaleDateString();
+                $scope.StartDate = new Date(today.setDate(date - 6)).toString('M/d/yyyy');
+                $scope.EndDate = new Date(today.setDate(date)).toString('M/d/yyyy');
             };
         }
         selectedDate.getWeek();

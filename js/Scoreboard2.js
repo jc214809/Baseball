@@ -130,7 +130,7 @@
          alert("1");
          var dateToFindScores = new Date(selectedDate);
          $scope.getWeekRange();
-         alert(dateToFindScores.toString('M/d/yyyy'));
+         alert(dateToFindScores.toString('MM/dd/yyyy'));
          alert($scope.StartDate);
          Date.parseExact(dateToFindScores, "dd-MM-yyyy");
          while (Date.parseExact(dateToFindScores, "dd-MM-yyyy") >= Date.parseExact($scope.StartDate, "dd-MM-yyyy")) {

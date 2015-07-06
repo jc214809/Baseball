@@ -73,7 +73,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         if (tryJoel == "Mine") {
             if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
                 //alert("IAN && CARGO");
-                $scope.myTeam = ['435622', '543829', '471865', '434670', '547989', '425877', '592626', '592518', '457763'];
+                $scope.myTeam = ['425783', '543829', '471865', '434670', '547989', '425877', '592626', '592518', '457763'];
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
                 //alert("IAN && CARGO");

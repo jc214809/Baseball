@@ -71,7 +71,11 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.whichTeam = tryJoel;
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
         if (tryJoel == "Mine") {
-            if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
+            if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
+                //alert("IAN && CARGO");
+                $scope.myTeam = ['435622', '543829', '471865', '434670', '547989', '425877', '592626', '592518', '457763'];
+                $scope.myPitchingStaff = 'lan';
+            } else if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
                 //alert("IAN && CARGO");
                 $scope.myTeam = ['630111', '543829', '471865', '435622', '547989', '425877', '592626', '592518', '457763'];
                 $scope.myPitchingStaff = 'lan';
@@ -94,7 +98,11 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
-            if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
+            if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
+                //alert("WEEK14");
+                $scope.myTeam = ['467793', '407893', '572821', '121347', '592743', '453568', '456715', '542993', '457727'];
+                $scope.myPitchingStaff = 'cle';
+            } else if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
                 //alert("WEEK13");
                 $scope.myTeam = ['519083', '408236', '514888', '572761', '453064', '516782', '493316', '571740', '435522'];
                 $scope.myPitchingStaff = 'sfn';

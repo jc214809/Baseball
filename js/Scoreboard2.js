@@ -33,6 +33,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     $scope.total = 0;
     $scope.pointsPerPlayerID = [];
     $scope.myTeam = [];
+    $scope.benchPlayers = [];
     $scope.opponentsTeam = ['519390', '543333', '456030', '607054', '408314', '460576', '430945', '493114', '451594'];
     $scope.selectedTeam = [];
     $scope.idsToLookFor = [];
@@ -54,6 +55,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
     $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
     $scope.mlbTeamIDs = [145, 143, 113, 144, 147, 120, 141, 114, 119, 115, 118, 142, 109, 133, 136, 134, 110, 116, 111, 146, 121, 139, 112, 140, 117, 158, 138, 108, 135, 137];
+    $scope.buttonText = "Show Bench";
     //  '592626', '570256', '457763', '543760', '471865',"475582"
     //My Team
     //'630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'
@@ -74,22 +76,27 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
                 //alert("IAN && CARGO");
                 $scope.myTeam = ['425783', '543829', '471865', '434670', '547989', '425877', '592626', '592518', '457763'];
+                $scope.benchPlayers = ['630111', '435622', '425567', '285078', '570256', '543760'];
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
                 //alert("IAN && CARGO");
                 $scope.myTeam = ['630111', '543829', '471865', '435622', '547989', '425877', '592626', '592518', '457763'];
+                $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-06-22'), parseDate('2015-06-28'))) {
                 //alert("YADI");
                 $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '425877', '592626', '592518', '457763'];
+                $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-06-15'), parseDate('2015-06-21'))) {
                 //alert("CARGO");
                 $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '471865', '592626', '592518', '457763'];
+                $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-06-08'), parseDate('2015-06-14'))) {
                 //alert("IAN");
                 $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
+                $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'lan';
             } else {
                 //alert("DEFUALT");
@@ -101,22 +108,28 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
                 //alert("WEEK14");
                 $scope.myTeam = ['467793', '407893', '572821', '121347', '514917', '453568', '456715', '542993', '457727'];
+                $scope.benchPlayers = [];
+                $scope.benchPlayers = ['517370', '408234', '518692', '452254', '592743'];
                 $scope.myPitchingStaff = 'cle';
             } else if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
                 //alert("WEEK13");
                 $scope.myTeam = ['519083', '408236', '514888', '572761', '453064', '516782', '493316', '571740', '435522'];
+                $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'sfn';
             } else if (theSelectedDate.between(parseDate('2015-06-22'), parseDate('2015-06-28'))) {
                 //alert("WEEK12");
                 $scope.myTeam = ['431145', '425902', '518934', '518626', '516770', '457708', '624577', '136860', '453943'];
+                $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'sln';
             } else if (theSelectedDate.between(parseDate('2015-06-15'), parseDate('2015-06-21'))) {
                 //alert("Week11");
                 $scope.myTeam = ['519390', '543333', '456030', '607054', '408314', '460576', '430945', '493114', '451594'];
+                $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'nyn';
             } else if (theSelectedDate.between(parseDate('2015-06-8'), parseDate('2015-06-14'))) {
                 //alert("WEEK10");
                 $scope.myTeam = ['446308', '502671', '543685', '592178', '425509', '518792', '461314', '519317', '572122'];
+                $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'sea';
             } else {
                 //alert("IAN");
@@ -124,6 +137,14 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                 $scope.myPitchingStaff = '';
             }
             $scope.selectedTeam = $scope.myTeam;
+        }
+    };
+    $scope.toggleBench = function() {
+        $("#benchPlayers").toggle();
+        if ($scope.buttonText == "Show Bench") {
+            $scope.buttonText = "Hide Bench";
+        } else {
+            $scope.buttonText = "Show Bench";
         }
     };
     $scope.findMyStaff = function(staff) {

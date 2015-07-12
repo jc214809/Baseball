@@ -294,7 +294,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.pitchingStaffGamesTotals = [];
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
         $scope.pitchingStaffGamesTotals.push($scope.game1);
-        alert($scope.doubleHeader);
+        //alert($scope.doubleHeader);
         //if ($scope.doubleHeader) {
         $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
         $scope.pitchingStaffGamesTotals.push($scope.game2);

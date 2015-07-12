@@ -211,10 +211,10 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             $scope.baseballGame3 = null;
             $scope.eachGame3 = data.data.games.game;
             angular.forEach($scope.eachGame3, function(gameInfo) {
-                $scope.doubleHeader = false;
+                //$scope.doubleHeader = false;
                 if (gameInfo.away_code == $scope.myPitchingStaff || gameInfo.home_code == $scope.myPitchingStaff) {
-                    console.log("Date: " + gameInfo.time_date);
-                    console.log("doubleHeader code: " + gameInfo.double_header_sw);
+                    //console.log("Date: " + gameInfo.time_date);
+                    //console.log("doubleHeader code: " + gameInfo.double_header_sw);
                     if (gameInfo.double_header_sw != 'N') {
                         $scope.doubleHeader = true;
                         // console.log("My Staff: " + $scope.myPitchingStaff);
@@ -294,12 +294,12 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.pitchingStaffGamesTotals = [];
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
         $scope.pitchingStaffGamesTotals.push($scope.game1);
-        //alert($scope.doubleHeader);
-        if ($scope.doubleHeader) {
-            $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
-            $scope.pitchingStaffGamesTotals.push($scope.game2);
-            //alert("Got here");
-        };
+        alert($scope.doubleHeader);
+        //if ($scope.doubleHeader) {
+        $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
+        $scope.pitchingStaffGamesTotals.push($scope.game2);
+        //alert("Got here");
+        //};
 
         angular.forEach($scope.pitchingStaffGamesTotals, function(pitchingTotals) {
             $scope.pitchingGame = $http.get(pitchingTotals);
@@ -312,6 +312,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                     $scope.MondaysScore += $scope.getPitchingStaffScore(convertedData.pitching);
                 }
                 if (date.toString("dddd") == "Tuesday") {
+                    //console.log("Scores =" + $scope.getPitchingStaffScore(convertedData.pitching));
                     $scope.TuesdaysScore += $scope.getPitchingStaffScore(convertedData.pitching);
                 };
                 if (date.toString("dddd") == "Wednesday") {
@@ -796,7 +797,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             angular.forEach($scope.daysGames, function(games) {
                 $scope.game = $http.get(games);
                 $q.all([$scope.game]).then(function(values) {
-
                     baseball.push(values);
                     $scope.baseballGame = baseball;
                     //$scope.reds = baseball[0][0].data.data.boxscore.batting;

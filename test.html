@@ -15,6 +15,153 @@
     <script src="../Baseball/js/test.js"></script>
     <script src="../Baseball/js/date.js"></script>
     <script>
+    var tab = "sat";
+    var liveScoreA = "";
+    var liveScoreB = "";
+    var totalScoreA = "";
+    var totalScoreB = "";
+    var away_team_id = 55988;
+    var home_team_id = 60746;
+    var period_id = 24;
+    console.log("period_id: " + period_id);
+    var ajaxScores = $.ajax({
+        url: "/fantasylookup/json/named.fb_team_score_by_date.bam",
+        dataType: "json",
+        data: {
+            away_team_id: away_team_id,
+            home_team_id: home_team_id,
+            period_id: period_id
+        }
+    });
+    console.log("ajaxScores: " + JSON.stringify(ajaxScores));
+    var dataA = []; /*away team*/
+    var dataB = []; /*home team*/
+
+    var isLiveDay = true; // add true/false here
+
+    // RK: temporary fix for 11am switchover (part 1/4)
+    var currentDay;
+    switch (tab) {
+        case 'mon':
+            currentDay = 1;
+            break;
+        case 'tue':
+            currentDay = 2;
+            break;
+        case 'wed':
+            currentDay = 3;
+            break;
+        case 'thu':
+            currentDay = 4;
+            break;
+        case 'fri':
+            currentDay = 5;
+            break;
+        case 'sat':
+            currentDay = 6;
+            break;
+        case 'sun':
+            currentDay = 7;
+            break;
+    }
+
+    function buildLineScore(teamId) {
+        if (teamId == "A") liveScore = liveScoreA;
+        else if (teamId == "B") liveScore = liveScoreB;
+
+        var data = new Array(); // clear array;
+
+        switch (teamId) {
+            case 'A':
+                data = dataA;
+                break;
+            case 'B':
+                data = dataB;
+                break;
+        }
+
+        // RK: temporary fix for 11am switchover (part 2/4)
+        //var currentDay = data.length + 1;
+        //alert("teamId=" + teamId + "\ncurrentDay=" + currentDay);
+
+        var dataRow = document.getElementById("team" + teamId).getElementsByTagName("tr")[0];
+        var dataCells = dataRow.getElementsByTagName("td");
+        // RK: temporary fix for 11am switchover (part 3/4)
+        //dataCells[1].innerHTML = (currentDay == 1) ? writeLiveScore(teamId) : (data[0] == null) ? "&nbsp;" : data[0];
+        //dataCells[2].innerHTML = (currentDay == 2) ? writeLiveScore(teamId) : (data[1] == null) ? "&nbsp;" : data[1];
+        //dataCells[3].innerHTML = (currentDay == 3) ? writeLiveScore(teamId) : (data[2] == null) ? "&nbsp;" : data[2];
+        //dataCells[4].innerHTML = (currentDay == 4) ? writeLiveScore(teamId) : (data[3] == null) ? "&nbsp;" : data[3];
+        //dataCells[5].innerHTML = (currentDay == 5) ? writeLiveScore(teamId) : (data[4] == null) ? "&nbsp;" : data[4];
+        //dataCells[6].innerHTML = (currentDay == 6) ? writeLiveScore(teamId) : (data[5] == null) ? "&nbsp;" : data[5];
+        //dataCells[7].innerHTML = (currentDay == 7) ? writeLiveScore(teamId) : (data[6] == null) ? "&nbsp;" : data[6];
+        for (var i = 1; i < 8; i++) {
+            dataCells[i].innerHTML = (data[i - 1] != null && data[i - 1] != 0) ? data[i - 1] : (currentDay == i) ? writeLiveScore(teamId) : (currentDay > i) ? "0" : "&nbsp;";
+        }
+
+        dataCells[8].innerHTML = writeTotalScore(teamId, data, liveScore);
+        return dataCells[8].innerHTML;
+    }
+
+    function writeTotalScore(teamId, data, liveScore) {
+        if (liveScore == "") liveScore = 0;
+        var totalScore = 0;
+        for (var x = 0; x < data.length; x++) {
+            totalScore += data[x] * 1;
+        }
+        // RK: temporary fix for 11am switchover (part 4/4)
+        //totalScore = (totalScore*1) + (liveScore*1);
+        totalScore = (totalScore * 1) + (((data[currentDay - 1] == null) || (data[currentDay - 1] == 0)) ? (liveScore * 1) : 0);
+        return totalScore;
+    }
+
+    function writeLiveScore(teamId) {
+        if (teamId == "A") return liveScoreA;
+        if (teamId == "B") return liveScoreB;
+    }
+
+    function getLiveScore(scoreB, scoreA) {
+        liveScoreA = scoreA;
+        liveScoreB = scoreB;
+        totalScoreA = buildLineScore('A');
+        totalScoreB = buildLineScore('B');
+        // Note: similar logic below ... if you change here change below too
+        if (document.getElementById("tiebreakrow")) {
+            if (totalScoreA == totalScoreB && totalScoreA != 0 && totalScoreB != 0) {
+                document.getElementById("tiebreakrow").style.display = 'block';
+            } else {
+                document.getElementById("tiebreakrow").style.display = 'none';
+            }
+        }
+    }
+    $.when(ajaxScores).done(function(resp) {
+
+        var rows = resp.fb_team_score_by_date.queryResults.row;
+        for (var i = 0, l = rows.length; i < l; i++) {
+            if (+rows[i].team_id === away_team_id) {
+                dataA.push(rows[i].total_points);
+            } else if (+rows[i].team_id === home_team_id) {
+                dataB.push(rows[i].total_points);
+            }
+        }
+        console.log("ajaxScores: " + JSON.stringify(dataA));
+        console.log("ajaxScores: " + dataB);
+        if (isLiveDay == true) {
+            getLiveScore('0', '0');
+        } else {
+            totalScoreA = buildLineScore('A');
+            totalScoreB = buildLineScore('B');
+            // Note: similar logic above ... if you change here change above too
+            if (document.getElementById("tiebreakrow")) {
+                if (totalScoreA == totalScoreB && totalScoreA != 0 && totalScoreB != 0) {
+                    document.getElementById("tiebreakrow").style.display = 'block';
+                } else {
+                    document.getElementById("tiebreakrow").style.display = 'none';
+                }
+            }
+        }
+    });
+    </script>
+    <script>
     $(function() {
         $("#navBar").load("../Baseball/navbar.html");
     });

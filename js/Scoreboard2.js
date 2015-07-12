@@ -158,7 +158,9 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     $scope.weeklyScores = function() {
         var dateToFindScores = new Date(selectedDate);
         $scope.getWeekRange();
-        while (dateToFindScores.toString('M/d/yyyy') >= $scope.StartDate) {
+        var currentDate = new Date(dateToFindScores);
+        var mondaysDate = new Date($scope.StartDate);
+        while (dateToFindScores >= mondaysDate) {
             //$scope.datesArray.push(dateToFindScores.toLocaleDateString());
             $scope.getEachDaysScores(dateToFindScores);
             $scope.addPitchingScoresToWeeklyScoreboard(dateToFindScores);

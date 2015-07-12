@@ -69,10 +69,10 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     //'519184', '425796', '400284', '429667', '596748', '605125', '520471', '434563', '408252', '458015', '453943', '457803', '430910', '446359', '435401', '571740'
     //Ian Desmond 
     //'435622'
-    $scope.findMyTeam = function(tryJoel) {
-        $scope.whichTeam = tryJoel;
+    $scope.findMyTeam = function(team) {
+        $scope.whichTeam = team;
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
-        if (tryJoel == "Mine") {
+        if ($scope.whichTeam == "Mine") {
             if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
                 //alert("IAN && CARGO");
                 $scope.myTeam = ['425783', '543829', '471865', '434670', '547989', '425877', '592626', '592518', '457763'];
@@ -98,6 +98,16 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                 $scope.myTeam = ['630111', '543829', '434670', '425783', '547989', '435622', '592626', '592518', '457763'];
                 $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'lan';
+            } else if (theSelectedDate.between(parseDate('2015-06-01'), parseDate('2015-06-07'))) {
+                //alert("IAN");
+                $scope.myTeam = [];
+                $scope.benchPlayers = [];
+                $scope.myPitchingStaff = 'lan';
+            } else if (theSelectedDate.between(parseDate('2015-05-25'), parseDate('2015-05-31'))) {
+                //alert("IAN");
+                $scope.myTeam = [];
+                $scope.benchPlayers = [];
+                $scope.myPitchingStaff = 'lan';
             } else {
                 //alert("DEFUALT");
                 $scope.myTeam = [];
@@ -107,10 +117,10 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         } else {
             if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
                 //alert("WEEK14");
-                $scope.myTeam = ['467793', '407893', '572821', '121347', '514917', '453568', '456715', '542993', '457727'];
+                $scope.myTeam = []; //'467793', '407893', '572821', '121347', '514917', '453568', '456715', '542993', '457727'
                 $scope.benchPlayers = [];
                 $scope.benchPlayers = ['517370', '408234', '518692', '452254', '592743'];
-                $scope.myPitchingStaff = 'cle';
+                $scope.myPitchingStaff = 'sln';
             } else if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
                 //alert("WEEK13");
                 $scope.myTeam = ['519083', '408236', '514888', '572761', '453064', '516782', '493316', '571740', '435522'];
@@ -147,14 +157,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             $scope.buttonText = "Show Bench";
         }
     };
-    $scope.findMyStaff = function(staff) {
-        //console.log($scope.myPitchingStaff);
-        // if (staff == 'LAN') {
-        //     $scope.myPitchingStaff = 'lan';
-        // } else {
-        //     $scope.myPitchingStaff = 'sln';
-        // }
-    };
     $scope.weeklyScores = function() {
         var dateToFindScores = new Date(selectedDate);
         $scope.getWeekRange();
@@ -182,11 +184,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.baseballGame3 = null;
         $scope.datesArray = [];
         $scope.daysTotalForWeekly = 0;
-        // while (dateToFindScores.toLocaleDateString() >= $scope.StartDate) {
-        //     $scope.datesArray.push(dateToFindScores.toLocaleDateString());
-        //     //console.log(dateToFindScores.toString("dddd"));
-        //     dateToFindScores.setDate(dateToFindScores.getDate() - 1);
-        // }
 
         var date = new Date(predate);
         //console.log(date.toString("dddd"));
@@ -214,6 +211,18 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             $scope.baseballGame3 = null;
             $scope.eachGame3 = data.data.games.game;
             angular.forEach($scope.eachGame3, function(gameInfo) {
+                $scope.doubleHeader = false;
+                if (gameInfo.away_code == $scope.myPitchingStaff || gameInfo.home_code == $scope.myPitchingStaff) {
+                    console.log("Date: " + gameInfo.time_date);
+                    console.log("doubleHeader code: " + gameInfo.double_header_sw);
+                    if (gameInfo.double_header_sw != 'N') {
+                        $scope.doubleHeader = true;
+                        // console.log("My Staff: " + $scope.myPitchingStaff);
+                        // console.log("Away Staff: " + gameInfo.away_code);
+                        // console.log("Home Staff: " + gameInfo.home_code);
+                    };
+                    console.log("True or False? " + $scope.doubleHeader);
+                };
                 var JSONlink = gameInfo.game_data_directory;
                 //alert('http://gd2.mlb.com' + JSONlink + "/boxscore.json");
                 if ($scope.daysGames3.indexOf('http://gd2.mlb.com' + JSONlink + '/boxscore.json') == -1) {
@@ -235,7 +244,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                             angular.forEach(eachLineUp, function(eachBatter) {
                                 if ($scope.selectedTeam.indexOf(eachBatter.id.toString()) > -1) {
                                     $scope.daysTotalForWeekly += parseFloat($scope.getScore(0, eachBatter));
-                                    console.log(eachBatter.id.toString() + '===' + parseFloat($scope.getScore(0, eachBatter)) + '===' + $scope.daysTotalForWeekly);
+                                    //console.log(eachBatter.id.toString() + '===' + parseFloat($scope.getScore(0, eachBatter)) + '===' + $scope.daysTotalForWeekly);
                                     //
                                     //console.log($scope.daysTotalForWeekly);
                                     var theDate = new Date(dateOfDay);
@@ -246,6 +255,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                                         $scope.TuesdaysScore += parseFloat($scope.getScore(0, eachBatter));
                                     };
                                     if (theDate.toString("dddd") == "Wednesday") {
+
                                         $scope.WednesdayScore += parseFloat($scope.getScore(0, eachBatter));
                                     };
                                     if (theDate.toString("dddd") == "Thursday") {
@@ -258,7 +268,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                                         $scope.SaturdayScore += parseFloat($scope.getScore(0, eachBatter));
                                     };
                                     if (theDate.toString("dddd") == "Sunday") {
-                                        console.log(eachBatter.id.toString() + '===' + parseFloat($scope.getScore(0, eachBatter)));
                                         $scope.SundayScore += parseFloat($scope.getScore(0, eachBatter));
                                     };
                                     $scope.WeeksTotalScore = $scope.MondaysScore + $scope.TuesdaysScore + $scope.WednesdayScore + $scope.ThursdayScore + $scope.FridayScore + $scope.SaturdayScore + $scope.SundayScore;
@@ -286,11 +295,11 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
         $scope.pitchingStaffGamesTotals.push($scope.game1);
         //alert($scope.doubleHeader);
-        //if ($scope.doubleHeader) {
-        //$scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
-        //$scope.pitchingStaffGamesTotals.push($scope.game2);
-        //alert("Got here");
-        //};
+        if ($scope.doubleHeader) {
+            $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
+            $scope.pitchingStaffGamesTotals.push($scope.game2);
+            //alert("Got here");
+        };
 
         angular.forEach($scope.pitchingStaffGamesTotals, function(pitchingTotals) {
             $scope.pitchingGame = $http.get(pitchingTotals);
@@ -320,7 +329,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                 if (date.toString("dddd") == "Sunday") {
                     $scope.SundayScore += $scope.getPitchingStaffScore(convertedData.pitching);
                 };
-                $scope.WeeksTotalScore += $scope.MondaysScore + $scope.TuesdaysScore + $scope.WednesdayScore + $scope.ThursdayScore + $scope.FridayScore + $scope.SaturdayScore + $scope.SundayScore;
+                $scope.WeeksTotalScore = $scope.MondaysScore + $scope.TuesdaysScore + $scope.WednesdayScore + $scope.ThursdayScore + $scope.FridayScore + $scope.SaturdayScore + $scope.SundayScore;
             });
         });
     };
@@ -384,13 +393,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
 
         //finds out when Monday is for each week ***only works going backwards***
 
-        if ($scope.lastSunday == selectedDate.toString('M/d/yyyy') || $scope.nextSunday == selectedDate.toString('M/d/yyyy')) {
-            mondayDateHelper = new Date(selectedDate);
-            $scope.lastMonday = mondayDateHelper.previous().monday().toString('M/d/yyyy');
-            $scope.lastSunday = mondayDateHelper.previous().sunday().toString('M/d/yyyy');
-            $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
-            $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
-        }
+        //if ($scope.lastSunday == selectedDate.toString('M/d/yyyy') || $scope.nextSunday == selectedDate.toString('M/d/yyyy')) {
+        //  mondayDateHelper = new Date(selectedDate);
+        //   $scope.lastMonday = mondayDateHelper.previous().monday().toString('M/d/yyyy');
+        //  $scope.lastSunday = mondayDateHelper.previous().sunday().toString('M/d/yyyy');
+        //  $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
+        // $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
+        //}
         $scope.weeklyScores();
         $scope.getWeekRange();
         $scope.findMyTeam($scope.whichTeam);
@@ -428,7 +437,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     };
     $scope.backToTodaysDate = function() {
         selectedDate = Date.today();
-        $scope.changeDate(0, false);
+        $scope.changeDate(-40, false);
     };
     $scope.getInning = function(gameinfo) {
         var linescore = gameinfo.linescore.inning_line_score;
@@ -502,8 +511,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         return $scope.awayTeamCode + ' ' + $scope.awayTeamRuns + ' ' + $scope.homeTeamCode + ' ' + $scope.homeTeamRuns;
     };
     $scope.getTotalScore = function(pitchingTotal, hittingTotal) {
-        $scope.total = parseFloat($scope.total) + parseFloat(hittingTotal);
-        return $scope.total;
+        //$scope.total = parseFloat($scope.total) + parseFloat(hittingTotal);
+        //return $scope.total;
     };
     $scope.setTeam = function(team) {
         $scope.selectedTeam = team;
@@ -518,16 +527,11 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     $scope.hittingPoints = function() {
         $scope.totalBattingPoints = 0;
         angular.forEach($scope.baseballGame, function(eachFullGameJSON) {
-            //console.log(JSON.stringify(eachFullGameJSON));
             angular.forEach(eachFullGameJSON, function(eachGame) {
-                //console.log(JSON.stringify(eachGame));
                 var hittingBoxscore = eachGame.data.data.boxscore.batting;
                 angular.forEach(hittingBoxscore, function(eachTeamsBoxscore) {
-                    //console.log(JSON.stringify(eachTeamsBoxscore));
                     var eachLineUp = eachTeamsBoxscore.batter;
-                    //console.log(JSON.stringify(eachLineUp));
                     angular.forEach(eachLineUp, function(eachBatter) {
-                        //console.log(JSON.stringify(eachBatter));
                         if ($scope.selectedTeam.indexOf(eachBatter.id.toString()) > -1) {
                             $scope.totalBattingPoints += parseFloat($scope.getScore(0, eachBatter));
                         };
@@ -542,11 +546,11 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
         $scope.pitchingStaffGamesTotals.push($scope.game1);
         //alert($scope.doubleHeader);
-        //if ($scope.doubleHeader) {
-        $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
-        $scope.pitchingStaffGamesTotals.push($scope.game2);
-        //alert("Got here");
-        //};
+        if ($scope.doubleHeader) {
+            $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
+            $scope.pitchingStaffGamesTotals.push($scope.game2);
+            //alert("Got here");
+        };
 
         angular.forEach($scope.pitchingStaffGamesTotals, function(pitchingTotals) {
             $scope.pitchingGame = $http.get(pitchingTotals);
@@ -555,7 +559,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                 var x2js = new X2JS();
                 convertedData = x2js.xml_str2json(dataTotals[0].data.replace(/<!--[\s\S]*?-->/g, ""));
                 var gameTotal = $scope.getPitchingStaffScore(convertedData.pitching);
-                $scope.total = gameTotal;
+                $scope.total += gameTotal;
 
             });
         });

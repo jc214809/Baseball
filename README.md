@@ -41,3 +41,5 @@ http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_stats.bam?period
 http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_stats.bam?period_id=25&team_id=55988&stats_type=last_30
 http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_schedule.bam?period_id=25&team_id=55988
 Batter vs Pitcher == http://m.mlb.com/lookup/json/named.stats_batter_vs_pitcher_composed.bam?league_list_id=%27mlb%27&game_type=%27R%27&player_id=408252&pitcher_id=545333
+http://mlb.mlb.com/fantasylookup/json/named.fb_team_score_by_date.bam?away_team_id=55988&home_team_id=60746&period_id=24
+http://ui.bamstatic.com/bridge/images/social/twitter_logo_blue_16.png

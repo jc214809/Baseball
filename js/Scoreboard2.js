@@ -73,7 +73,12 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.whichTeam = team;
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
         if ($scope.whichTeam == "Mine") {
-            if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
+            if (theSelectedDate.between(parseDate('2015-07-17'), parseDate('2015-07-19'))) {
+                //alert("ALL STAR BREAK WEEK");
+                $scope.myTeam = ['425783', '543829', '471865', '434670', '547989', '425877', '592626', '592518', '457763'];
+                $scope.benchPlayers = ['630111', '435622', '425567', '285078', '570256', '543760'];
+                $scope.myPitchingStaff = 'lan';
+            } else if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
                 //alert("IAN && CARGO");
                 $scope.myTeam = ['425783', '543829', '471865', '434670', '547989', '425877', '592626', '592518', '457763'];
                 $scope.benchPlayers = ['630111', '435622', '425567', '285078', '570256', '543760'];
@@ -115,7 +120,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
-            if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
+            if (theSelectedDate.between(parseDate('2015-07-17'), parseDate('2015-07-19'))) {
+                //alert("WEEK15");
+                $scope.myTeam = [];
+                $scope.benchPlayers = [];
+                $scope.benchPlayers = [];
+                $scope.myPitchingStaff = '';
+            } else if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
                 //alert("WEEK14");
                 $scope.myTeam = ['467793', '407893', '572821', '121347', '514917', '453568', '456715', '542993', '457727'];
                 $scope.benchPlayers = [];

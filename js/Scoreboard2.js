@@ -817,7 +817,28 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         });
 
         $scope.getTotal();
+        $scope.joel();
     };
+    $scope.joel = function() {
+        $http({
+            method: 'GET',
+            url: 'http://www.mlb.com/fantasylookup/json/named.fb_index_schedule.bam?league_id=8623',
+            headers: {
+                'Content-type': 'application/json',
+                //Access-Control-Allow-Origin: http://foo.app:8000
+            }
+
+        }).success(function(data, status, headers, config) {
+            //alert("yay");
+            console.log(data);
+        }).error(function(data, status, headers, config) {
+            //alert("boo");
+            console.log(data);
+            console.log(status);
+            console.log(headers);
+            console.log(config);
+        });
+    }
     $scope.pitchingStaff = function() {
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
         $scope.pitchingStaffGames.push($scope.game1);

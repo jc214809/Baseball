@@ -820,7 +820,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.joel();
     };
     $scope.joel = function() {
-        alert("1");
+        //alert("1");
         $.ajax({
             type: 'GET',
             contentType: "application/json",
@@ -831,10 +831,10 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                 xhr.setRequestHeader('Cookie', 'joel');
             },
             error: function(xhr, status, error) {
-                alert(error);
+                //alert(error);
             },
             success: function(data) {
-                alert("yay");
+                //alert("yay");
             }
 
         });

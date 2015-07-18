@@ -122,10 +122,10 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         } else {
             if (theSelectedDate.between(parseDate('2015-07-17'), parseDate('2015-07-19'))) {
                 //alert("WEEK15");
-                $scope.myTeam = [];
+                $scope.myTeam = ['435263', '405395', '435079', '461858', '276519', '443558', '458731', '572041', '594809'];
                 $scope.benchPlayers = [];
-                $scope.benchPlayers = [];
-                $scope.myPitchingStaff = '';
+                $scope.benchPlayers = ['429665', '452655', '430947', '471083', '467827', '571788'];
+                $scope.myPitchingStaff = 'ana';
             } else if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {
                 //alert("WEEK14");
                 $scope.myTeam = ['467793', '407893', '572821', '121347', '514917', '453568', '456715', '542993', '457727'];
@@ -820,24 +820,47 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.joel();
     };
     $scope.joel = function() {
-        $http({
-            method: 'GET',
-            url: 'http://www.mlb.com/fantasylookup/json/named.fb_index_schedule.bam?league_id=8623',
-            headers: {
-                'Content-type': 'application/json',
-                //Access-Control-Allow-Origin: http://foo.app:8000
+        alert("1");
+        $.ajax({
+            type: 'GET',
+            contentType: "application/json",
+            dataType: "jsonp",
+            url: 'http://www.mlb.com/fantasylookup/json/named.wsfb_news_injury.bam',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+                xhr.setRequestHeader('Cookie', 'joel');
+            },
+            error: function(xhr, status, error) {
+                alert(error);
+            },
+            success: function(data) {
+                alert("yay");
             }
 
-        }).success(function(data, status, headers, config) {
-            //alert("yay");
-            console.log(data);
-        }).error(function(data, status, headers, config) {
-            //alert("boo");
-            console.log(data);
-            console.log(status);
-            console.log(headers);
-            console.log(config);
         });
+
+        // $http({
+        //         method: 'GET',
+        //         url: 'http://www.mlb.com/fantasylookup/json/named.fb_index_schedule.bam?league_id=8623',
+        //         beforeSend: function(xhr) {
+        //             var cookie = credentials["COOKIE"];
+        //             console.info("adding cookie: " + cookie);
+        //             xhr.setRequestHeader('Cookie', cookie);
+        //             headers: {
+        //                 'Content-type': 'application/json',
+        //                 //Access-Control-Allow-Origin: http://foo.app:8000
+        //             }
+
+        //         }).success(function(data, status, headers, config) {
+        //         //alert("yay");
+        //         console.log(data);
+        //     }).error(function(data, status, headers, config) {
+        //         //alert("boo");
+        //         console.log(data);
+        //         console.log(status);
+        //         console.log(headers);
+        //         console.log(config);
+        //     });
     }
     $scope.pitchingStaff = function() {
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';

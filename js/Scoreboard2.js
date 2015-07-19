@@ -75,7 +75,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         if ($scope.whichTeam == "Mine") {
             if (theSelectedDate.between(parseDate('2015-07-17'), parseDate('2015-07-19'))) {
                 //alert("ALL STAR BREAK WEEK");
-                $scope.myTeam = ['425567', '', '471865', '434670', '547989', '425877', '457759', '592518', '457763'];
+                $scope.myTeam = ['425567', '570256', '471865', '434670', '547989', '425877', '457759', '592518', '457763'];
                 $scope.benchPlayers = ['630111', '435622', '425783', '285078', '570256', '543829'];
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-07-06'), parseDate('2015-07-12'))) {

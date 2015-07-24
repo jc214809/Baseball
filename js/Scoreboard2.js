@@ -73,7 +73,12 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.whichTeam = team;
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
         if ($scope.whichTeam == "Mine") {
-            if (theSelectedDate.between(parseDate('2015-07-17'), parseDate('2015-07-19'))) {
+            if (theSelectedDate.between(parseDate('2015-07-20'), parseDate('2015-07-26'))) {
+                //alert("Cruse Week");
+                $scope.myTeam = ['457763','547989','457759','434670','592518','285078','425567','630111','570256'];
+                $scope.benchPlayers = ['630111', '435622', '425783', '285078', '570256', '543829'];
+                $scope.myPitchingStaff = 'lan';
+            } else if (theSelectedDate.between(parseDate('2015-07-17'), parseDate('2015-07-19'))) {
                 //alert("ALL STAR BREAK WEEK");
                 $scope.myTeam = ['425567', '570256', '471865', '434670', '547989', '425877', '457759', '592518', '457763'];
                 $scope.benchPlayers = ['630111', '435622', '425783', '285078', '570256', '543829'];

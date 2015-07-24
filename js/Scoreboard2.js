@@ -76,7 +76,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             if (theSelectedDate.between(parseDate('2015-07-20'), parseDate('2015-07-26'))) {
                 //alert("Cruse Week");
                 $scope.myTeam = ['457763','547989','457759','434670','592518','285078','425567','630111','570256'];
-                $scope.benchPlayers = ['630111', '435622', '425783', '285078', '570256', '543829'];
+                $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-07-17'), parseDate('2015-07-19'))) {
                 //alert("ALL STAR BREAK WEEK");
@@ -125,6 +125,12 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
+if (theSelectedDate.between(parseDate('2015-07-20'), parseDate('2015-07-26'))) {
+                //alert("Week16");
+                $scope.myTeam = ['518735','458015','543401','448801','543063','488726','547180','545361','502210'];
+                $scope.benchPlayers = [];
+                $scope.myPitchingStaff = 'oak';
+            } else 
             if (theSelectedDate.between(parseDate('2015-07-17'), parseDate('2015-07-19'))) {
                 //alert("WEEK15");
                 $scope.myTeam = ['435263', '405395', '435079', '461858', '276519', '443558', '458731', '572041', '594809'];

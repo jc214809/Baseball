@@ -76,7 +76,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             if (theSelectedDate.between(parseDate('2015-07-27'), parseDate('2015-08-02'))) {
                 //alert("Cruse Week");
                 $scope.myTeam = ['457763','547989','457759','434670','592518','285078','425567','630111','570256'];
-                $scope.benchPlayers = [];
+                $scope.benchPlayers = ['630111', '435622', '425783', '285078', '570256', '543829'];
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-07-20'), parseDate('2015-07-26'))) {
                 //alert("Cruse Week");
@@ -363,10 +363,19 @@ if (theSelectedDate.between(parseDate('2015-07-20'), parseDate('2015-07-26'))) {
     };
     $scope.showTeam = function() {
         $scope.players = [];
+         $scope.teamBenchPlayers  = [];
         angular.forEach($scope.myTeam, function(player_ID) {
             $scope.player = "http://mlb.com/lookup/json/named.player_info.bam?sport_code='mlb'&player_id='" + player_ID + "'";
             $http.get($scope.player).success(function(data, status, headers, config) {
                 $scope.players.push(data.player_info.queryResults.row);
+            }).error(function(data, status, headers, config) {
+                alert(status);
+            });
+        });
+        angular.forEach($scope.benchPlayers, function(player_ID) {
+            $scope.player = "http://mlb.com/lookup/json/named.player_info.bam?sport_code='mlb'&player_id='" + player_ID + "'";
+            $http.get($scope.player).success(function(data, status, headers, config) {
+                $scope.teamBenchPlayers.push(data.player_info.queryResults.row);
             }).error(function(data, status, headers, config) {
                 alert(status);
             });

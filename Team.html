@@ -76,7 +76,7 @@
                         <tr ng-repeat="player in players">
                             <td><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" /></td>
                             <td>{{player.name_display_first_last}}</td>
-                            <th>{{player.player_id}}</th>
+                            <td>{{player.player_id}}</td>
                             <td>{{player.age}}</td>
                             <td>{{player.team_abbrev}}</td>
                             <td>{{player.primary_position_txt}}</td>
@@ -86,8 +86,9 @@
                     </tbody>
                 </table>
             </center>
-            <h1>Bench</h1>
+           
             <center>
+                 <h1>Bench</h1>
                 <table id="myTeam">
                     <thead>
                         <tr>

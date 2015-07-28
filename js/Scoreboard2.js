@@ -130,13 +130,17 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
-if (theSelectedDate.between(parseDate('2015-07-20'), parseDate('2015-07-26'))) {
+            if (theSelectedDate.between(parseDate('2015-07-27'), parseDate('2015-08-02'))) {425783
+                //alert("Week17");
+                $scope.myTeam = ['430910','519203','408252','446334','462101','457705','457803','444432','543434'];
+                $scope.benchPlayers = ['502517', '456714', '456665', '425900', '519058'];
+                $scope.myPitchingStaff = 'tba';
+            } else if (theSelectedDate.between(parseDate('2015-07-20'), parseDate('2015-07-26'))) {
                 //alert("Week16");
                 $scope.myTeam = ['518735','458015','543401','448801','543063','488726','547180','545361','502210'];
                 $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'oak';
-            } else 
-            if (theSelectedDate.between(parseDate('2015-07-17'), parseDate('2015-07-19'))) {
+            } else if (theSelectedDate.between(parseDate('2015-07-17'), parseDate('2015-07-19'))) {
                 //alert("WEEK15");
                 $scope.myTeam = ['435263', '405395', '435079', '461858', '276519', '443558', '458731', '572041', '594809'];
                 $scope.benchPlayers = [];

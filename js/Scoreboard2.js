@@ -75,7 +75,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         if ($scope.whichTeam == "Mine") {
             if (theSelectedDate.between(parseDate('2015-07-27'), parseDate('2015-08-02'))) {425783
                 //alert("Week After Cruse");
-                $scope.myTeam = ['457763','547989','457759','434670','435622','471865','425783','425783','592518'];
+                $scope.myTeam = ['457763','547989','457759','434670','435622','471865','425783','425567','592518'];
                 $scope.benchPlayers = ['457759', '592518', '425783', '285078', '425567', '630111'];
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-07-20'), parseDate('2015-07-26'))) {

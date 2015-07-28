@@ -506,6 +506,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         switch (teamAbbreviation) {
             case "lan":
                 return "la";
+  case "tba":
+                return "tb";
             case "nyn":
                 return "nym";
             case "sln":

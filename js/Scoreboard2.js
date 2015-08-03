@@ -73,7 +73,12 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.whichTeam = team;
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
         if ($scope.whichTeam == "Mine") {
-            if (theSelectedDate.between(parseDate('2015-07-27'), parseDate('2015-08-02'))) {425783
+             if (theSelectedDate.between(parseDate('2015-08-03'), parseDate('2015-08-09'))) {
+                //alert("Josh Hamilton");
+                $scope.myTeam = ['457763','547989','543829','434670','592518','435622','285078','425783','471865'];
+                $scope.benchPlayers = ['457759', '425567', '630111', '425877', '570256', '592626'];
+                $scope.myPitchingStaff = 'lan';
+            } else if (theSelectedDate.between(parseDate('2015-07-27'), parseDate('2015-08-02'))) {
                 //alert("Week After Cruse");
                 $scope.myTeam = ['457763','547989','543829','434670','592518','435622','425567','425783','471865'];
                 $scope.benchPlayers = ['457759', '285078', '630111', '425877', '570256', '592626'];
@@ -130,7 +135,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
-            if (theSelectedDate.between(parseDate('2015-07-27'), parseDate('2015-08-02'))) {425783
+            if (theSelectedDate.between(parseDate('2015-07-27'), parseDate('2015-08-02'))) {
                 //alert("Week17");
                 $scope.myTeam = ['430910','519203','408252','446334','462101','457705','457803','444432','543434'];
                 $scope.benchPlayers = ['502517', '456714', '456665', '425900', '519058'];

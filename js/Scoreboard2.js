@@ -512,7 +512,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
   };
   $scope.backToTodaysDate = function() {
     selectedDate = Date.today();
-    $scope.changeDate(-40, false);
+    $scope.changeDate(0, false);
   };
   $scope.getInning = function(gameinfo) {
     var linescore = gameinfo.linescore.inning_line_score;

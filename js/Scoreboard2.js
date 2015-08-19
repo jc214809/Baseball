@@ -842,6 +842,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     //alert($scope.month + "/" + $scope.day + "/" + $scope.year);
     $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json';
     //alert($scope.scoreBoard);
+    //$scope.joel();
+
     $http.get($scope.scoreBoard).success(function(data) {
       $scope.eachGame = data.data.games.game;
       angular.forEach($scope.eachGame, function(batter) {
@@ -882,50 +884,17 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     });
 
     $scope.getTotal();
-    $scope.joel();
   };
   $scope.joel = function() {
     //alert("1");
-    $.ajax({
-      type: 'GET',
-      contentType: "application/json",
-      dataType: "jsonp",
-      url: 'http://www.mlb.com/fantasylookup/json/named.wsfb_news_injury.bam',
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-        xhr.setRequestHeader('Cookie', 'joel');
-      },
-      error: function(xhr, status, error) {
-        //alert(error);
-      },
-      success: function(data) {
-        //alert("yay");
-      }
-
+    $scope.injuryData = [];
+    $.getJSON('http://anyorigin.com/dev/get?url=http%3A//www.mlb.com/fantasylookup/json/named.wsfb_news_injury.bam&callback=?', function(data) {
+      //alert(JSON.stringify(data.contents));
+      $scope.injuryDataObj = data.contents.wsfb_news_injury.queryResults.row;
+      angular.forEach($scope.injuryDataObj, function(injuredPlayer) {
+        $scope.injuryData.push(injuredPlayer.player_id);
+      });
     });
-
-    // $http({
-    //         method: 'GET',
-    //         url: 'http://www.mlb.com/fantasylookup/json/named.fb_index_schedule.bam?league_id=8623',
-    //         beforeSend: function(xhr) {
-    //             var cookie = credentials["COOKIE"];
-    //             console.info("adding cookie: " + cookie);
-    //             xhr.setRequestHeader('Cookie', cookie);
-    //             headers: {
-    //                 'Content-type': 'application/json',
-    //                 //Access-Control-Allow-Origin: http://foo.app:8000
-    //             }
-
-    //         }).success(function(data, status, headers, config) {
-    //         //alert("yay");
-    //         console.log(data);
-    //     }).error(function(data, status, headers, config) {
-    //         //alert("boo");
-    //         console.log(data);
-    //         console.log(status);
-    //         console.log(headers);
-    //         console.log(config);
-    //     });
   }
   $scope.pitchingStaff = function() {
     $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';

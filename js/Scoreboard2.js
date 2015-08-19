@@ -842,7 +842,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     //alert($scope.month + "/" + $scope.day + "/" + $scope.year);
     $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json';
     //alert($scope.scoreBoard);
-    //$scope.joel();
 
     $http.get($scope.scoreBoard).success(function(data) {
       $scope.eachGame = data.data.games.game;
@@ -885,8 +884,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
 
     $scope.getTotal();
   };
-  $scope.joel = function() {
-    //alert("1");
+  $scope.injuryNews = function() {
+    alert("run");
     $scope.injuryData = [];
     $.getJSON('http://anyorigin.com/dev/get?url=http%3A//www.mlb.com/fantasylookup/json/named.wsfb_news_injury.bam&callback=?', function(data) {
       //alert(JSON.stringify(data.contents));
@@ -894,6 +893,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
       angular.forEach($scope.injuryDataObj, function(injuredPlayer) {
         $scope.injuryData.push(injuredPlayer.player_id);
       });
+      console.log($scope.injuryData);
     });
   }
   $scope.pitchingStaff = function() {

@@ -842,6 +842,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     //alert($scope.month + "/" + $scope.day + "/" + $scope.year);
     $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json';
     //alert($scope.scoreBoard);
+    //$scope.injuryNews();
 
     $http.get($scope.scoreBoard).success(function(data) {
       $scope.eachGame = data.data.games.game;

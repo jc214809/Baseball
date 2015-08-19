@@ -75,8 +75,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     if ($scope.whichTeam == "Mine") {
       if (theSelectedDate.between(parseDate('2015-08-17'), parseDate('2015-08-23'))) {
         //alert("Playoff Push");
-        $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '285078', '425783', '471865'];
-        $scope.benchPlayers = ['434670', '457759', '630111', '425877', '475582', '592626'];
+        $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];
+        $scope.benchPlayers = ['434670', '457759', '630111', '425877', '285078', '592626'];
         $scope.DLPlayers = ['431151']
         $scope.myPitchingStaff = 'lan';
       } else if (theSelectedDate.between(parseDate('2015-08-10'), parseDate('2015-08-16'))) {

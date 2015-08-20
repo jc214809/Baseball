@@ -103,7 +103,7 @@
                                             <img src="..\Baseball\images\pictures\LeftGame.JPG" class="status-indicators" width="50" ng-if="leftGame" />
                                             <!-- {{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}} -->
                                             <!-- <a href="{{mlbTvUrl}}"><i class="glyphicon glyphicon-facetime-video"></i></a> {{mlbTvUrl}}
- -->										<i ng-if="(injuryData.indexOf(x.id) > -1)" class="glyphicon glyphicon-plus" style="color:red;"></i>
+ -->										<i ng-if="injuryNewsChecker()" class="glyphicon glyphicon-plus" style="color:red;"></i>
                                         </th>
                                         <th style="float:right">
                                             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore($index, x) }}</span> <span class="points" style="float:right">Points: </span></th>

@@ -15,9 +15,7 @@ function parseDate(input) {
     var parts = input.match(/(\d+)/g);
     return new Date(parts[0], parts[1] - 1, parts[2]);
 }
-var egg = new Egg("up,up,down,down,a", function() {
-  $('.egg').show();
-}).listen();
+
 var myApp = angular.module('myApp', []);
 myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     var baseball = [];

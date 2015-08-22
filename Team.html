@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/mikeflynn/egg.js/master/egg.min.js"></script>
     <script src="../Baseball/js/Scoreboard2.js"></script>
     <script src="../Baseball/js/date.js"></script>
     <script>
@@ -65,22 +64,24 @@
                         <tr>
                             <th></th>
                             <th>Player Name</th>
-                            <th class="egg" hidden>Player ID</th>                            
+                            <th>Player ID</th>                            
                             <th>Age</th>
                             <th>MLB Team</th>
                             <th>POS</th>
                             <th>Status</th>
+                            <th>Twitter</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="player in players">
                             <td><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" /></td>
-                            <td>{{player.name_display_first_last}} &nbsp;&nbsp;<a ng-if="player.twitter_id != ''" href="https://twitter.com/{{player.twitter_id}}"><img src="http://ui.bamstatic.com/bridge/images/social/twitter_logo_blue_16.png" alt="{{player.twitter_id}}"></a></td>
-                            <td class="egg" hidden>{{player.player_id}}</td>
+                            <td>{{player.name_display_first_last}}</td>
+                            <td>{{player.player_id}}</td>
                             <td>{{player.age}}</td>
                             <td>{{player.team_abbrev}}</td>
                             <td>{{player.primary_position_txt}}</td>
                             <td>{{player.status}}</td>
+                            <td><a ng-if="player.twitter_id != ''" href="https://twitter.com/{{player.twitter_id}}">Twitter</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -93,22 +94,24 @@
                         <tr>
                             <th></th>
                             <th>Player Name</th>
-                            <th class="egg" hidden>Player ID</th>                            
+                            <th>Player ID</th>                            
                             <th>Age</th>
                             <th>MLB Team</th>
                             <th>POS</th>
                             <th>Status</th>
+                            <th>Twitter</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="player in teamBenchPlayers">
                             <td><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" /></td>
-                            <td>{{player.name_display_first_last}}&nbsp;&nbsp;<a ng-if="player.twitter_id != ''" href="https://twitter.com/{{player.twitter_id}}"><img src="http://ui.bamstatic.com/bridge/images/social/twitter_logo_blue_16.png" alt="{{player.twitter_id}}"></a></td>
-                            <td class="egg" hidden>{{player.player_id}}</td>
+                            <td>{{player.name_display_first_last}}</td>
+                            <td>{{player.player_id}}</td>
                             <td>{{player.age}}</td>
                             <td>{{player.team_abbrev}}</td>
                             <td>{{player.primary_position_txt}}</td>
                             <td>{{player.status}}</td>
+                            <td><a ng-if="player.twitter_id != ''" href="https://twitter.com/{{player.twitter_id}}">Twitter</a></td>
                         </tr>
                     </tbody>
                 </table>

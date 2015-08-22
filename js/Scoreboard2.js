@@ -15,7 +15,9 @@ function parseDate(input) {
     var parts = input.match(/(\d+)/g);
     return new Date(parts[0], parts[1] - 1, parts[2]);
 }
-
+var egg = new Egg("up,up,down,down,a", function() {
+  $('.egg').show();
+}).listen();
 var myApp = angular.module('myApp', []);
 myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     var baseball = [];
@@ -843,7 +845,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         //alert($scope.month + "/" + $scope.day + "/" + $scope.year);
         $scope.scoreBoard = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json';
         //alert($scope.scoreBoard);
-        $scope.injuryNews();
+        
 
         $http.get($scope.scoreBoard).success(function(data) {
             $scope.eachGame = data.data.games.game;
@@ -881,26 +883,27 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                     //$scope.reds = baseball[0][0].data.data.boxscore.batting;
                 });
             });
+            $scope.injuryNews();
             $scope.pitchingStaff();
         });
         $scope.getTotal();
     };
     $scope.injuryNews = function() {
-        $scope.injuryData = [];
-        $.getJSON('http://anyorigin.com/dev/get?url=http%3A//www.mlb.com/fantasylookup/json/named.wsfb_news_injury.bam&callback=?', function(data) {
-            //alert(JSON.stringify(data.contents));
-            $scope.injuryDataObj = data.contents.wsfb_news_injury.queryResults.row;
-            angular.forEach($scope.injuryDataObj, function(injuredPlayer) {
-                $scope.injuryData.push(injuredPlayer.player_id);
-            });
-            console.log($scope.injuryData);
-        });
+        // $scope.injuryData = [];
+        // $.getJSON('http://anyorigin.com/dev/get?url=http%3A//www.mlb.com/fantasylookup/json/named.wsfb_news_injury.bam&callback=?', function(data) {
+        //     //alert(JSON.stringify(data.contents));
+        //     $scope.injuryDataObj = data.contents.wsfb_news_injury.queryResults.row;
+        //     angular.forEach($scope.injuryDataObj, function(injuredPlayer) {
+        //         $scope.injuryData.push(injuredPlayer.player_id);
+        //     });
+        //     console.log($scope.injuryData);
+        // });
     };
     $scope.injuryNewsChecker = function(playerID) {
-        if ($scope.injuryData.length > 0) {
-            $scope.injuryNews();
-            console.log("Joel");
-        };
+        // if ($scope.injuryData.length > 0) {
+        //     $scope.injuryNews();
+        //     console.log("Joel");
+        // };
         console.log($scope.injuryData);
         if ($scope.injuryData.indexOf(playerID) > -1) {
             return true;

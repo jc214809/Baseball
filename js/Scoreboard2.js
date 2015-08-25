@@ -76,8 +76,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         if ($scope.whichTeam == "Mine") {
             if (theSelectedDate.between(parseDate('2015-08-24'), parseDate('2015-08-30'))) {
                 //alert("Playoff Push");
-                $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];
-                $scope.benchPlayers = ['434670', '457759', '630111', '425877', '285078', '592626'];
+                $scope.myTeam = ['425877', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];
+                $scope.benchPlayers = ['434670', '457759', '630111', '457763', '285078', '592626'];
                 $scope.DLPlayers = ['431151']
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-08-17'), parseDate('2015-08-23'))) {
@@ -155,9 +155,9 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
-            if (theSelectedDate.between(parseDate('2015-08-17'), parseDate('2015-08-23'))) {
+            if (theSelectedDate.between(parseDate('2015-08-24'), parseDate('2015-08-30'))) {
                 //alert("Week21");
-                $scope.myTeam = ['431145', '425902', '518934', '518626', '516770', '457708', '624577', '136860', '453943'];
+                $scope.myTeam = ['465041', '425902', '518934', '518626', '452678', '457708', '624585', '136860', '453943'];
                 $scope.benchPlayers = [];
                 $scope.myPitchingStaff = 'sln';
             } else if (theSelectedDate.between(parseDate('2015-08-17'), parseDate('2015-08-23'))) {

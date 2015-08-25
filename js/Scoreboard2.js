@@ -74,7 +74,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.whichTeam = team;
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
         if ($scope.whichTeam == "Mine") {
-            if (theSelectedDate.between(parseDate('2015-08-17'), parseDate('2015-08-23'))) {
+            if (theSelectedDate.between(parseDate('2015-08-24'), parseDate('2015-08-30'))) {
+                //alert("Playoff Push");
+                $scope.myTeam = ['425877', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];
+                $scope.benchPlayers = ['434670', '457759', '630111', '457763', '285078', '592626'];
+                $scope.DLPlayers = ['431151']
+                $scope.myPitchingStaff = 'lan';
+            } else if (theSelectedDate.between(parseDate('2015-08-17'), parseDate('2015-08-23'))) {
                 //alert("Playoff Push");
                 $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];
                 $scope.benchPlayers = ['434670', '457759', '630111', '425877', '285078', '592626'];
@@ -149,7 +155,12 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
-            if (theSelectedDate.between(parseDate('2015-08-17'), parseDate('2015-08-23'))) {
+            if (theSelectedDate.between(parseDate('2015-08-24'), parseDate('2015-08-30'))) {
+                //alert("Week21");
+                $scope.myTeam = ['465041', '425902', '518934', '518626', '452678', '457708', '624585', '136860', '453943'];
+                $scope.benchPlayers = [];
+                $scope.myPitchingStaff = 'sln';
+            } else if (theSelectedDate.between(parseDate('2015-08-17'), parseDate('2015-08-23'))) {
                 //alert("Week20");
                 $scope.myTeam = ['656941', '543333', '622110', '593934', '444876', '430945', '444482', '451594', '120074'];
                 $scope.benchPlayers = ['408314', '434158', '434778', '460576', '502110', '546318'];

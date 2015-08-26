@@ -947,16 +947,33 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     $scope.mlbPlayers = [];
 
     $scope.teamer = function() {
-        $.getJSON('http://anyorigin.com/dev/get?url=http%3A//m.mlb.com/lookup/json/named.stats_batter_vs_pitcher_composed.bam%3Fleague_list_id%3D%2527mlb%2527%26game_type%3D%2527R%2527%26player_id%3D408252%26pitcher_id%3D545333&callback=?', function(data) {
-            //alert(JSON.sdy(data.contents));
-            $scope.mlbPlayers = [];
-            //alert(JSON.stringify($scope.Joel));
-            $scope.lineupJSON = data.contents.stats_batter_vs_pitcher.queryResults.row;
-            angular.forEach($scope.lineupJSON, function(player) {
-                $scope.mlbPlayers.push(player);
-            });
-            console.log(JSON.stringify($scope.lineupJSON));
-            console.log($scope.mlbPlayers);
+        // $http.get('http://anyorigin.com/dev/get?url=http%3A//m.mlb.com/lookup/json/named.stats_batter_vs_pitcher_composed.bam%3Fleague_list_id%3D%2527mlb%2527%26game_type%3D%2527R%2527%26player_id%3D408252%26pitcher_id%3D545333&callback=?').success(function(data) {
+
+        // });
+
+        $.ajax({
+            url: 'http://anyorigin.com/dev/get?url=http%3A//www.mlb.com/fantasylookup/json/named.wsfb_news_injury.bam',
+            data: {
+                format: 'json'
+            },
+            error: function() {
+                //$('#info').html('<p>An error has occurred</p>');
+            },
+            dataType: 'jsonp',
+            success: function(data) {
+                console.log(JSON.stringify(data.contents));
+                $scope.mlbPlayers = [];
+                //alert(JSON.stringify($scope.Joel));
+                $scope.lineup = data.contents;
+                $scope.lineupJSON = $scope.lineup.wsfb_news_injury.queryResults.row;
+                angular.forEach($scope.lineupJSON, function(player) {
+                    $scope.mlbPlayers.push(player.player_id);
+                });
+                console.log($scope.lineupJSON);
+                console.log($scope.mlbPlayers);
+            },
+            type: 'GET'
         });
+
     };
 });

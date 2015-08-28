@@ -786,6 +786,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.enteredButLeft = false;
         $scope.entered = false;
         $scope.leftGame = false;
+        console.log(team);
         for (var i = team.batter.length - 1; i >= 0; i--) {
             if ($scope.selectedTeam.indexOf(team.batter[i].id) > -1) {
                 for (var b = team.batter.length - 1; b >= 0; b--) {

@@ -62,7 +62,7 @@
 <body>
     <div id="navBar"></div>
     <div ng-app="myApp">
-        <div ng-controller="baseballController" data-ng-init="findMyTeam('Mine'); showTeam(); teamer();">
+        <div ng-controller="baseballController" data-ng-init="findMyTeam('Mine'); teamer(); showTeam(); ">
             <center>
                 <table id="myTeam">
                     <thead>
@@ -109,7 +109,7 @@
                         <tr ng-repeat="player in teamBenchPlayers">
                             <td><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" /></td>
                             <td>{{player.name_display_first_last}}&nbsp;&nbsp;
-                                <a ng-if="player.twitter_id != ''" href="https://twitter.com/{{player.twitter_id}}"><img src="http://ui.bamstatic.com/bridge/images/social/twitter_logo_blue_16.png" alt="{{player.twitter_id}}"></a>
+                                <a ng-if="player.twitter_id != ''" href="https://twitter.com/{{player.twitter_id}}"><img src="http://ui.bamstatic.com/bridge/images/social/twitter_logo_blue_16.png" alt="{{player.twitter_id}}"></a><img ng-if="mlbPlayers.indexOf({{player.player_id}})>-1" src="http://www.profootballrosters.com/wp-content/uploads/2013/08/Stock-Injury2.png" alt="{{player.twitter_id}}">
                             </td>
                             <td class="egg" hidden>{{player.player_id}}</td>
                             <td>{{player.age}}</td>
@@ -120,7 +120,8 @@
                     </tbody>
                 </table>
             </center>
-            {{lineupJSON}} {{mlbPlayers}}
+            {{lineupJSON}} {{mlbPlayers}}{{Jenny}}
+            <ul id="ul2"></ul>
             <center>
                 <table id="Joel">
                     <thead>
@@ -129,8 +130,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="player in lineupJSON">
-                            <td>{{player.name_first}}</td>
+                        <tr ng-repeat="player in mlbPlayersc">
+                            <td>{{player}}</td>
                         </tr>
                     </tbody>
                 </table>

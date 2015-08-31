@@ -16,6 +16,12 @@ function parseDate(input) {
     return new Date(parts[0], parts[1] - 1, parts[2]);
 }
 
+jQuery.ajaxPrefilter(function(options) {
+    if (options.crossDomain && jQuery.support.cors) {
+        options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+    }
+});
+
 var myApp = angular.module('myApp', []);
 myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     var baseball = [];
@@ -786,7 +792,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         $scope.enteredButLeft = false;
         $scope.entered = false;
         $scope.leftGame = false;
-        console.log(team);
         for (var i = team.batter.length - 1; i >= 0; i--) {
             if ($scope.selectedTeam.indexOf(team.batter[i].id) > -1) {
                 for (var b = team.batter.length - 1; b >= 0; b--) {
@@ -893,7 +898,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                     //$scope.reds = baseball[0][0].data.data.boxscore.batting;
                 });
             });
-            $scope.injuryNews();
+            // $scope.injuryNews();
+
             $scope.pitchingStaff();
         });
         $scope.getTotal();
@@ -914,12 +920,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         //     $scope.injuryNews();
         //     console.log("Joel");
         // };
-        console.log($scope.injuryData);
-        if ($scope.injuryData.indexOf(playerID) > -1) {
-            return true;
-        } else {
-            return false;
-        }
+        // console.log($scope.injuryData);
+        // if ($scope.injuryData.indexOf(playerID) > -1) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+
     };
     $scope.pitchingStaff = function() {
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
@@ -944,34 +951,48 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             });
         });
     };
-    $scope.lineupJSON = null;
+    $scope.lineupJSON = [];
     $scope.mlbPlayers = [];
+    $scope.teamer2 = function(mlb) {
+        $scope.Jenny = "YOU";
 
+        $scope.lineupJSON = mlb.wsfb_news_injury.queryResults.row;
+        angular.forEach($scope.lineupJSON, function(player) {
+            $scope.mlbPlayers.push(player.player_id);
+        });
+        var dummyArray = [];
+        if ($scope.mlbPlayers.indexOf("450351") > -1) {
+            dummyArray = $.grep($scope.lineupJSON, function(injuredPlayer) {
+                if (injuredPlayer.player_id == "450351") {
+
+                    console.log($scope.Jenny);
+                };
+            });
+        };
+        $scope.Jenny = "injuredPlayer.injury_desc";
+    };
     $scope.teamer = function() {
         // $http.get('http://anyorigin.com/dev/get?url=http%3A//m.mlb.com/lookup/json/named.stats_batter_vs_pitcher_composed.bam%3Fleague_list_id%3D%2527mlb%2527%26game_type%3D%2527R%2527%26player_id%3D408252%26pitcher_id%3D545333&callback=?').success(function(data) {
 
         // });
-
+        $scope.lineup = null;
         $.ajax({
-            url: 'http://anyorigin.com/dev/get?url=http%3A//www.mlb.com/fantasylookup/json/named.wsfb_news_injury.bam',
+            url: 'http://www.mlb.com/fantasylookup/json/named.wsfb_news_injury.bam',
             data: {
                 format: 'json'
             },
             error: function() {
                 //$('#info').html('<p>An error has occurred</p>');
             },
-            dataType: 'jsonp',
+            dataType: 'json',
             success: function(data) {
-                console.log(JSON.stringify(data.contents));
+                //console.log(JSON.stringify(data));
                 $scope.mlbPlayers = [];
                 //alert(JSON.stringify($scope.Joel));
-                $scope.lineup = data.contents;
-                $scope.lineupJSON = $scope.lineup.wsfb_news_injury.queryResults.row;
-                angular.forEach($scope.lineupJSON, function(player) {
-                    $scope.mlbPlayers.push(player.player_id);
-                });
-                console.log($scope.lineupJSON);
-                console.log($scope.mlbPlayers);
+                $scope.lineup = data;
+                $scope.teamer2($scope.lineup);
+                //console.log($scope.lineupJSON);
+                //console.log($scope.mlbPlayers);
             },
             type: 'GET'
         });

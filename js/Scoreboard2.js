@@ -609,6 +609,16 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
                 return teamAbbreviation
         }
     };
+    $scope.getTeamLogoAbbreviation = function(teamAbbreviation) {
+        switch (teamAbbreviation.toLowerCase()) {
+            case "wsh":
+                return "was";
+            case "lad":
+                return "la";
+            default:
+                return teamAbbreviation.toLowerCase()
+        }
+    };
     $scope.getGamesScore = function(gameinfo) {
         $scope.homeTeamCode = ($scope.getTeamAbbreviation(gameinfo.home_team_code)).toUpperCase();
         $scope.awayTeamCode = ($scope.getTeamAbbreviation(gameinfo.away_team_code)).toUpperCase();

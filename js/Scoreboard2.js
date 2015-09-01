@@ -167,7 +167,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
-            if (theSelectedDate.between(parseDate('2015-06-29'), parseDate('2015-07-05'))) {
+            if (theSelectedDate.between(parseDate('2015-08-31'), parseDate('2015-09-06'))) {
                 //alert("WEEK22");
                 $scope.myTeam = ['519083', '408236', '514888', '572761', '453064', '516782', '493316', '571740', '435522'];
                 $scope.benchPlayers = ['593428', '457775', '547982', '474892', '592885'];
@@ -937,17 +937,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         // });
     };
     $scope.injuryNewsChecker = function(playerID) {
-        // if ($scope.injuryData.length > 0) {
-        //     $scope.injuryNews();
-        //     console.log("Joel");
-        // };
-        // console.log($scope.injuryData);
-        // if ($scope.injuryData.indexOf(playerID) > -1) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
-
+        var injured = false;
+        console.log(playerID);
+        if ($scope.mlbPlayers.indexOf(playerID) > -1) {
+            injured = true;
+        } else {
+            injured = false;
+        }
     };
     $scope.pitchingStaff = function() {
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
@@ -985,7 +981,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
         if ($scope.mlbPlayers.indexOf("450351") > -1) {
             dummyArray = $.grep($scope.lineupJSON, function(injuredPlayer) {
                 if (injuredPlayer.player_id == "450351") {
-
                     console.log($scope.Jenny);
                 };
             });

@@ -91,11 +91,14 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     //'435622'
     poollingFactory.callFnOnInterval(function() {
         //console.log("1---" + 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/master_scoreboard.json');
+        $scope.playersUpToBat = [];
+        $scope.playersOnDeck = [];
+        $scope.playersInTheHole = [];
+        $scope.daysActiveGames = [];
+        //baseball = [];
+        //$scope.baseballGame = null;
         $http.get('http://gd2.mlb.com/components/game/mlb/year_2015/month_09/day_01/master_scoreboard.json').success(function(data, status) {
             //console.log("2");
-            $scope.playersUpToBat = [];
-            $scope.playersOnDeck = [];
-            $scope.playersInTheHole = [];
             $scope.eachGameTest = data.data.games.game;
             angular.forEach($scope.eachGameTest, function(game) {
                 //console.log("3" + JSON.stringify(game));
@@ -106,12 +109,26 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                     $scope.playersInTheHole.push(game.inhole.id);
                     //console.log($scope.playersUpToBat);
                 }
+                if (game.hasOwnProperty('game_data_directory')) {
+                    $scope.daysActiveGames.push('http://gd2.mlb.com' + game.game_data_directory + "/boxscore.json");
+                    //console.log($scope.daysActiveGames);
+                    //console.log("joel");
+                }
             });
+            // angular.forEach($scope.daysActiveGames, function(games) {
+            //     console.log("1");
+            //     $scope.game = $http.get(games);
+            //     $q.all([$scope.game]).then(function(values) {
+            //         console.log("2");
+            //         baseball.push(values);
+            //         $scope.baseballGame = baseball;
+            //         console.log("EnD HeRe");
+            //     });
+            // });
         }).error(function(data, status) {
             console.log(data);
             console.log(status);
         });
-
     })
     $scope.findMyTeam = function(team) {
         $scope.whichTeam = team;
@@ -975,7 +992,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     };
     $scope.injuryNewsChecker = function(playerID) {
         var injured = false;
-        console.log(playerID);
+        //console.log(playerID);
         if ($scope.mlbPlayers.indexOf(playerID) > -1) {
             injured = true;
         } else {

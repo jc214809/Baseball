@@ -23,7 +23,20 @@ jQuery.ajaxPrefilter(function(options) {
 });
 
 var myApp = angular.module('myApp', []);
-myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
+myApp.factory("poollingFactory", function($timeout) {
+    var timeIntervalInSec = 1;
+
+    function callFnOnInterval(fn, timeInterval) {
+        var promise = $timeout(fn, 7000 * timeIntervalInSec);
+        return promise.then(function() {
+            callFnOnInterval(fn, timeInterval);
+        });
+    };
+    return {
+        callFnOnInterval: callFnOnInterval
+    };
+});
+myApp.controller('baseballController', function($scope, $http, $q, $timeout, poollingFactory) {
     var baseball = [];
     $scope.baseballGame = null;
     $scope.game = null;
@@ -76,6 +89,32 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout) {
     //'519184', '425796', '400284', '429667', '596748', '605125', '520471', '434563', '408252', '458015', '453943', '457803', '430910', '446359', '435401', '571740'
     //Ian Desmond 
     //'435622'
+    poollingFactory.callFnOnInterval(function() {
+        //console.log("1---" + 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/master_scoreboard.json');
+        $http.get('http://gd2.mlb.com/components/game/mlb/year_2015/month_09/day_01/master_scoreboard.json').success(function(data, status) {
+            //console.log("2");
+            $scope.playersUpToBat = [];
+            $scope.playersOnDeck = [];
+            $scope.playersInTheHole = [];
+            $scope.eachGameTest = data.data.games.game;
+            angular.forEach($scope.eachGameTest, function(game) {
+                //console.log("3" + JSON.stringify(game));
+                if (game.hasOwnProperty('inhole')) {
+                    //console.log("4");
+
+                    $scope.playersUpToBat.push(game.batter.id);
+                    //console.log("4.5");
+                    $scope.playersOnDeck.push(game.ondeck.id);
+                    $scope.playersInTheHole.push(game.inhole.id);
+                    console.log($scope.playersUpToBat);
+                }
+            });
+        }).error(function(data, status) {
+            console.log(data);
+            console.log(status);
+        });
+
+    })
     $scope.findMyTeam = function(team) {
         $scope.whichTeam = team;
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());

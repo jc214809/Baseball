@@ -32,7 +32,7 @@
 
 <body>
     <div ng-app="myApp">
-        <div ng-controller="baseballController" data-ng-init="findMyTeam('Mine'); changeDate(0, true);">
+        <div ng-controller="baseballController" data-ng-init="findMyTeam('Mine'); teamer(); changeDate(0, true);">
             <center>
                 <table class="scoreboard">
                     <thead>
@@ -101,9 +101,10 @@
                                             <img src="..\Baseball\images\pictures\EnteredButLeftGame.JPG" class="status-indicators" width="50" ng-if="enteredButLeft" />
                                             <img src="..\Baseball\images\pictures\EnteredGame.JPG" class="status-indicators" width="50" ng-if="entered" />
                                             <img src="..\Baseball\images\pictures\LeftGame.JPG" class="status-indicators" width="50" ng-if="leftGame" />
+                                            <img ng-if="(mlbPlayers.indexOf(player.player_id.toString()) > -1)" width="12px" src="..\Baseball\images\pictures\Injury.jpg" alt="">
                                             <!-- {{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}} -->
                                             <!-- <a href="{{mlbTvUrl}}"><i class="glyphicon glyphicon-facetime-video"></i></a> {{mlbTvUrl}}
- -->										<i ng-if="injuryNewsChecker()" class="glyphicon glyphicon-plus" style="color:red;"></i>
+ --><i ng-if="" class="glyphicon glyphicon-plus" style="color:red;"></i>
                                         </th>
                                         <th style="float:right">
                                             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore($index, x) }}</span> <span class="points" style="float:right">Points: </span></th>

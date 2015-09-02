@@ -97,7 +97,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.daysActiveGames = [];
         //baseball = [];
         //$scope.baseballGame = null;
-        $http.get('http://gd2.mlb.com/components/game/mlb/year_2015/month_09/day_01/master_scoreboard.json').success(function(data, status) {
+        $http.get('http://gd2.mlb.com/components/game/mlb/year_2015/month_09/day_02/master_scoreboard.json').success(function(data, status) {
             //console.log("2");
             $scope.eachGameTest = data.data.games.game;
             angular.forEach($scope.eachGameTest, function(game) {
@@ -137,7 +137,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             if (theSelectedDate.between(parseDate('2015-08-31'), parseDate('2015-09-06'))) {
                 //alert("Same Team two weeks in a row");
                 $scope.myTeam = ['425877', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];
-                $scope.benchPlayers = ['434670', '457759', '630111', '457763', '285078', '592626'];
+                $scope.benchPlayers = ['434670', '457759', '630111', '457763', '285078', '592626', '435062'];
                 $scope.DLPlayers = ['431151']
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-08-24'), parseDate('2015-08-30'))) {
@@ -991,13 +991,17 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         // });
     };
     $scope.injuryNewsChecker = function(playerID) {
-        var injured = false;
-        //console.log(playerID);
-        if ($scope.mlbPlayers.indexOf(playerID) > -1) {
-            injured = true;
-        } else {
-            injured = false;
-        }
+        // var injured = false;
+        // //console.log(playerID);
+        // if ($scope.myTeam.indexOf(playerID.toString()) > -1 || $scope.benchPlayers.indexOf(playerID.toString()) > -1) {
+        //     console.log(playerID);
+        //     if ($scope.mlbPlayers.indexOf(playerID.toString()) > -1) {
+        //         injured = true;
+        //     } else {
+        //         injured = false;
+        //     }
+
+        // }
     };
     $scope.pitchingStaff = function() {
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
@@ -1025,26 +1029,12 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     $scope.lineupJSON = [];
     $scope.mlbPlayers = [];
     $scope.teamer2 = function(mlb) {
-        $scope.Jenny = "YOU";
-
         $scope.lineupJSON = mlb.wsfb_news_injury.queryResults.row;
         angular.forEach($scope.lineupJSON, function(player) {
             $scope.mlbPlayers.push(player.player_id);
         });
-        var dummyArray = [];
-        if ($scope.mlbPlayers.indexOf("450351") > -1) {
-            dummyArray = $.grep($scope.lineupJSON, function(injuredPlayer) {
-                if (injuredPlayer.player_id == "450351") {
-                    console.log($scope.Jenny);
-                };
-            });
-        };
-        $scope.Jenny = "injuredPlayer.injury_desc";
     };
     $scope.teamer = function() {
-        // $http.get('http://anyorigin.com/dev/get?url=http%3A//m.mlb.com/lookup/json/named.stats_batter_vs_pitcher_composed.bam%3Fleague_list_id%3D%2527mlb%2527%26game_type%3D%2527R%2527%26player_id%3D408252%26pitcher_id%3D545333&callback=?').success(function(data) {
-
-        // });
         $scope.lineup = null;
         $.ajax({
             url: 'http://www.mlb.com/fantasylookup/json/named.wsfb_news_injury.bam',
@@ -1052,17 +1042,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 format: 'json'
             },
             error: function() {
-                //$('#info').html('<p>An error has occurred</p>');
+                console.log("Error");
             },
             dataType: 'json',
             success: function(data) {
-                //console.log(JSON.stringify(data));
                 $scope.mlbPlayers = [];
-                //alert(JSON.stringify($scope.Joel));
                 $scope.lineup = data;
                 $scope.teamer2($scope.lineup);
-                //console.log($scope.lineupJSON);
-                //console.log($scope.mlbPlayers);
             },
             type: 'GET'
         });

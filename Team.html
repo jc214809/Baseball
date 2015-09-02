@@ -62,7 +62,7 @@
 <body>
     <div id="navBar"></div>
     <div ng-app="myApp">
-        <div ng-controller="baseballController" data-ng-init="findMyTeam('Mine'); teamer(); showTeam(); ">
+        <div ng-controller="baseballController" data-ng-init="findMyTeam('Mine'); teamer(); showTeam();">
             <center>
                 <table id="myTeam">
                     <thead>
@@ -82,7 +82,7 @@
                                 <img style="float:left" src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" /></td>
                             <td>{{player.name_display_first_last}} &nbsp;&nbsp;
                                 <a ng-if="player.twitter_id != ''" href="https://twitter.com/{{player.twitter_id}}"><img src="http://ui.bamstatic.com/bridge/images/social/twitter_logo_blue_16.png" alt="{{player.twitter_id}}"></a>
-                                <!-- <img width="11px" src="..\Baseball\images\pictures\Injury.jpg"> -->
+                                <img ng-if="(mlbPlayers.indexOf(player.player_id.toString()) > -1)" width="12px" src="..\Baseball\images\pictures\Injury.jpg" alt="">
                             </td>
                             <td class="egg" hidden>{{player.player_id}}</td>
                             <td>{{player.age}}</td>
@@ -110,33 +110,17 @@
                     <tbody>
                         <tr ng-repeat="player in teamBenchPlayers">
                             <td width="125px">
-                                <!-- {{injuryNewsChecker(player.player_id)}}--><img style="float:left" width="62px" height="75px" src="http://mlb.mlb.com/images/logos/42x50/{{getTeamLogoAbbreviation(player.team_abbrev)}}.png" />
+                                <img style="float:left" width="62px" height="75px" src="http://mlb.mlb.com/images/logos/42x50/{{getTeamLogoAbbreviation(player.team_abbrev)}}.png" />
                                 <img style="float:left" src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" /></td>
                             <td>{{player.name_display_first_last}}&nbsp;&nbsp;
                                 <a ng-if="player.twitter_id != ''" href="https://twitter.com/{{player.twitter_id}}"><img src="http://ui.bamstatic.com/bridge/images/social/twitter_logo_blue_16.png" alt="{{player.twitter_id}}"></a>
-                                <img ng-if="injured" src="http://www.profootballrosters.com/wp-content/uploads/2013/08/Stock-Injury2.png" alt="">
+                                <img ng-if="(mlbPlayers.indexOf(player.player_id.toString()) > -1)" width="12px" src="..\Baseball\images\pictures\Injury.jpg" alt="">
                             </td>
                             <td class="egg" hidden>{{player.player_id}}</td>
                             <td>{{player.age}}</td>
                             <td>{{player.team_abbrev}}</td>
                             <td>{{player.primary_position_txt}}</td>
                             <td>{{player.status}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </center>
-            {{lineupJSON}} {{mlbPlayers}}{{Jenny}}
-            <ul id="ul2"></ul>
-            <center>
-                <table id="Joel">
-                    <thead>
-                        <tr>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="player in mlbPlayersc">
-                            <td>{{player}}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -197,7 +197,6 @@
                     <div ng-repeat="gameinfo in game[0].data.data;">
                         <div ng-repeat="team in game[0].data.data.boxscore.batting;">
                             <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (benchPlayers.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F', 'at-bat' : playersUpToBat.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F', 'in-hole' : playersInTheHole.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F'}" class="player-container">
-                                {{x}}
                                 {{stillInGame(team, x)}}
                                 <table>
                                     <thead>

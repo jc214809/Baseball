@@ -101,12 +101,10 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 //console.log("3" + JSON.stringify(game));
                 if (game.hasOwnProperty('inhole')) {
                     //console.log("4");
-
                     $scope.playersUpToBat.push(game.batter.id);
-                    //console.log("4.5");
                     $scope.playersOnDeck.push(game.ondeck.id);
                     $scope.playersInTheHole.push(game.inhole.id);
-                    console.log($scope.playersUpToBat);
+                    //console.log($scope.playersUpToBat);
                 }
             });
         }).error(function(data, status) {

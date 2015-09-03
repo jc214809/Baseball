@@ -97,7 +97,9 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.daysActiveGames = [];
         //baseball = [];
         //$scope.baseballGame = null;
-        $http.get('http://gd2.mlb.com/components/game/mlb/year_2015/month_09/day_02/master_scoreboard.json').success(function(data, status) {
+        $scope.setTheDate(true);
+
+        $http.get('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json').success(function(data, status) {
             //console.log("2");
             $scope.eachGameTest = data.data.games.game;
             angular.forEach($scope.eachGameTest, function(game) {
@@ -524,15 +526,10 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         //$scope.fourtyManRosters = "[" + $scope.fourtyManRosters + "]";
         //alert("2");
     };
-    $scope.changeDate = function(value, pageLoad) {
-        selectedDate.setDate(selectedDate.getDate() + value);
-        $('#dateBack').attr('disabled', 'disabled');
-        $('#dateForward').attr('disabled', 'disabled');
-
-        //Goes back to previous day if between midnight and 10am
+    $scope.setTheDate = function(pageLoad) {
+        //Goes back to previous day if between midnight and 11am
         var hourOfday = new Date().getHours();
         if ((hourOfday >= 0 && hourOfday <= 10) && pageLoad) {
-            //console.log("Ran!!");
             selectedDate.setDate(selectedDate.getDate() - 1);
         }
         var date1 = new Date(d);
@@ -549,15 +546,12 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             $scope.month = '0' + $scope.month;
         }
 
-        //finds out when Monday is for each week ***only works going backwards***
-
-        //if ($scope.lastSunday == selectedDate.toString('M/d/yyyy') || $scope.nextSunday == selectedDate.toString('M/d/yyyy')) {
-        //  mondayDateHelper = new Date(selectedDate);
-        //   $scope.lastMonday = mondayDateHelper.previous().monday().toString('M/d/yyyy');
-        //  $scope.lastSunday = mondayDateHelper.previous().sunday().toString('M/d/yyyy');
-        //  $scope.nextMonday = mondayDateHelper.next().monday().toString('M/d/yyyy');
-        // $scope.nextSunday = mondayDateHelper.next().sunday().toString('M/d/yyyy');
-        //}
+    };
+    $scope.changeDate = function(value, pageLoad) {
+        selectedDate.setDate(selectedDate.getDate() + value);
+        $('#dateBack').attr('disabled', 'disabled');
+        $('#dateForward').attr('disabled', 'disabled');
+        $scope.setTheDate(pageLoad);
         $scope.weeklyScores();
         $scope.getWeekRange();
         $scope.findMyTeam($scope.whichTeam);

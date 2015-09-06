@@ -98,7 +98,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         //baseball = [];
         //$scope.baseballGame = null;
         $scope.setTheDate(true);
-
+        console.log('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json');
         $http.get('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json').success(function(data, status) {
             //console.log("2");
             $scope.eachGameTest = data.data.games.game;
@@ -132,6 +132,18 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             console.log(status);
         });
     })
+    $scope.callThis = function(button) {
+
+        if (button == 'Backwards') {
+            $scope.changeDate(-1, false);
+            $('#MyScoreboard')[0].contentWindow.changeDay('Backwards');
+            $('#OpponentScoreboard')[0].contentWindow.changeDay('Backwards');
+        };
+
+
+
+    };
+
     $scope.findMyTeam = function(team) {
         $scope.whichTeam = team;
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());

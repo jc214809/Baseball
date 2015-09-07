@@ -127,21 +127,26 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             //         console.log("EnD HeRe");
             //     });
             // });
+            $scope.standingsDataArray = $scope.standingsDataArray;
         }).error(function(data, status) {
             console.log(data);
             console.log(status);
         });
     })
     $scope.callThis = function(button) {
-
         if (button == 'Backwards') {
             $scope.changeDate(-1, false);
-            $('#MyScoreboard')[0].contentWindow.changeDay('Backwards');
-            $('#OpponentScoreboard')[0].contentWindow.changeDay('Backwards');
-        };
-
-
-
+            $('#MyScoreboard')[0].contentWindow.document.getElementById("dateBack").click();
+            $('#OpponentScoreboard')[0].contentWindow.document.getElementById("dateBack").click();
+        } else if (button == 'Forward') {
+            $scope.changeDate(1, false);
+            $('#MyScoreboard')[0].contentWindow.document.getElementById("dateForward").click();
+            $('#OpponentScoreboard')[0].contentWindow.document.getElementById("dateForward").click();
+        } else {
+            $scope.backToTodaysDate();
+            $('#MyScoreboard')[0].contentWindow.document.getElementById("dateToday").click();
+            $('#OpponentScoreboard')[0].contentWindow.document.getElementById("dateToday").click();
+        }
     };
 
     $scope.findMyTeam = function(team) {
@@ -561,7 +566,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     };
     $scope.changeDate = function(value, pageLoad) {
         selectedDate.setDate(selectedDate.getDate() + value);
-        $('#dateBack').attr('disabled', 'disabled');
+        //parent.document.getElementById('dateBack').attr('disabled', 'disabled');
         $('#dateForward').attr('disabled', 'disabled');
         $scope.setTheDate(pageLoad);
         $scope.weeklyScores();
@@ -577,7 +582,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             if ($scope.todaysDate != $scope.currentSelectedDate) {
                 $('#dateForward').removeAttr('disabled');
             };
-        }, 1000);
+        }, 2000);
     };
     $scope.getWeekRange = function() {
         Date.prototype.getWeek = function(start) {
@@ -762,6 +767,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 return false;
             }
             if (!(isNaN(score))) {
+                dateForward
                 if (!lookup(id)) {
                     $scope.pointsPerPlayerID.push({
                         key: id,
@@ -1057,6 +1063,34 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 $scope.teamer2($scope.lineup);
             },
             type: 'GET'
+        });
+
+    };
+    $scope.standings = function() {
+        $scope.standingsData = null;
+        $.ajax({
+            url: 'http://www.mlb.com/fantasylookup/json/named.fb_index_standings.bam?league_id=8623',
+            data: {
+                //format: 'json'
+            },
+            error: function() {
+                console.log("Error");
+            },
+            dataType: 'json',
+            success: function(data) {
+                $scope.standings2(data);
+
+
+            },
+            type: 'GET'
+        });
+    };
+    $scope.standings2 = function(eachTeam) {
+        $scope.standingsDataArray = [];
+        $scope.standingsData = eachTeam.fb_index_standings.queryResults;
+        angular.forEach($scope.standingsData.row, function(team) {
+            $scope.standingsDataArray.push(team);
+            $scope.$apply();
         });
 
     };

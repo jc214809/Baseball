@@ -14,13 +14,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="../Baseball/js/Scoreboard2.js"></script>
     <script src="../Baseball/js/date.js"></script>
-    <script>
+    <meta name="Baseball" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
     $(function() {
         $("#navBar").load("../Baseball/navbar.html");
     });
     </script>
-    <meta name="Baseball" content="width=device-width, initial-scale=1.0">
-    <!--<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">-->
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="../Baseball/images/favicon.ico" sizes="16x16">
     <link rel="shortcut icon" href="../Baseball/images/favicon.ico" type="image/x-icon" />
@@ -38,42 +37,35 @@
 <body>
     <div id="navBar"></div>
     <div ng-app="myApp">
-        <div ng-controller="baseballController" data-ng-init="setTheDate(true);">
-            <div class="header">
-                <span>
-                   <button id="dateBack" ng-click="callThis('Backwards');" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  
-               </span>
-                <span>
-                  &nbsp;<span class="center-date" style="font-size: 195%;"><b><a ng-click="callThis('Today');">{{month}}/{{day}}/{{year}}</a></b></span>&nbsp;
-                </span>
-                <span class="right">
-                 <button id="dateForward" ng-click="callThis('Forward');"  class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
-             </span>
+        <div ng-controller="baseballController" data-ng-init="standings();">
+            <div>
+                <table>
+                    <thead>
+                        <th></th>
+                        <th>Team</th>
+                        <th>Wins</th>
+                        <th>Losses</th>
+                        <th>Games Back</th>
+                        <th>Points</th>
+                    </thead>
+                    <tbody ng-reapeat="team in standingsDataArray" ng-if="">
+                        <td><img src="http://www.mlb.com/{{team_logo_url}}"></td>
+                        <td>{{team.team_name}}</td>
+                        <td>{{team.wins}</td>
+                        <td>{{team.losses}}</td>
+                        <td>{{team.games_back}}</td>
+                        <td>{{team.points_for}}</td>
+                    </tbody>
+                </table>
             </div>
-            <iframe id="MyScoreboard" width="875px" height="865px" src="../Baseball/MyScoreboard.html">
-                <p>Your browser does not support iframes.</p>
-            </iframe>
-            <iframe id="OpponentScoreboard" width="875px" height="865px" src="../Baseball/OpponentScoreboard.html">
-                <p>Your browser does not support iframes.</p>
-            </iframe>
-            <div class="center-date">
-                <span class="at-bat key">
-                    &nbsp;Batting&nbsp;
-               </span> &nbsp;
-                <span class="on-deck key">
-                  &nbsp;On Deck&nbsp;
-              </span> &nbsp;
-                <span class="in-hole key">
-                 &nbsp;In The Hole&nbsp;
-             </span>
-            </div>
+            {{standingsDataArray}}
         </div>
-        <footer>
-            <center>
-                <br>
-                <p>&copy; 2015 Joel Clark</p>
-            </center>
-        </footer>
 </body>
+<footer>
+    <center>
+        <br>
+        <p>&copy; 2015 Joel Clark</p>
+    </center>
+</footer>
 
 </html>

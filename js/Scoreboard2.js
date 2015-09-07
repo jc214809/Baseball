@@ -97,7 +97,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.daysActiveGames = [];
         //baseball = [];
         //$scope.baseballGame = null;
-        $scope.setTheDate(true);
+        $scope.setTheDate(false);
         console.log('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json');
         $http.get('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json').success(function(data, status) {
             //console.log("2");

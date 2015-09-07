@@ -75,7 +75,7 @@ body {
 }
 
 .right {
-    padding-left: 60%;
+    padding-left: 41%;
 }
 
 .player-label {
@@ -116,6 +116,8 @@ th.scoreboard {
     color: white;
     font-weight: bold;
 }
+
+
 /* Larger desktop */
 
 @media (min-width: 1851px) {
@@ -225,6 +227,8 @@ th.scoreboard {
         vertical-align: -8px;
     }
 }
+
+
 /* Large desktop */
 
 @media (min-width: 1200px) and (max-width: 1399px) {
@@ -262,11 +266,12 @@ th.scoreboard {
         vertical-align: -8px;
     }
 }
+
+
 /* Portrait tablet to landscape and desktop */
 
 @media (min-width: 768px) and (max-width: 979px) {
     /* INDEX2 CSS Media*/
-    
     * {
         font-size: 30px;
     }
@@ -301,6 +306,8 @@ th.scoreboard {
         vertical-align: -8px;
     }
 }
+
+
 /* Landscape phone to portrait tablet */
 
 @media (max-width: 767px) {
@@ -339,6 +346,8 @@ th.scoreboard {
         vertical-align: -8px;
     }
 }
+
+
 /* Landscape phones and down */
 
 @media (max-width: 480px) {

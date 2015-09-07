@@ -153,7 +153,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.whichTeam = team;
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
         if ($scope.whichTeam == "Mine") {
-            if (theSelectedDate.between(parseDate('2015-08-31'), parseDate('2015-09-06'))) {
+            if (theSelectedDate.between(parseDate('2015-09-07'), parseDate('2015-09-13'))) {
+                //alert("no more Yadi");
+                $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];
+                $scope.benchPlayers = ['434670', '457759', '630111', '425877', '285078', '592626', '435062'];
+                $scope.DLPlayers = ['431151']
+                $scope.myPitchingStaff = 'lan';
+            } else if (theSelectedDate.between(parseDate('2015-08-31'), parseDate('2015-09-06'))) {
                 //alert("Same Team two weeks in a row");
                 $scope.myTeam = ['425877', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];
                 $scope.benchPlayers = ['434670', '457759', '630111', '457763', '285078', '592626', '435062'];
@@ -240,7 +246,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
-            if (theSelectedDate.between(parseDate('2015-08-31'), parseDate('2015-09-06'))) {
+            if (theSelectedDate.between(parseDate('2015-09-07'), parseDate('2015-09-13'))) {
+                //alert("WEEK23");
+                $scope.myTeam = ['467793', '408234', '572821', '134181', '628356', '453568', '456715', '121347', '150029'];
+                $scope.benchPlayers = ['457727', '545341', '453056', '514917', '518692'];
+                $scope.DLPlayers = ['452254', '407893'];
+                $scope.myPitchingStaff = 'cle';
+            } else if (theSelectedDate.between(parseDate('2015-08-31'), parseDate('2015-09-06'))) {
                 //alert("WEEK22");
                 $scope.myTeam = ['519083', '408236', '514888', '572761', '453064', '516782', '493316', '571740', '435522'];
                 $scope.benchPlayers = ['593428', '457775', '547982', '474892', '592885'];

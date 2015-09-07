@@ -77,9 +77,8 @@
                     <div ng-repeat="team in game[0].data.data.boxscore.batting;">
                         <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
                     <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
-                        <div ng-repeat=" in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1)" ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F', 'at-bat' : playersUpToBat.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F', 'in-hole' : playersInTheHole.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F'}" class="player-container">
+                        <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1)" ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F', 'at-bat' : playersUpToBat.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F', 'in-hole' : playersInTheHole.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F'}" class="player-container">
                             {{stillInGame(team, x)}}
-                            <div ng-hide="x.length">No events - {{x.length}}</div>
                             <table>
                                 <thead>
                                     <tr>
@@ -104,8 +103,7 @@
                                             <img src="..\Baseball\images\pictures\LeftGame.JPG" class="status-indicators" width="50" ng-if="leftGame" />
                                             <img ng-if="(mlbPlayers.indexOf(player.player_id.toString()) > -1)" width="12px" src="..\Baseball\images\pictures\Injury.jpg" alt="">
                                             <!-- {{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}} -->
-                                            <!-- <a href="{{mlbTvUrl}}"><i class="glyphicon glyphicon-facetime-video"></i></a> {{mlbTvUrl}}
- --><i ng-if="" class="glyphicon glyphicon-plus" style="color:red;"></i>
+                                            <!-- <a href="{{mlbTvUrl}}"><i class="glyphicon glyphicon-facetime-video"></i></a> {{mlbTvUrl}}<i ng-if="" class="glyphicon glyphicon-plus" style="color:red;"></i>-->
                                         </th>
                                         <th style="float:right">
                                             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore($index, x) }}</span> <span class="points" style="float:right">Points: </span></th>

@@ -133,6 +133,9 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             console.log(status);
         });
     })
+    $scope.Jen = function(a) {
+        console.log(a);
+    };
     $scope.callThis = function(button) {
         if (button == 'Backwards') {
             $scope.changeDate(-1, false);
@@ -1053,10 +1056,12 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     };
     $scope.lineupJSON = [];
     $scope.mlbPlayers = [];
+    $scope.allInjuryInfo = [];
     $scope.teamer2 = function(mlb) {
         $scope.lineupJSON = mlb.wsfb_news_injury.queryResults.row;
         angular.forEach($scope.lineupJSON, function(player) {
             $scope.mlbPlayers.push(player.player_id);
+            $scope.allInjuryInfo.push(player);
         });
     };
     $scope.teamer = function() {

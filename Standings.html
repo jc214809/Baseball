@@ -48,16 +48,22 @@
                         <th>Games Back</th>
                         <th>Points</th>
                     </thead>
-                    <tbody ng-reapeat="team in standingsDataArray" ng-if="">
-                        <td><img src="http://www.mlb.com/{{team_logo_url}}"></td>
-                        <td>{{team.team_name}}</td>
-                        <td>{{team.wins}</td>
-                        <td>{{team.losses}}</td>
-                        <td>{{team.games_back}}</td>
-                        <td>{{team.points_for}}</td>
+                    <tbody>
+                        <tr ng-reapeat="team in standingsDataArray" ng-if="">
+                            {{Jen(team)}}
+                            <td><img src="http://www.mlb.com/{{team_logo_url}}"></td>
+                            <td>{{team.team_name}}</td>
+                            <td>{{team.wins}</td>
+                            <td>{{team.losses}}</td>
+                            <td>{{team.games_back}}</td>
+                            <td>{{team.points_for}}</td>
+                            <td ng-hide="team.length">{{team.length}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
+            </br>
+            </br>
             {{standingsDataArray}}
         </div>
 </body>

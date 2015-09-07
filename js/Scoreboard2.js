@@ -566,7 +566,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     };
     $scope.changeDate = function(value, pageLoad) {
         selectedDate.setDate(selectedDate.getDate() + value);
-        //parent.document.getElementById('dateBack').attr('disabled', 'disabled');
+        //parent.document.getElementById
+        $('#dateBack').attr('disabled', 'disabled');
         $('#dateForward').attr('disabled', 'disabled');
         $scope.setTheDate(pageLoad);
         $scope.weeklyScores();

@@ -947,8 +947,20 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
             if (gameID == $scope.eachGame[i].game_pk) {
                 if ($scope.eachGame[i].runners_on_base.hasOwnProperty(baseParameter)) {
-                    if ($scope.eachGame[i].runners_on_base.baseParameter.player_id == playerID) {
-                        return true;
+                    if (baseParameter == 'runner_on_1b') {
+                        if ($scope.eachGame[i].runners_on_base.runner_on_1b.player_id == playerID) {
+                            return true;
+                        };
+                    };
+                    if (baseParameter == 'runner_on_2b') {
+                        if ($scope.eachGame[i].runners_on_base.runner_on_2b.player_id == playerID) {
+                            return true;
+                        };
+                    };
+                    if (baseParameter == 'runner_on_3b') {
+                        if ($scope.eachGame[i].runners_on_base.runner_on_3b.player_id == playerID) {
+                            return true;
+                        };
                     };
                 };
             };

@@ -111,6 +111,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                     $scope.playersInTheHole.push(game.inhole.id);
                     //console.log($scope.playersUpToBat);
                 }
+
                 if (game.hasOwnProperty('game_data_directory')) {
                     $scope.daysActiveGames.push('http://gd2.mlb.com' + game.game_data_directory + "/boxscore.json");
                     //console.log($scope.daysActiveGames);
@@ -134,7 +135,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         });
     })
     $scope.Jen = function(a) {
-        console.log(a);
+        //console.log(a);
     };
     $scope.callThis = function(button) {
         if (button == 'Backwards') {
@@ -915,9 +916,66 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             };
         };
     };
+    $scope.getFirstBaseRunners = function(gameID) {
+        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGame[i].game_pk) {
+                if ($scope.eachGame[i].runners_on_base.hasOwnProperty('runner_on_1b')) {
+                    return true;
+                };
+            };
+        };
+    };
+    $scope.getSecondBaseRunners = function(gameID) {
+        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGame[i].game_pk) {
+                if ($scope.eachGame[i].runners_on_base.hasOwnProperty('runner_on_2b')) {
+                    return true;
+                };
+            };
+        };
+    };
+    $scope.getThirdBaseRunners = function(gameID) {
+        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGame[i].game_pk) {
+                if ($scope.eachGame[i].runners_on_base.hasOwnProperty('runner_on_3b')) {
+                    return true;
+                };
+            };
+        };
+    };
+    $scope.isRunnerCurrentPlayer = function(gameID, playerID, baseParameter) {
+        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGame[i].game_pk) {
+                if ($scope.eachGame[i].runners_on_base.hasOwnProperty(baseParameter)) {
+                    if ($scope.eachGame[i].runners_on_base.baseParameter.player_id == playerID) {
+                        return true;
+                    };
+                };
+            };
+        };
+    };
+    $scope.isSecondBaseRunnerCurrentPlayer = function(gameID, playerID) {
+        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGame[i].game_pk) {
+                if ($scope.eachGame[i].runners_on_base.hasOwnProperty('runner_on_2b')) {
+                    return true;
+                };
+            };
+        };
+    };
+    $scope.isThirdBaseRunnerCurrentPlayer = function(gameID, playerID) {
+        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGame[i].game_pk) {
+                if ($scope.eachGame[i].runners_on_base.hasOwnProperty('runner_on_3b')) {
+                    return true;
+                };
+            };
+        };
+    };
     $scope.getMoreGameInfo = function(gameID, needInnings) {
         for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
             if (gameID == $scope.eachGame[i].game_pk) {
+                //console.log(JSON.stringify($scope.eachGame[i]));
                 $scope.timeOfGame = null
                 $scope.matchUp = null;
                 if (needInnings) {

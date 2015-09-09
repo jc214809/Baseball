@@ -152,9 +152,9 @@
  != 'F' && pitchingStaffGameStatus != 'O' && pitchingStaffGameStatus != 'I'  && pitchingStaffGameStatus != 'DR'"><b>{{getMoreGameInfo(pitchedGames._game_pk, true)}} {{matchUp}}&nbsp;{{timeOfGame}}</b></span><span class="game-info status-indicators" ng-if="pitchingStaffGameStatus == 'F' || pitchingStaffGameStatus == 'O' || pitchingStaffGameStatus == 'IR' || pitchingStaffGameStatus == 'I'|| pitchingStaffGameStatus == 'MA'"> <b>{{pitchingGameScore}}</b><span ng-if="pitchingStaffGameStatus != 'F' && pitchingStaffGameStatus != 'O'  && pitchingStaffGameStatus != 'DR'">, <b>{{pitchingGameInning}}</b></span></span>
                             <div id="horizontal_linescore_bases" class="bases_container base" ng-if="true">
                                 <ul>
-                                    <li class="base first" ng-class="{'active' : getFirstBaseRunners(gameinfo.game_pk), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_1b')}"></li>
-                                    <li class="base second" ng-class="{'active' : getSecondBaseRunners(gameinfo.game_pk), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_2b')}"></li>
-                                    <li class="base third" ng-class="{'active' : getThirdBaseRunners(gameinfo.game_pk), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_3b')}"></li>
+                                    <li class="base first" ng-class="{'active' : getFirstBaseRunners(gameinfo.game_pk)}"></li>
+                                    <li class="base second" ng-class="{'active' : getSecondBaseRunners(gameinfo.game_pk)}"></li>
+                                    <li class="base third" ng-class="{'active' : getThirdBaseRunners(gameinfo.game_pk)}"></li>
                                 </ul>
                             </div>
                             &nbsp;<img ng-if="pitchingStaffGameStatus == 'F'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" /><img ng-if="pitchingStaffGameStatus == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" />

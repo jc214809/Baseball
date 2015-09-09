@@ -88,8 +88,8 @@
                                             <div id="horizontal_linescore_bases" class="bases_container base" ng-if="true">
                                                 <ul>
                                                     <li class="base first" ng-class="{'active' : getFirstBaseRunners(gameinfo.game_pk), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_1b')}"></li>
-                                                    <li class="base second" ng-class="{'active' : getSecondBaseRunners(gameinfo.game_pk)}, 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_2b')"></li>
-                                                    <li class="base third" ng-class="{'active' : getThirdBaseRunners(gameinfo.game_pk)}, 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_3b')"></li>
+                                                    <li class="base second" ng-class="{'active' : getSecondBaseRunners(gameinfo.game_pk), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_2b')}"></li>
+                                                    <li class="base third" ng-class="{'active' : getThirdBaseRunners(gameinfo.game_pk), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_3b')}"></li>
                                                 </ul>
                                             </div>
                                             <img ng-if="gameinfo.status_ind == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" /> <img ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" />
@@ -153,8 +153,8 @@
                             <div id="horizontal_linescore_bases" class="bases_container base" ng-if="true">
                                 <ul>
                                     <li class="base first" ng-class="{'active' : getFirstBaseRunners(gameinfo.game_pk), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_1b')}"></li>
-                                    <li class="base second" ng-class="{'active' : getSecondBaseRunners(gameinfo.game_pk)}, 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_2b')"></li>
-                                    <li class="base third" ng-class="{'active' : getThirdBaseRunners(gameinfo.game_pk)}, 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_3b')"></li>
+                                    <li class="base second" ng-class="{'active' : getSecondBaseRunners(gameinfo.game_pk), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_2b')}"></li>
+                                    <li class="base third" ng-class="{'active' : getThirdBaseRunners(gameinfo.game_pk), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_3b')}"></li>
                                 </ul>
                             </div>
                             &nbsp;<img ng-if="pitchingStaffGameStatus == 'F'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" /><img ng-if="pitchingStaffGameStatus == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" />

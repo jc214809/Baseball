@@ -160,7 +160,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             if (theSelectedDate.between(parseDate('2015-09-07'), parseDate('2015-09-13'))) {
                 //alert("no more Yadi");
                 $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];
-                $scope.benchPlayers = ['434670', '457759', '630111', '425877', '285078', '592626', '435062'];
+                $scope.benchPlayers = ['434670', '457759', '630111', '425877', '285078', '592626', '435062', '608365'];
                 $scope.DLPlayers = ['431151']
                 $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-08-31'), parseDate('2015-09-06'))) {
@@ -948,17 +948,17 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             if (gameID == $scope.eachGame[i].game_pk) {
                 if ($scope.eachGame[i].runners_on_base.hasOwnProperty(baseParameter)) {
                     if (baseParameter == 'runner_on_1b') {
-                        if ($scope.eachGame[i].runners_on_base.runner_on_1b.player_id == playerID) {
+                        if ($scope.eachGame[i].runners_on_base.runner_on_1b.id == playerID) {
                             return true;
                         };
                     };
                     if (baseParameter == 'runner_on_2b') {
-                        if ($scope.eachGame[i].runners_on_base.runner_on_2b.player_id == playerID) {
+                        if ($scope.eachGame[i].runners_on_base.runner_on_2b.id == playerID) {
                             return true;
                         };
                     };
                     if (baseParameter == 'runner_on_3b') {
-                        if ($scope.eachGame[i].runners_on_base.runner_on_3b.player_id == playerID) {
+                        if ($scope.eachGame[i].runners_on_base.runner_on_3b.id == playerID) {
                             return true;
                         };
                     };

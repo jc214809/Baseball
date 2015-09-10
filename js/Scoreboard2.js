@@ -916,28 +916,10 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             };
         };
     };
-    $scope.getFirstBaseRunners = function(gameID) {
+    $scope.getBaseRunners = function(gameID, baseParameter) {
         for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
             if (gameID == $scope.eachGame[i].game_pk) {
-                if ($scope.eachGame[i].runners_on_base.hasOwnProperty('runner_on_1b')) {
-                    return true;
-                };
-            };
-        };
-    };
-    $scope.getSecondBaseRunners = function(gameID) {
-        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
-            if (gameID == $scope.eachGame[i].game_pk) {
-                if ($scope.eachGame[i].runners_on_base.hasOwnProperty('runner_on_2b')) {
-                    return true;
-                };
-            };
-        };
-    };
-    $scope.getThirdBaseRunners = function(gameID) {
-        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
-            if (gameID == $scope.eachGame[i].game_pk) {
-                if ($scope.eachGame[i].runners_on_base.hasOwnProperty('runner_on_3b')) {
+                if ($scope.eachGame[i].runners_on_base.hasOwnProperty(baseParameter)) {
                     return true;
                 };
             };
@@ -962,24 +944,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                             return true;
                         };
                     };
-                };
-            };
-        };
-    };
-    $scope.isSecondBaseRunnerCurrentPlayer = function(gameID, playerID) {
-        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
-            if (gameID == $scope.eachGame[i].game_pk) {
-                if ($scope.eachGame[i].runners_on_base.hasOwnProperty('runner_on_2b')) {
-                    return true;
-                };
-            };
-        };
-    };
-    $scope.isThirdBaseRunnerCurrentPlayer = function(gameID, playerID) {
-        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
-            if (gameID == $scope.eachGame[i].game_pk) {
-                if ($scope.eachGame[i].runners_on_base.hasOwnProperty('runner_on_3b')) {
-                    return true;
                 };
             };
         };

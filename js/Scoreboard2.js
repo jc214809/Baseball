@@ -1092,6 +1092,9 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     $scope.lineupJSON = [];
     $scope.mlbPlayers = [];
     $scope.allInjuryInfo = [];
+    $scope.InjuryNotes = function(playerID) {
+        alert($scope.allInjuryInfo[$scope.mlbPlayers.indexOf(playerID)].injury_update)
+    };
     $scope.teamer2 = function(mlb) {
         $scope.lineupJSON = mlb.wsfb_news_injury.queryResults.row;
         angular.forEach($scope.lineupJSON, function(player) {

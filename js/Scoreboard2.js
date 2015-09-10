@@ -101,8 +101,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         console.log('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json');
         $http.get('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json').success(function(data, status) {
             //console.log("2");
-            $scope.eachGameTest = data.data.games.game;
-            angular.forEach($scope.eachGameTest, function(game) {
+            $scope.eachGameRefresh = data.data.games.game;
+            angular.forEach($scope.eachGameRefresh, function(game) {
                 //console.log("3" + JSON.stringify(game));
                 if (game.hasOwnProperty('inhole')) {
                     //console.log("4");
@@ -917,30 +917,30 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         };
     };
     $scope.getBaseRunners = function(gameID, baseParameter) {
-        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
-            if (gameID == $scope.eachGame[i].game_pk) {
-                if ($scope.eachGame[i].runners_on_base.hasOwnProperty(baseParameter)) {
+        for (var i = $scope.eachGameRefresh.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGameRefresh[i].game_pk) {
+                if ($scope.eachGameRefresh[i].runners_on_base.hasOwnProperty(baseParameter)) {
                     return true;
                 };
             };
         };
     };
     $scope.isRunnerCurrentPlayer = function(gameID, playerID, baseParameter) {
-        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
-            if (gameID == $scope.eachGame[i].game_pk) {
-                if ($scope.eachGame[i].runners_on_base.hasOwnProperty(baseParameter)) {
+        for (var i = $scope.eachGameRefresh.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGameRefresh[i].game_pk) {
+                if ($scope.eachGameRefresh[i].runners_on_base.hasOwnProperty(baseParameter)) {
                     if (baseParameter == 'runner_on_1b') {
-                        if ($scope.eachGame[i].runners_on_base.runner_on_1b.id == playerID) {
+                        if ($scope.eachGameRefresh[i].runners_on_base.runner_on_1b.id == playerID) {
                             return true;
                         };
                     };
                     if (baseParameter == 'runner_on_2b') {
-                        if ($scope.eachGame[i].runners_on_base.runner_on_2b.id == playerID) {
+                        if ($scope.eachGameRefresh[i].runners_on_base.runner_on_2b.id == playerID) {
                             return true;
                         };
                     };
                     if (baseParameter == 'runner_on_3b') {
-                        if ($scope.eachGame[i].runners_on_base.runner_on_3b.id == playerID) {
+                        if ($scope.eachGameRefresh[i].runners_on_base.runner_on_3b.id == playerID) {
                             return true;
                         };
                     };
@@ -1001,6 +1001,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
 
         $http.get($scope.scoreBoard).success(function(data) {
             $scope.eachGame = data.data.games.game;
+            $scope.eachGameRefresh = data.data.games.game;
             angular.forEach($scope.eachGame, function(batter) {
                 var thisSession = batter;
                 if (batter.away_code == $scope.myPitchingStaff || batter.home_code == $scope.myPitchingStaff) {

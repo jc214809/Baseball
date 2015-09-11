@@ -218,11 +218,7 @@
                                                 <span class="game-info status-indicators" ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O' || gameinfo.status_ind == 'IR' || gameinfo.status_ind == 'I'|| gameinfo.status_ind == 'MA'">
                                          <b>{{getCurrentGamesScore(gameinfo.game_pk)}}</b>
                                          <span ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O'  && gameinfo.status_ind != 'DR'">, <b>{{getCurrentGamesInning(gameinfo.game_pk)}}</b></span>
-                                                <span style="display:inline" class="ass bases_container base" ng-if="gameinfo.status_ind == 'I' || gameinfo.status_ind == 'IR'|| gameinfo.status_ind == 'MA'">
-                                                <i class="base first glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_1b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_1b')}"></i>
-                                                <i class="base second glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_2b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_2b')}"></i>
-                                                <i class="base third glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_3b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_3b')}"></i>
-                                            </span>
+                                                </span>
                                                 <img ng-if="gameinfo.status_ind == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" />
                                                 <img ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" />
                                                 <blink ng-if="gameinfo.status_ind == 'DR'|| gameinfo.status_ind == 'PR'|| gameinfo.status_ind == 'DI' || gameinfo.status_ind == 'IR' || gameinfo.status_ind == 'MA'|| gameinfo.status_ind == 'DE'">
@@ -232,6 +228,11 @@
                                                 </blink>
                                                 <span class="game-info status-indicators game-time" ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O' && gameinfo.status_ind != 'I'  && gameinfo.status_ind != 'DR'">
                                                <b>{{getMoreGameInfo(gameinfo.game_pk,false)}} {{matchUp}}&nbsp;{{timeOfGame}}</b>
+                                            </span>
+                                                <span style="display:inline" class="ass bases_container base" ng-if="gameinfo.status_ind == 'I' || gameinfo.status_ind == 'IR'|| gameinfo.status_ind == 'MA'">
+                                                <i class="base first glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_1b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_1b')}"></i>
+                                                <i class="base second glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_2b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_2b')}"></i>
+                                                <i class="base third glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_3b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_3b')}"></i>
                                             </span>
                                                 <img src="..\Baseball\images\pictures\EnteredButLeftGame.JPG" class="status-indicators" width="50" ng-if="enteredButLeft" />
                                                 <img src="..\Baseball\images\pictures\EnteredGame.JPG" class="status-indicators" width="50" ng-if="entered" />

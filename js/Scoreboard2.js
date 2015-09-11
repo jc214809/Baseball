@@ -404,7 +404,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                         // console.log("Away Staff: " + gameInfo.away_code);
                         // console.log("Home Staff: " + gameInfo.home_code);
                     };
-                    console.log("True or False? " + $scope.doubleHeader);
+                    //console.log("True or False? " + $scope.doubleHeader);
                 };
                 var JSONlink = gameInfo.game_data_directory;
                 //alert('http://gd2.mlb.com' + JSONlink + "/boxscore.json");
@@ -950,14 +950,16 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     };
     $scope.getMoreGameInfo = function(gameID, needInnings) {
         for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
+            //console.log(gameID);
             if (gameID == $scope.eachGame[i].game_pk) {
                 //console.log(JSON.stringify($scope.eachGame[i]));
                 $scope.timeOfGame = null
                 $scope.matchUp = null;
+                $scope.pitchingStaffGameStatus = $scope.eachGameRefresh[i].status.ind;
                 if (needInnings) {
                     $scope.pitchingStaffGameStatus = null;
                     $scope.pitchingGameScore = null;
-                    $scope.pitchingStaffGameStatus = $scope.eachGame[i].status.ind;
+                    //$scope.pitchingStaffGameStatus = $scope.eachGame[i].status.ind;
                     $scope.pitchingGameScore = $scope.eachGame[i].away_name_abbrev + " " + $scope.eachGame[i].linescore.r.away + " " + $scope.eachGame[i].home_name_abbrev + " " + $scope.eachGame[i].linescore.r.home;
                 };
                 if ($scope.eachGame[i].status.status == 'Pre-Game') {
@@ -977,6 +979,39 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             };
         };
     };
+    $scope.getCurrentGamesScore = function(gameID) {
+        for (var i = $scope.eachGameRefresh.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGameRefresh[i].game_pk) {
+                $scope.pitchingStaffGameStatus = $scope.eachGameRefresh[i].status.ind;
+                return $scope.eachGameRefresh[i].away_name_abbrev + " " + $scope.eachGameRefresh[i].linescore.r.away + " " + $scope.eachGameRefresh[i].home_name_abbrev + " " + $scope.eachGameRefresh[i].linescore.r.home;
+            };
+        };
+    };
+
+    $scope.getCurrentGamesInning = function(gameID) {
+        for (var i = $scope.eachGameRefresh.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGameRefresh[i].game_pk) {
+                if ($scope.eachGameRefresh[i].status.status == 'In Progress') {
+                    $scope.pitchingStaffInning = $scope.eachGameRefresh[i].status.inning;
+                    switch ($scope.eachGameRefresh[i].status.inning_state.toLowerCase()) {
+                        case 'top':
+                            $scope.pitchingStaffTopOrBottom = 'T';
+                            break;
+                        case 'middle':
+                            $scope.pitchingStaffTopOrBottom = 'M';
+                            break;
+                        case 'end':
+                            $scope.pitchingStaffTopOrBottom = 'E';
+                            break;
+                        default:
+                            $scope.pitchingStaffTopOrBottom = 'B';
+                    }
+                    return $scope.pitchingStaffTopOrBottom + $scope.pitchingStaffInning;
+                };
+            };
+        };
+    };
+
     $scope.init = function() {
         //$scope.changeDate(0);
         $scope.total = 0;

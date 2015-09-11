@@ -86,8 +86,8 @@
                                         <th class="player-photo" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg" /></th>
                                         <th colspan="2"><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span>
                                             <span class="game-info status-indicators" ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O' || gameinfo.status_ind == 'IR' || gameinfo.status_ind == 'I'|| gameinfo.status_ind == 'MA'">
-                                         <b>{{getGamesScore(gameinfo)}}</b>
-                                         <span ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O'  && gameinfo.status_ind != 'DR'">, <b>{{ getInning(gameinfo) }}</b></span>
+                                         <b>{{getCurrentGamesScore(gameinfo.game_pk)}}</b>
+                                         <span ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O'  && gameinfo.status_ind != 'DR'">, <b>{{getCurrentGamesInning(gameinfo.game_pk)}}</b></span>
                                             </span>
                                             <span class="game-info status-indicators game-time" ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O' && gameinfo.status_ind != 'I'  && gameinfo.status_ind != 'DR'">
                                                <b>{{getMoreGameInfo(gameinfo.game_pk,false)}} {{matchUp}}&nbsp;{{timeOfGame}}</b>
@@ -158,14 +158,14 @@
                     <tr>
                         <th rowspan="2"><img height="75" width="62" src="http://mlb.mlb.com/images/logos/42x50/{{getStaffPictureAbbreviation(myPitchingStaff)}}.png"></th>
                         <th colspan="2"><span class="player-label">{{pitchingStaffTeamName}}, P</span>&nbsp;<span class="game-info status-indicators game-time" ng-if="pitchingStaffGameStatus
- != 'F' && pitchingStaffGameStatus != 'O' && pitchingStaffGameStatus != 'I'  && pitchingStaffGameStatus != 'DR'"><b>{{getMoreGameInfo(pitchedGames._game_pk, true)}} {{matchUp}}&nbsp;{{timeOfGame}}</b></span>
+ != 'F' && pitchingStaffGameStatus != 'O' && pitchingStaffGameStatus != 'I'  && pitchingStaffGameStatus != 'DR'"><b>{{matchUp}}&nbsp;{{timeOfGame}}</b></span>
                             <span id="horizontal_linescore_bases status-indicators" class="bases_container base" ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O'">
 
-                            <span class="game-info status-indicators" ng-if="pitchingStaffGameStatus == 'F' || pitchingStaffGameStatus == 'O' || pitchingStaffGameStatus == 'IR' || pitchingStaffGameStatus == 'I'|| pitchingStaffGameStatus == 'MA'"> <b>{{pitchingGameScore}}</b><span ng-if="pitchingStaffGameStatus != 'F' && pitchingStaffGameStatus != 'O'  && pitchingStaffGameStatus != 'DR'">, <b>{{pitchingGameInning}}</b></span></span>&nbsp;
-                            <span style="display:inline" class="ass bases_container base" ng-if="gameinfo.status_ind == 'I' || gameinfo.status_ind == 'DI'">
-                                                <i class="base first glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_1b'}"></i>
-                                                <i class="base second glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_2b')}" ></i>
-                                                <i class="base third glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_3b')}"></i>
+                            <span class="game-info status-indicators" ng-if="pitchingStaffGameStatus == 'F' || pitchingStaffGameStatus == 'O' || pitchingStaffGameStatus == 'IR' || pitchingStaffGameStatus == 'I'|| pitchingStaffGameStatus == 'MA'"> <b>{{getCurrentGamesScore(pitchedGames._game_pk)}}</b><span ng-if="pitchingStaffGameStatus != 'F' && pitchingStaffGameStatus != 'O'  && pitchingStaffGameStatus != 'DR'">, <b>{{getCurrentGamesInning(pitchedGames._game_pk)}}</b></span></span>&nbsp;
+                            <span style="display:inline" class="ass bases_container base" ng-if="pitchingStaffGameStatus == 'I' || pitchingStaffGameStatus == 'DI' || pitchingStaffGameStatus == 'MA'">
+                                                <i class="base first glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(pitchedGames._game_pk, 'runner_on_1b'}"></i>
+                                                <i class="base second glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(pitchedGames._game_pk, 'runner_on_2b')}" ></i>
+                                                <i class="base third glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(pitchedGames._game_pk, 'runner_on_3b')}"></i>
                                             </span>
                             <img ng-if="pitchingStaffGameStatus == 'F'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" /><img ng-if="pitchingStaffGameStatus == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" />
                             <blink ng-if="pitchingStaffGameStatus == 'DR'|| pitchingStaffGameStatus == 'PR'|| gameinfo.status_ind == 'DI' || pitchingStaffGameStatus == 'IR' || pitchingStaffGameStatus == 'MA'|| pitchingStaffGameStatus == 'DE'"><img ng-if="pitchingStaffGameStatus == 'DR'|| gameinfo.status_ind == 'DI' || pitchingStaffGameStatus == 'DE'" class="status-indicators" width="50" src="..\Baseball\images\pictures\PPD.jpg" /><img ng-if="pitchingStaffGameStatus == 'IR'|| pitchingStaffGameStatus == 'PR'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Delay.jpg" /><img ng-if="pitchingStaffGameStatus == 'MA'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Challenge.jpg" /></blink>
@@ -231,8 +231,8 @@
                                             <th class="player-photo" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg" /></th>
                                             <th colspan="2"><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span>
                                                 <span class="game-info status-indicators" ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O' || gameinfo.status_ind == 'IR' || gameinfo.status_ind == 'I'|| gameinfo.status_ind == 'MA'">
-                                         <b>{{getGamesScore(gameinfo)}}</b>
-                                         <span ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O'  && gameinfo.status_ind != 'DR'">, <b>{{ getInning(gameinfo) }}</b></span>
+                                         <b>{{getCurrentGamesScore(gameinfo.game_pk)}}</b>
+                                         <span ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O'  && gameinfo.status_ind != 'DR'">, <b>{{getCurrentGamesInning(gameinfo.game_pk)}}</b></span>
                                                 </span>
                                                 <img ng-if="gameinfo.status_ind == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" />
                                                 <img ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" />

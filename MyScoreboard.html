@@ -78,6 +78,7 @@
                     <div ng-repeat="team in game[0].data.data.boxscore.batting;">
                         <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
                     <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
+                        {{getGameStatus(gameinfo.game_pk)}}
                         <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1)" ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F', 'at-bat' : playersUpToBat.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F', 'in-hole' : playersInTheHole.indexOf(x.id) != -1 && gameinfo.status_ind != 'P' && gameinfo.status_ind != 'F'}" class="player-container">
                             {{stillInGame(team, x)}}
                             <table>
@@ -90,7 +91,7 @@
                                          <span ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O'  && gameinfo.status_ind != 'DR'">, <b>{{getCurrentGamesInning(gameinfo.game_pk)}}</b></span>
                                             </span>
                                             <span class="game-info status-indicators game-time" ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O' && gameinfo.status_ind != 'I'  && gameinfo.status_ind != 'DR'">
-                                               <b>{{getMoreGameInfo(gameinfo.game_pk,false)}} {{matchUp}}&nbsp;{{timeOfGame}}</b>
+                                               <b>{{getMoreGameInfo(gameinfo.game_pk,false)}} {{getMatchup(gameinfo.game_pk)}}</b>
                                             </span>
                                             <span style="display:inline" class="ass bases_container base" ng-if="gameinfo.status_ind == 'I' || gameinfo.status_ind == 'DI'">
                                                 <i class="base first glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_1b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_1b')}"></i>
@@ -98,7 +99,8 @@
                                                 <i class="base third
  glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_3b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_3b')}"></i>
                                             </span>
-                                            <img ng-if="gameinfo.status_ind == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" />
+                                            <img ng-if="gameinfo.status_ind
+ == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" />
                                             <img ng-if="gameinfo.status_ind == 'F' || gameinfo.status_ind == 'O'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" />
                                             <blink ng-if="gameinfo.status_ind == 'DR'|| gameinfo.status_ind == 'PR'|| gameinfo.status_ind == 'DI' || gameinfo.status_ind == 'IR' || gameinfo.status_ind == 'MA'|| gameinfo.status_ind == 'DE'">
                                                 <img ng-if="gameinfo.status_ind == 'DR'|| gameinfo.status_ind == 'DI' || gameinfo.status_ind == 'DE'" class="status-indicators" width="50" src="..\Baseball\images\pictures\PPD.jpg" />
@@ -158,7 +160,7 @@
                     <tr>
                         <th rowspan="2"><img height="75" width="62" src="http://mlb.mlb.com/images/logos/42x50/{{getStaffPictureAbbreviation(myPitchingStaff)}}.png"></th>
                         <th colspan="2"><span class="player-label">{{pitchingStaffTeamName}}, P</span>&nbsp;<span class="game-info status-indicators game-time" ng-if="pitchingStaffGameStatus
- != 'F' && pitchingStaffGameStatus != 'O' && pitchingStaffGameStatus != 'I'  && pitchingStaffGameStatus != 'DR'"><b>{{matchUp}}&nbsp;{{timeOfGame}}</b></span>
+ != 'F' && pitchingStaffGameStatus != 'O' && pitchingStaffGameStatus != 'I'  && pitchingStaffGameStatus != 'DR'"><b>{{getMatchup(pitchedGames._game_pk)}}</b></span>
                             <span id="horizontal_linescore_bases status-indicators" class="bases_container base" ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O'">
 
                             <span class="game-info status-indicators" ng-if="pitchingStaffGameStatus == 'F' || pitchingStaffGameStatus == 'O' || pitchingStaffGameStatus == 'IR' || pitchingStaffGameStatus == 'I'|| pitchingStaffGameStatus == 'MA'"> <b>{{getCurrentGamesScore(pitchedGames._game_pk)}}</b><span ng-if="pitchingStaffGameStatus != 'F' && pitchingStaffGameStatus != 'O'  && pitchingStaffGameStatus != 'DR'">, <b>{{getCurrentGamesInning(pitchedGames._game_pk)}}</b></span></span>&nbsp;
@@ -242,7 +244,7 @@
                                                     <img ng-if="gameinfo.status_ind == 'MA'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Challenge.jpg" />
                                                 </blink>
                                                 <span class="game-info status-indicators game-time" ng-if="gameinfo.status_ind != 'F' && gameinfo.status_ind != 'O' && gameinfo.status_ind != 'I'  && gameinfo.status_ind != 'DR'">
-                                               <b>{{getMoreGameInfo(gameinfo.game_pk,false)}} {{matchUp}}&nbsp;{{timeOfGame}}</b>
+                                               <b>{{getMoreGameInfo(gameinfo.game_pk,false)}} {{getMatchup(gameinfo.game_pk)}}</b>
                                             </span>
                                                 <span style="display:inline" class="ass bases_container base" ng-if="gameinfo.status_ind == 'I' || gameinfo.status_ind == 'IR'|| gameinfo.status_ind == 'MA'">
                                                 <i class="base first glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_1b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_1b')}"></i>

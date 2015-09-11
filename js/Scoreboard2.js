@@ -948,33 +948,41 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             };
         };
     };
+    $scope.getGameStatus = function(gameID) {
+        $scope.gameStatus = null;
+        for (var i = $scope.eachGameRefresh.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGameRefresh[i].game_pk) {
+                $scope.gameStatus = $scope.eachGameRefresh[i].status.ind;
+            };
+        };
+    }
     $scope.getMoreGameInfo = function(gameID, needInnings) {
         for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
             //console.log(gameID);
-            if (gameID == $scope.eachGame[i].game_pk) {
+            if (gameID == $scope.eachGameRefresh[i].game_pk) {
                 //console.log(JSON.stringify($scope.eachGame[i]));
-                $scope.timeOfGame = null
-                $scope.matchUp = null;
+                //$scope.timeOfGame = null
+                //$scope.matchUp = null;
                 $scope.pitchingStaffGameStatus = $scope.eachGameRefresh[i].status.ind;
-                if (needInnings) {
-                    $scope.pitchingStaffGameStatus = null;
-                    $scope.pitchingGameScore = null;
-                    //$scope.pitchingStaffGameStatus = $scope.eachGame[i].status.ind;
-                    $scope.pitchingGameScore = $scope.eachGame[i].away_name_abbrev + " " + $scope.eachGame[i].linescore.r.away + " " + $scope.eachGame[i].home_name_abbrev + " " + $scope.eachGame[i].linescore.r.home;
-                };
-                if ($scope.eachGame[i].status.status == 'Pre-Game') {
-                    $scope.matchUp = $scope.eachGame[i].away_name_abbrev + " @ " + $scope.eachGame[i].home_name_abbrev;
-                    $scope.timeOfGame = $scope.eachGame[i].time + $scope.eachGame[i].ampm;
-                };
-                if ($scope.eachGame[i].status.status == 'In Progress' && needInnings) {
-                    $scope.pitchingStaffInning = $scope.eachGame[i].status.inning;
-                    if ($scope.eachGame[i].status.inning_state = "Bottom") {
-                        $scope.pitchingStaffTopOrBottom = "B";
-                    } else {
-                        $scope.pitchingStaffTopOrBottom = "T";
-                    }
-                    $scope.pitchingGameInning = $scope.pitchingStaffTopOrBottom + $scope.pitchingStaffInning;
-                };
+                // if (needInnings) {
+                //     $scope.pitchingStaffGameStatus = null;
+                //     $scope.pitchingGameScore = null;
+                //     //$scope.pitchingStaffGameStatus = $scope.eachGame[i].status.ind;
+                //     $scope.pitchingGameScore = $scope.eachGame[i].away_name_abbrev + " " + $scope.eachGame[i].linescore.r.away + " " + $scope.eachGame[i].home_name_abbrev + " " + $scope.eachGame[i].linescore.r.home;
+                // };
+                // if ($scope.eachGame[i].status.status == 'Pre-Game') {
+                //     $scope.matchUp = $scope.eachGame[i].away_name_abbrev + " @ " + $scope.eachGame[i].home_name_abbrev;
+                //     $scope.timeOfGame = $scope.eachGame[i].time + $scope.eachGame[i].ampm;
+                // };
+                // if ($scope.eachGame[i].status.status == 'In Progress' && needInnings) {
+                //     $scope.pitchingStaffInning = $scope.eachGame[i].status.inning;
+                //     if ($scope.eachGame[i].status.inning_state = "Bottom") {
+                //         $scope.pitchingStaffTopOrBottom = "B";
+                //     } else {
+                //         $scope.pitchingStaffTopOrBottom = "T";
+                //     }
+                //     $scope.pitchingGameInning = $scope.pitchingStaffTopOrBottom + $scope.pitchingStaffInning;
+                // };
                 break;
             };
         };
@@ -984,6 +992,16 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             if (gameID == $scope.eachGameRefresh[i].game_pk) {
                 $scope.pitchingStaffGameStatus = $scope.eachGameRefresh[i].status.ind;
                 return $scope.eachGameRefresh[i].away_name_abbrev + " " + $scope.eachGameRefresh[i].linescore.r.away + " " + $scope.eachGameRefresh[i].home_name_abbrev + " " + $scope.eachGameRefresh[i].linescore.r.home;
+            };
+        };
+    };
+
+    $scope.getMatchup = function(gameID) {
+        for (var i = $scope.eachGameRefresh.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGameRefresh[i].game_pk) {
+                if ($scope.eachGameRefresh[i].status.status == 'Pre-Game') {
+                    return $scope.eachGameRefresh[i].away_name_abbrev + " @ " + $scope.eachGameRefresh[i].home_name_abbrev + ' ' + $scope.eachGameRefresh[i].time + ' ' + $scope.eachGameRefresh[i].ampm;
+                };
             };
         };
     };
@@ -1170,8 +1188,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             dataType: 'json',
             success: function(data) {
                 $scope.standings2(data);
-
-
             },
             type: 'GET'
         });
@@ -1181,6 +1197,457 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.standingsData = eachTeam.fb_index_standings.queryResults;
         angular.forEach($scope.standingsData.row, function(team) {
             $scope.standingsDataArray.push(team);
+            $scope.standingsDataArray = [{
+                "b_2b": "229",
+                "team_logo_url": "http://mlb.mlb.com/mlb/fantasy/wsfb/images/logos/81x77_retro_stl.jpg",
+                "team_playoff_prefix": "",
+                "p_bb": "421",
+                "b_r": "608",
+                "points_for": "4809",
+                "waiver_priority": "8",
+                "wildcard_type": "most_points",
+                "team_playoff_seed": "",
+                "p_w": "69",
+                "p_whip": "1.32",
+                "b_avg": ".268",
+                "streak_type": "W",
+                "p_sv": "41",
+                "draft_position": "2",
+                "p_era": "4.21",
+                "losses": "8",
+                "b_h_ab": "1170/4367",
+                "b_rbi": "648",
+                "streak_length": "1",
+                "p_ip": "1282.4",
+                "b_bb": "478",
+                "div_losses": "4",
+                "p_l": "73",
+                "points_week_avg": "211.9",
+                "points_week_best": "266",
+                "p_k": "1061",
+                "league_name": "TRI-State Battle",
+                "p_h": "1272",
+                "team_name": "Dropped 3rd Strike",
+                "div_wins": "7",
+                "b_hr": "171",
+                "b_3b": "24",
+                "p_er": "602",
+                "b_sb": "106",
+                "win_pct": ".636",
+                "b_cs": "36",
+                "games_back": "--",
+                "div_rank": "1",
+                "team_id": "72942",
+                "points_back": "368",
+                "points_against": "4488",
+                "wins": "14",
+                "div_name": "East"
+            }, {
+                "b_2b": "225",
+                "team_logo_url": "/mlb/fantasy/wsfb/images/logos/81x77_generic.jpg",
+                "team_playoff_prefix": "",
+                "p_bb": "398",
+                "b_r": "632",
+                "points_for": "4883",
+                "waiver_priority": "7",
+                "wildcard_type": "most_points",
+                "team_playoff_seed": "",
+                "p_w": "87",
+                "p_whip": "1.25",
+                "b_avg": ".268",
+                "streak_type": "L",
+                "p_sv": "55",
+                "draft_position": "3",
+                "p_era": "2.85",
+                "losses": "9",
+                "b_h_ab": "1195/4459",
+                "b_rbi": "624",
+                "streak_length": "2",
+                "p_ip": "1262.8",
+                "b_bb": "393",
+                "div_losses": "7",
+                "p_l": "52",
+                "points_week_avg": "216.7",
+                "points_week_best": "277",
+                "p_k": "1130",
+                "league_name": "TRI-State Battle",
+                "p_h": "1182",
+                "team_name": "Eamus Catuli",
+                "div_wins": "4",
+                "b_hr": "176",
+                "b_3b": "20",
+                "p_er": "401",
+                "b_sb": "70",
+                "win_pct": ".591",
+                "b_cs": "23",
+                "games_back": "1",
+                "div_rank": "2",
+                "team_id": "74138",
+                "points_back": "294",
+                "points_against": "4645",
+                "wins": "13",
+                "div_name": "East"
+            }, {
+                "b_2b": "239",
+                "team_logo_url": "http://mlb.mlb.com/mlb/fantasy/wsfb/images/logos/81x77_retro_cin.jpg",
+                "team_playoff_prefix": "",
+                "p_bb": "343",
+                "b_r": "637",
+                "points_for": "5031",
+                "waiver_priority": "3",
+                "wildcard_type": "most_points",
+                "team_playoff_seed": "",
+                "p_w": "80",
+                "p_whip": "1.19",
+                "b_avg": ".279",
+                "streak_type": "W",
+                "p_sv": "40",
+                "draft_position": "7",
+                "p_era": "3.42",
+                "losses": "10",
+                "b_h_ab": "1277/4572",
+                "b_rbi": "614",
+                "streak_length": "2",
+                "p_ip": "1232.6",
+                "b_bb": "366",
+                "div_losses": "5",
+                "p_l": "59",
+                "points_week_avg": "223.1",
+                "points_week_best": "297",
+                "p_k": "1201",
+                "league_name": "TRI-State Battle",
+                "p_h": "1121",
+                "team_name": "Treudley Reds",
+                "div_wins": "7",
+                "b_hr": "169",
+                "b_3b": "21",
+                "p_er": "469",
+                "b_sb": "100",
+                "win_pct": ".545",
+                "b_cs": "36",
+                "games_back": "2",
+                "div_rank": "3",
+                "team_id": "55988",
+                "points_back": "146",
+                "points_against": "4757",
+                "wins": "12",
+                "div_name": "East"
+            }, {
+                "b_2b": "237",
+                "team_logo_url": "/mlb/fantasy/wsfb/images/logos/81x77_generic.jpg",
+                "team_playoff_prefix": "",
+                "p_bb": "364",
+                "b_r": "638",
+                "points_for": "4698",
+                "waiver_priority": "2",
+                "wildcard_type": "most_points",
+                "team_playoff_seed": "",
+                "p_w": "72",
+                "p_whip": "1.24",
+                "b_avg": ".270",
+                "streak_type": "L",
+                "p_sv": "36",
+                "draft_position": "8",
+                "p_era": "3.72",
+                "losses": "11",
+                "b_h_ab": "1187/4395",
+                "b_rbi": "580",
+                "streak_length": "3",
+                "p_ip": "1243.4",
+                "b_bb": "345",
+                "div_losses": "6",
+                "p_l": "68",
+                "points_week_avg": "208.9",
+                "points_week_best": "248",
+                "p_k": "1009",
+                "league_name": "TRI-State Battle",
+                "p_h": "1176",
+                "team_name": "BeatUall",
+                "div_wins": "5",
+                "b_hr": "153",
+                "b_3b": "18",
+                "p_er": "515",
+                "b_sb": "132",
+                "win_pct": ".500",
+                "b_cs": "36",
+                "games_back": "3",
+                "div_rank": "4",
+                "team_id": "73259",
+                "points_back": "479",
+                "points_against": "4830",
+                "wins": "11",
+                "div_name": "East"
+            }, {
+                "b_2b": "219",
+                "team_logo_url": "http://mlb.mlb.com/mlb/fantasy/wsfb/images/logos/81x77_retro_det.jpg",
+                "team_playoff_prefix": "",
+                "p_bb": "344",
+                "b_r": "625",
+                "points_for": "4687",
+                "waiver_priority": "10",
+                "wildcard_type": "most_points",
+                "team_playoff_seed": "",
+                "p_w": "79",
+                "p_whip": "1.19",
+                "b_avg": ".262",
+                "streak_type": "W",
+                "p_sv": "45",
+                "draft_position": "9",
+                "p_era": "3.50",
+                "losses": "14",
+                "b_h_ab": "1166/4443",
+                "b_rbi": "584",
+                "streak_length": "4",
+                "p_ip": "1283.2",
+                "b_bb": "432",
+                "div_losses": "6",
+                "p_l": "63",
+                "points_week_avg": "207.9",
+                "points_week_best": "266",
+                "p_k": "1154",
+                "league_name": "TRI-State Battle",
+                "p_h": "1184",
+                "team_name": "LionsTigersnBears",
+                "div_wins": "5",
+                "b_hr": "151",
+                "b_3b": "19",
+                "p_er": "499",
+                "b_sb": "57",
+                "win_pct": ".364",
+                "b_cs": "26",
+                "games_back": "6",
+                "div_rank": "5",
+                "team_id": "74987",
+                "points_back": "490",
+                "points_against": "4817",
+                "wins": "8",
+                "div_name": "East"
+            }, {
+                "b_2b": "268",
+                "team_logo_url": "http://mlb.mlb.com/mlb/fantasy/wsfb/images/logos/81x77_retro_cin.jpg",
+                "team_playoff_prefix": "",
+                "p_bb": "396",
+                "b_r": "668",
+                "points_for": "5177",
+                "waiver_priority": "9",
+                "wildcard_type": "most_points",
+                "team_playoff_seed": "",
+                "p_w": "67",
+                "p_whip": "1.24",
+                "b_avg": ".288",
+                "streak_type": "W",
+                "p_sv": "31",
+                "draft_position": "1",
+                "p_era": "3.69",
+                "losses": "6",
+                "b_h_ab": "1215/4218",
+                "b_rbi": "633",
+                "streak_length": "2",
+                "p_ip": "1233",
+                "b_bb": "610",
+                "div_losses": "2",
+                "p_l": "72",
+                "points_week_avg": "229.1",
+                "points_week_best": "283",
+                "p_k": "1130",
+                "league_name": "TRI-State Battle",
+                "p_h": "1136",
+                "team_name": "Francisco Lindor Truffles",
+                "div_wins": "9",
+                "b_hr": "205",
+                "b_3b": "23",
+                "p_er": "506",
+                "b_sb": "62",
+                "win_pct": ".727",
+                "b_cs": "30",
+                "games_back": "--",
+                "div_rank": "1",
+                "team_id": "73851",
+                "points_back": "--",
+                "points_against": "4479",
+                "wins": "16",
+                "div_name": "West"
+            }, {
+                "b_2b": "220",
+                "team_logo_url": "http://mlb.mlb.com/mlb/fantasy/wsfb/images/logos/81x77_pit.jpg",
+                "team_playoff_prefix": "",
+                "p_bb": "393",
+                "b_r": "611",
+                "points_for": "4748",
+                "waiver_priority": "1",
+                "wildcard_type": "most_points",
+                "team_playoff_seed": "",
+                "p_w": "83",
+                "p_whip": "1.25",
+                "b_avg": ".269",
+                "streak_type": "W",
+                "p_sv": "47",
+                "draft_position": "10",
+                "p_era": "3.21",
+                "losses": "10",
+                "b_h_ab": "1181/4387",
+                "b_rbi": "605",
+                "streak_length": "3",
+                "p_ip": "1275.5",
+                "b_bb": "372",
+                "div_losses": "4",
+                "p_l": "56",
+                "points_week_avg": "209.4",
+                "points_week_best": "267",
+                "p_k": "1127",
+                "league_name": "TRI-State Battle",
+                "p_h": "1195",
+                "team_name": "The Night's Watch",
+                "div_wins": "7",
+                "b_hr": "165",
+                "b_3b": "21",
+                "p_er": "456",
+                "b_sb": "96",
+                "win_pct": ".545",
+                "b_cs": "29",
+                "games_back": "4",
+                "div_rank": "2",
+                "team_id": "78490",
+                "points_back": "429",
+                "points_against": "4581",
+                "wins": "12",
+                "div_name": "West"
+            }, {
+                "b_2b": "213",
+                "team_logo_url": "http://mlb.mlb.com/mlb/fantasy/wsfb/images/logos/81x77_cap_cle.jpg",
+                "team_playoff_prefix": "",
+                "p_bb": "382",
+                "b_r": "649",
+                "points_for": "4661",
+                "waiver_priority": "4",
+                "wildcard_type": "most_points",
+                "team_playoff_seed": "",
+                "p_w": "70",
+                "p_whip": "1.26",
+                "b_avg": ".267",
+                "streak_type": "L",
+                "p_sv": "35",
+                "draft_position": "6",
+                "p_era": "3.91",
+                "losses": "12",
+                "b_h_ab": "1173/4391",
+                "b_rbi": "563",
+                "streak_length": "2",
+                "p_ip": "1236.2",
+                "b_bb": "401",
+                "div_losses": "5",
+                "p_l": "69",
+                "points_week_avg": "209.1",
+                "points_week_best": "307",
+                "p_k": "1019",
+                "league_name": "TRI-State Battle",
+                "p_h": "1171",
+                "team_name": "The Big 5-0",
+                "div_wins": "6",
+                "b_hr": "175",
+                "b_3b": "26",
+                "p_er": "537",
+                "b_sb": "93",
+                "win_pct": ".455",
+                "b_cs": "28",
+                "games_back": "6",
+                "div_rank": "3",
+                "team_id": "73083",
+                "points_back": "516",
+                "points_against": "4662",
+                "wins": "10",
+                "div_name": "West"
+            }, {
+                "b_2b": "225",
+                "team_logo_url": "/mlb/fantasy/wsfb/images/logos/81x77_generic.jpg",
+                "team_playoff_prefix": "",
+                "p_bb": "402",
+                "b_r": "535",
+                "points_for": "4461",
+                "waiver_priority": "6",
+                "wildcard_type": "most_points",
+                "team_playoff_seed": "",
+                "p_w": "68",
+                "p_whip": "1.26",
+                "b_avg": ".273",
+                "streak_type": "L",
+                "p_sv": "49",
+                "draft_position": "4",
+                "p_era": "3.86",
+                "losses": "14",
+                "b_h_ab": "1149/4216",
+                "b_rbi": "571",
+                "streak_length": "1",
+                "p_ip": "1252.5",
+                "b_bb": "380",
+                "div_losses": "7",
+                "p_l": "72",
+                "points_week_avg": "197.4",
+                "points_week_best": "267",
+                "p_k": "1180",
+                "league_name": "TRI-State Battle",
+                "p_h": "1173",
+                "team_name": "JoelsDreamCrusher",
+                "div_wins": "4",
+                "b_hr": "140",
+                "b_3b": "17",
+                "p_er": "538",
+                "b_sb": "77",
+                "win_pct": ".364",
+                "b_cs": "25",
+                "games_back": "8",
+                "div_rank": "4",
+                "team_id": "74358",
+                "points_back": "716",
+                "points_against": "4728",
+                "wins": "8",
+                "div_name": "West"
+            }, {
+                "b_2b": "235",
+                "team_logo_url": "http://mlb.mlb.com/mlb/fantasy/wsfb/images/logos/81x77_atl.jpg",
+                "team_playoff_prefix": "",
+                "p_bb": "350",
+                "b_r": "628",
+                "points_for": "4791",
+                "waiver_priority": "5",
+                "wildcard_type": "most_points",
+                "team_playoff_seed": "",
+                "p_w": "68",
+                "p_whip": "1.21",
+                "b_avg": ".262",
+                "streak_type": "L",
+                "p_sv": "35",
+                "draft_position": "5",
+                "p_era": "3.92",
+                "losses": "16",
+                "b_h_ab": "1163/4436",
+                "b_rbi": "560",
+                "streak_length": "4",
+                "p_ip": "1245.2",
+                "b_bb": "470",
+                "div_losses": "10",
+                "p_l": "74",
+                "points_week_avg": "212.7",
+                "points_week_best": "281",
+                "p_k": "1101",
+                "league_name": "TRI-State Battle",
+                "p_h": "1162",
+                "team_name": "Busting some Balls",
+                "div_wins": "2",
+                "b_hr": "147",
+                "b_3b": "27",
+                "p_er": "544",
+                "b_sb": "109",
+                "win_pct": ".273",
+                "b_cs": "31",
+                "games_back": "10",
+                "div_rank": "5",
+                "team_id": "60746",
+                "points_back": "386",
+                "points_against": "4788",
+                "wins": "6",
+                "div_name": "West"
+            }]
             $scope.$apply();
         });
 

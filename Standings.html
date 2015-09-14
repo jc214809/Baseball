@@ -38,6 +38,8 @@
     <div id="navBar"></div>
     <div ng-app="myApp">
         <div ng-controller="baseballController" data-ng-init="standings();">
+            {{standingsDataArray}}
+            <p ng-reapeat="team in standingsDataArray">{{team}}</p>
             <div>
                 <table>
                     <thead>
@@ -49,16 +51,16 @@
                         <th>Points</th>
                     </thead>
                     <tbody>
-                        <tr ng-reapeat="team in standingsDataArray" ng-if="">
-                            {{Jen(team)}}
-                            <td><img src="http://www.mlb.com/{{team_logo_url}}"></td>
+                        <!--                         <tr  ng-if="true">
+                            
+                            <td>
+                                <img src="http://www.mlb.com/{{team_logo_url}}"></td>
                             <td>{{team.team_name}}</td>
-                            <td>{{team.wins}</td>
+                            <td>{{team.wins}}</td>
                             <td>{{team.losses}}</td>
                             <td>{{team.games_back}}</td>
                             <td>{{team.points_for}}</td>
-                            <td ng-hide="team.length">{{team.length}}</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>

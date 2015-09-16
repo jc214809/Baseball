@@ -21,6 +21,8 @@ https://github.com/wellsoliver/py-mlb/blob/master/py_mlb/fetcher.py
 
 40 Man Roster Call
 http://mlb.mlb.com/lookup/json/named.roster_40.bam?team_id=%27113%27
+==============Better Roster Call==========================
+http://m.mlb.com/lookup/json/named.roster_all.bam?roster_all&team_id=%27119%27
 
 https://packagecontrol.io/installation
 //JSON file

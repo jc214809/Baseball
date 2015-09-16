@@ -45,3 +45,8 @@ http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_schedule.bam?per
 Batter vs Pitcher == http://m.mlb.com/lookup/json/named.stats_batter_vs_pitcher_composed.bam?league_list_id=%27mlb%27&game_type=%27R%27&player_id=408252&pitcher_id=545333
 http://mlb.mlb.com/fantasylookup/json/named.fb_team_score_by_date.bam?away_team_id=55988&home_team_id=60746&period_id=24
 http://ui.bamstatic.com/bridge/images/social/twitter_logo_blue_16.png
+
+
+
+NEW LINKS
+http://m.mlb.com/lookup/json/named.team_all_season.bam?team_all_season.col_in=name_display_brief&team_all_season.col_in=name_display_full&team_all_season.col_in=team_id&sort_order=name_asc&all_star_sw=%27N%27&league_id=%27103%27&league_id=%27104%27&season=2015

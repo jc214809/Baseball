@@ -128,15 +128,12 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             //         console.log("EnD HeRe");
             //     });
             // });
-            $scope.standingsDataArray = $scope.standingsDataArray;
         }).error(function(data, status) {
             console.log(data);
             console.log(status);
         });
     })
-    $scope.Jen = function(a) {
-        //console.log(a);
-    };
+
     $scope.callThis = function(button) {
         if (button == 'Backwards') {
             $scope.changeDate(-1, false);
@@ -158,7 +155,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
         if ($scope.whichTeam == "Mine") {
             if (theSelectedDate.between(parseDate('2015-09-14'), parseDate('2015-09-20'))) {
-                //alert("no more Yadi");
+                //alert("Welcome Jackie");
                 $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '425783', '471865', '598265'];
                 $scope.benchPlayers = ['434670', '457759', '630111', '425877', '592626', '475582'];
                 $scope.DLPlayers = ['431151']
@@ -475,7 +472,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     };
     $scope.addPitchingScoresToWeeklyScoreboard = function(dateOfDay) {
         var date = new Date(dateOfDay);
-        //console.log(date.toString("dddd"));
         $scope.dayloop = date.getDate();
         $scope.monthloop = date.getMonth() + 1;
         $scope.yearloop = date.getFullYear();
@@ -506,7 +502,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                     $scope.MondaysScore += $scope.getPitchingStaffScore(convertedData.pitching);
                 }
                 if (date.toString("dddd") == "Tuesday") {
-                    //console.log("Scores =" + $scope.getPitchingStaffScore(convertedData.pitching));
                     $scope.TuesdaysScore += $scope.getPitchingStaffScore(convertedData.pitching);
                 };
                 if (date.toString("dddd") == "Wednesday") {
@@ -567,7 +562,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 alert(data);
             });
         });
-        //$scope.fourtyManRosters = "[" + $scope.fourtyManRosters + "]";
+        $scope.fourtyManRosters = $scope.fourtyManRosters;
         //alert("2");
     };
     $scope.setTheDate = function(pageLoad) {
@@ -637,26 +632,27 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.changeDate(0, false);
     };
     $scope.getInning = function(gameinfo) {
-        var linescore = gameinfo.linescore.inning_line_score;
-        var inning = null;
-        if (linescore.inning == 1) {
-            inning = linescore.inning;
-            if (linescore.home == undefined) {
-                TopOrBottom = "T";
-            } else {
-                TopOrBottom = "B";
-            }
-            return TopOrBottom + inning;
-        } else {
-            lastItem = linescore[gameinfo.linescore.inning_line_score.length - 1];
-            inning = lastItem.inning;
-            if (lastItem.home == undefined) {
-                TopOrBottom = "T";
-            } else {
-                TopOrBottom = "B";
-            }
-            return TopOrBottom + inning;
-        }
+        // var linescore = gameinfo.linescore.inning_line_score;
+        // var inning = null;
+        // if (linescore.inning == 1) {
+        //     inning = linescore.inning;
+        //     if (linescore.home == undefined) {
+        //         TopOrBottom = "T";
+        //     } else {
+        //         TopOrBottom = "B";
+        //     }
+        //     return TopOrBottom + inning;
+        // } else {
+        //     lastItem = linescore[gameinfo.linescore.inning_line_score.length - 1];
+        //     inning = lastItem.inning;
+        //     if (lastItem.home == undefined) {
+        //         TopOrBottom = "T";
+        //     } else {
+        //         TopOrBottom = "B";
+        //     }
+        //     return TopOrBottom + inning;
+        // }
+
     };
     $scope.getStaffPictureAbbreviation = function(teamAbbreviation) {
         switch (teamAbbreviation) {
@@ -721,20 +717,11 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.awayTeamRuns = gameinfo.linescore.away_team_runs;
         return $scope.awayTeamCode + ' ' + $scope.awayTeamRuns + ' ' + $scope.homeTeamCode + ' ' + $scope.homeTeamRuns;
     };
-    $scope.getTotalScore = function(pitchingTotal, hittingTotal) {
-        //$scope.total = parseFloat($scope.total) + parseFloat(hittingTotal);
-        //return $scope.total;
-    };
+
     $scope.setTeam = function(team) {
         $scope.selectedTeam = team;
     };
-    $scope.setTeam2 = function(team) {
-        if (team == 'Opp') {
-            $scope.selectedTeam = $scope.opponentsTeam;
-        } else {
-            $scope.selectedTeam = $scope.myTeam;
-        }
-    };
+
     $scope.hittingPoints = function() {
         $scope.totalBattingPoints = 0;
         angular.forEach($scope.baseballGame, function(eachFullGameJSON) {
@@ -971,35 +958,35 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         };
     };
     $scope.getMoreGameInfo = function(gameID, needInnings) {
-        for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
-            //console.log(gameID);
-            if (gameID == $scope.eachGameRefresh[i].game_pk) {
-                //console.log(JSON.stringify($scope.eachGame[i]));
-                //$scope.timeOfGame = null
-                //$scope.matchUp = null;
-                //scope.pitchingStaffGameStatus = $scope.eachGameRefresh[i].status.ind;
-                // if (needInnings) {
-                //     $scope.pitchingStaffGameStatus = null;
-                //     $scope.pitchingGameScore = null;
-                //     //$scope.pitchingStaffGameStatus = $scope.eachGame[i].status.ind;
-                //     $scope.pitchingGameScore = $scope.eachGame[i].away_name_abbrev + " " + $scope.eachGame[i].linescore.r.away + " " + $scope.eachGame[i].home_name_abbrev + " " + $scope.eachGame[i].linescore.r.home;
-                // };
-                // if ($scope.eachGame[i].status.status == 'Pre-Game') {
-                //     $scope.matchUp = $scope.eachGame[i].away_name_abbrev + " @ " + $scope.eachGame[i].home_name_abbrev;
-                //     $scope.timeOfGame = $scope.eachGame[i].time + $scope.eachGame[i].ampm;
-                // };
-                // if ($scope.eachGame[i].status.status == 'In Progress' && needInnings) {
-                //     $scope.pitchingStaffInning = $scope.eachGame[i].status.inning;
-                //     if ($scope.eachGame[i].status.inning_state = "Bottom") {
-                //         $scope.pitchingStaffTopOrBottom = "B";
-                //     } else {
-                //         $scope.pitchingStaffTopOrBottom = "T";
-                //     }
-                //     $scope.pitchingGameInning = $scope.pitchingStaffTopOrBottom + $scope.pitchingStaffInning;
-                // };
-                break;
-            };
-        };
+        // for (var i = $scope.eachGame.length - 1; i >= 0; i--) {
+        //console.log(gameID);
+        //if (gameID == $scope.eachGameRefresh[i].game_pk) {
+        //console.log(JSON.stringify($scope.eachGame[i]));
+        //$scope.timeOfGame = null
+        //$scope.matchUp = null;
+        //scope.pitchingStaffGameStatus = $scope.eachGameRefresh[i].status.ind;
+        // if (needInnings) {
+        //     $scope.pitchingStaffGameStatus = null;
+        //     $scope.pitchingGameScore = null;
+        //     //$scope.pitchingStaffGameStatus = $scope.eachGame[i].status.ind;
+        //     $scope.pitchingGameScore = $scope.eachGame[i].away_name_abbrev + " " + $scope.eachGame[i].linescore.r.away + " " + $scope.eachGame[i].home_name_abbrev + " " + $scope.eachGame[i].linescore.r.home;
+        // };
+        // if ($scope.eachGame[i].status.status == 'Pre-Game') {
+        //     $scope.matchUp = $scope.eachGame[i].away_name_abbrev + " @ " + $scope.eachGame[i].home_name_abbrev;
+        //     $scope.timeOfGame = $scope.eachGame[i].time + $scope.eachGame[i].ampm;
+        // };
+        // if ($scope.eachGame[i].status.status == 'In Progress' && needInnings) {
+        //     $scope.pitchingStaffInning = $scope.eachGame[i].status.inning;
+        //     if ($scope.eachGame[i].status.inning_state = "Bottom") {
+        //         $scope.pitchingStaffTopOrBottom = "B";
+        //     } else {
+        //         $scope.pitchingStaffTopOrBottom = "T";
+        //     }
+        //     $scope.pitchingGameInning = $scope.pitchingStaffTopOrBottom + $scope.pitchingStaffInning;
+        // };
+        //break;
+        //};
+        //};
     };
     $scope.getCurrentGamesScore = function(gameID) {
         for (var i = $scope.eachGameRefresh.length - 1; i >= 0; i--) {

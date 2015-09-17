@@ -192,7 +192,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '425783', '471865', '598265'];
                 $scope.benchPlayers = ['434670', '457759', '630111', '425877', '592626', '475582'];
                 $scope.DLPlayers = ['431151']
-                $scope.myPitchingStaff = 'pit';
+                $scope.myPitchingStaff = 'lan';
             } else if (theSelectedDate.between(parseDate('2015-09-07'), parseDate('2015-09-13'))) {
                 //alert("no more Yadi");
                 $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];
@@ -290,7 +290,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 //alert("WEEK24");
                 $scope.myTeam = ['471083', '405395', '435079', '461858', '430947', '429665', '460086', '572041', '594809'];
                 $scope.benchPlayers = ['443558', '276519', '435263', '467827', '543281', '458731'];
-                $scope.myPitchingStaff = 'chn';
+                $scope.myPitchingStaff = 'ana';
             } else if (theSelectedDate.between(parseDate('2015-09-07'), parseDate('2015-09-13'))) {
                 //alert("WEEK23");
                 $scope.myTeam = ['467793', '408234', '572821', '134181', '628356', '453568', '456715', '121347', '150029'];

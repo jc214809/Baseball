@@ -91,9 +91,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     //'435622'
     poollingFactory.callFnOnInterval(function() {
         //console.log("1---" + 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/master_scoreboard.json');
-        $scope.playersUpToBat = [];
-        $scope.playersOnDeck = [];
-        $scope.playersInTheHole = [];
         $scope.daysActiveGames = [];
         //baseball = [];
         //$scope.baseballGame = null;
@@ -106,8 +103,11 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 //console.log("3" + JSON.stringify(game));
                 if (game.hasOwnProperty('inhole')) {
                     //console.log("4");
+                    $scope.playersUpToBat = [];
                     $scope.playersUpToBat.push(game.batter.id);
+                    $scope.playersOnDeck = [];
                     $scope.playersOnDeck.push(game.ondeck.id);
+                    $scope.playersInTheHole = [];
                     $scope.playersInTheHole.push(game.inhole.id);
                     //console.log($scope.playersUpToBat);
                 }
@@ -142,13 +142,18 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 var x2js = new X2JS();
                 convertedData = x2js.xml_str2json(data[0].data.replace(/<!--[\s\S]*?-->/g, ""));
                 $scope.pitchingStaffStats = convertedData.pitching;
-                if ($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats) == 0) {
-                    $scope.allPitchingStaffGames = [];
-                    $scope.allPitchingStaffGames.push($scope.pitchingStaffStats);
-                    console.log('Something Changed')
-                } else {
-                    console.log('Got here')
-                }
+                console.log($scope.pitchingStaffStats);
+                console.log($scope.allPitchingStaffGames);
+                console.log($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats) == 0);
+                console.log($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats));
+
+                //if ($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats) == 0) {
+                $scope.allPitchingStaffGames = [];
+                $scope.allPitchingStaffGames.push($scope.pitchingStaffStats);
+                // console.log('Something Changed');
+                //} else {
+                //  console.log('Got here');
+                //}
                 $('#pitchingTable').show();
 
             });

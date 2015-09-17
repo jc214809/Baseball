@@ -142,10 +142,10 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 var x2js = new X2JS();
                 convertedData = x2js.xml_str2json(data[0].data.replace(/<!--[\s\S]*?-->/g, ""));
                 $scope.pitchingStaffStats = convertedData.pitching;
-                console.log($scope.pitchingStaffStats);
-                console.log($scope.allPitchingStaffGames);
-                console.log($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats) == 0);
-                console.log($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats));
+                //console.log($scope.pitchingStaffStats);
+                //console.log($scope.allPitchingStaffGames);
+                //console.log($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats) == 0);
+                //console.log($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats));
 
                 //if ($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats) == 0) {
                 $scope.allPitchingStaffGames = [];

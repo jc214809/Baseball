@@ -90,68 +90,72 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     //Ian Desmond 
     //'435622'
     poollingFactory.callFnOnInterval(function() {
-        //console.log("1---" + 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/master_scoreboard.json');
-        $scope.playersUpToBat = [];
-        $scope.playersOnDeck = [];
-        $scope.playersInTheHole = [];
-        $scope.daysActiveGames = [];
-        //baseball = [];
-        //$scope.baseballGame = null;
-        $scope.setTheDate(false);
-        console.log('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json');
-        $http.get('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json').success(function(data, status) {
-            //console.log("2");
-            $scope.eachGameRefresh = data.data.games.game;
-            angular.forEach($scope.eachGameRefresh, function(game) {
-                //console.log("3" + JSON.stringify(game));
-                if (game.hasOwnProperty('inhole')) {
-                    //console.log("4");
-                    $scope.playersUpToBat.push(game.batter.id);
-                    $scope.playersOnDeck.push(game.ondeck.id);
-                    $scope.playersInTheHole.push(game.inhole.id);
-                    //console.log($scope.playersUpToBat);
-                }
+        // //console.log("1---" + 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/master_scoreboard.json');
+        // $scope.playersUpToBat = [];
+        // $scope.playersOnDeck = [];
+        // $scope.playersInTheHole = [];
+        // $scope.daysActiveGames = [];
+        // //baseball = [];
+        // //$scope.baseballGame = null;
+        // $scope.setTheDate(false);
+        // console.log('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json');
+        // $http.get('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json').success(function(data, status) {
+        //     //console.log("2");
+        //     $scope.eachGameRefresh = data.data.games.game;
+        //     angular.forEach($scope.eachGameRefresh, function(game) {
+        //         //console.log("3" + JSON.stringify(game));
+        //         if (game.hasOwnProperty('inhole')) {
+        //             //console.log("4");
+        //             $scope.playersUpToBat.push(game.batter.id);
+        //             $scope.playersOnDeck.push(game.ondeck.id);
+        //             $scope.playersInTheHole.push(game.inhole.id);
+        //             //console.log($scope.playersUpToBat);
+        //         }
 
-                if (game.hasOwnProperty('game_data_directory')) {
-                    $scope.daysActiveGames.push('http://gd2.mlb.com' + game.game_data_directory + "/boxscore.json");
-                    //console.log($scope.daysActiveGames);
-                    //console.log("joel");
-                }
-            });
-            // angular.forEach($scope.daysActiveGames, function(games) {
-            //     console.log("1");
-            //     $scope.game = $http.get(games);
-            //     $q.all([$scope.game]).then(function(values) {
-            //         console.log("2");
-            //         baseball.push(values);
-            //         $scope.baseballGame = baseball;
-            //         console.log("EnD HeRe");
-            //     });
-            // });
-        }).error(function(data, status) {
-            console.log(data);
-            console.log(status);
-        });
-        $scope.pitchingStaffGames = [];
-        $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
-        $scope.pitchingStaffGames.push($scope.game1);
-        angular.forEach($scope.pitchingStaffGames, function(pitching) {
-            $scope.pitchingGame = $http.get(pitching);
-            $q.all([$scope.pitchingGame]).then(function(data) {
+        //         if (game.hasOwnProperty('game_data_directory')) {
+        //             $scope.daysActiveGames.push('http://gd2.mlb.com' + game.game_data_directory + "/boxscore.json");
+        //             //console.log($scope.daysActiveGames);
+        //             //console.log("joel");
+        //         }
+        //     });
+        //     // angular.forEach($scope.daysActiveGames, function(games) {
+        //     //     console.log("1");
+        //     //     $scope.game = $http.get(games);
+        //     //     $q.all([$scope.game]).then(function(values) {
+        //     //         console.log("2");
+        //     //         baseball.push(values);
+        //     //         $scope.baseballGame = baseball;
+        //     //         console.log("EnD HeRe");
+        //     //     });
+        //     // });
+        // }).error(function(data, status) {
+        //     console.log(data);
+        //     console.log(status);
+        // });
+        // $scope.pitchingStaffGames = [];
+        // $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
+        // $scope.pitchingStaffGames.push($scope.game1);
+        // angular.forEach($scope.pitchingStaffGames, function(pitching) {
+        //     $scope.pitchingGame = $http.get(pitching);
+        //     $q.all([$scope.pitchingGame]).then(function(data) {
 
-                var x2js = new X2JS();
-                convertedData = x2js.xml_str2json(data[0].data.replace(/<!--[\s\S]*?-->/g, ""));
-                $scope.pitchingStaffStats = convertedData.pitching;
-                if ($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats) == 0) {
-                    $scope.allPitchingStaffGames = [];
-                    $scope.allPitchingStaffGames.push($scope.pitchingStaffStats);
-                } else {
-                    console.log('Got here')
-                }
-                $('#pitchingTable').show();
+        //         var x2js = new X2JS();
+        //         //alert("here1");
+        //         convertedData = x2js.xml_str2json(data[0].data.replace(/<!--[\s\S]*?-->/g, ""));
+        //         //alert("here2");
+        //         $scope.pitchingStaffStats = convertedData.pitching;
+        //         //alert("here3");
+        //         if ($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats) == 0) {
+        //             $scope.allPitchingStaffGames = [];
+        //             $scope.allPitchingStaffGames.push($scope.pitchingStaffStats);
+        //         } else {
+        //             console.log('Got here')
+        //         }
+        //         $('#pitchingTable').show();
 
-            });
-        });
+        //     });
+        // // });
+
     })
 
     $scope.callThis = function(button) {

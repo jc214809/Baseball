@@ -145,6 +145,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 if ($scope.allPitchingStaffGames.indexOf($scope.pitchingStaffStats) == 0) {
                     $scope.allPitchingStaffGames = [];
                     $scope.allPitchingStaffGames.push($scope.pitchingStaffStats);
+                    console.log('Something Changed')
                 } else {
                     console.log('Got here')
                 }

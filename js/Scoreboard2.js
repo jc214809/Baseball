@@ -92,6 +92,9 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     poollingFactory.callFnOnInterval(function() {
         //console.log("1---" + 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.yearloop + '/month_' + $scope.monthloop + '/day_' + $scope.dayloop + '/master_scoreboard.json');
         $scope.daysActiveGames = [];
+        $scope.playersUpToBat2 = [];
+        $scope.playersOnDeck2 = [];
+        $scope.playersInTheHole2 = [];
         //baseball = [];
         //$scope.baseballGame = null;
         $scope.setTheDate(false);
@@ -103,12 +106,9 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 //console.log("3" + JSON.stringify(game));
                 if (game.hasOwnProperty('inhole')) {
                     //console.log("4");
-                    $scope.playersUpToBat = [];
-                    $scope.playersUpToBat.push(game.batter.id);
-                    $scope.playersOnDeck = [];
-                    $scope.playersOnDeck.push(game.ondeck.id);
-                    $scope.playersInTheHole = [];
-                    $scope.playersInTheHole.push(game.inhole.id);
+                    $scope.playersUpToBat2.push(game.batter.id);
+                    $scope.playersOnDeck2.push(game.ondeck.id);
+                    $scope.playersInTheHole2.push(game.inhole.id);
                     //console.log($scope.playersUpToBat);
                 }
 
@@ -118,6 +118,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                     //console.log("joel");
                 }
             });
+            $scope.playersUpToBat = [];
+            $scope.playersUpToBat = $scope.playersUpToBat2;
+            $scope.playersOnDeck = [];
+            $scope.playersOnDeck = $scope.playersOnDeck2;
+            $scope.playersInTheHole = [];
+            $scope.playersInTheHole = $scope.playersInTheHole2;
+
             // angular.forEach($scope.daysActiveGames, function(games) {
             //     console.log("1");
             //     $scope.game = $http.get(games);
@@ -185,7 +192,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '425783', '471865', '598265'];
                 $scope.benchPlayers = ['434670', '457759', '630111', '425877', '592626', '475582'];
                 $scope.DLPlayers = ['431151']
-                $scope.myPitchingStaff = 'chn';
+                $scope.myPitchingStaff = 'pit';
             } else if (theSelectedDate.between(parseDate('2015-09-07'), parseDate('2015-09-13'))) {
                 //alert("no more Yadi");
                 $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];

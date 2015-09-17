@@ -132,6 +132,25 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             console.log(data);
             console.log(status);
         });
+        $scope.allPitchingStaffGames = [];
+        $scope.pitchingStaffGames = [];
+        $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
+        $scope.pitchingStaffGames.push($scope.game1);
+        angular.forEach($scope.pitchingStaffGames, function(pitching) {
+            $scope.pitchingGame = $http.get(pitching);
+            $q.all([$scope.pitchingGame]).then(function(data) {
+
+                var x2js = new X2JS();
+                //alert("here1");
+                convertedData = x2js.xml_str2json(data[0].data.replace(/<!--[\s\S]*?-->/g, ""));
+                //alert("here2");
+                $scope.pitchingStaffStats = convertedData.pitching;
+                //alert("here3");
+                $scope.allPitchingStaffGames.push($scope.pitchingStaffStats);
+                $('#pitchingTable').show();
+
+            });
+        });
     })
 
     $scope.callThis = function(button) {
@@ -443,9 +462,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         if (x._bb != 0) {
             $scope.pitchingStatLine += ' ' + x._bb + ' BB ,';
         };
+        if (x._k != 0) {
+            $scope.pitchingStatLine += ' ' + x._k + ' K ,';
+        };
         if (x._sho != 0) {
             $scope.pitchingStatLine += ' ' + x._sho + ' SHO ,';
         };
+
         $scope.pitchingStatLine = $scope.pitchingStatLine.substring(0, $scope.pitchingStatLine.length - 1);
         return $scope.pitchingStatLine;
     };

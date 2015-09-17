@@ -108,31 +108,7 @@
                                     <tr>
                                         <td colspan="3" class="stats-table">
                                             <span>&nbsp;&nbsp;</span>
-                                            <span>{{ x.h }} - {{x.ab}}
-                            <span ng-if="x.d != 0 || x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0">,</span>
-                                            </span>
-                                            <span ng-if="x.d != 0">&nbsp;{{x.d}} 2B
-                            <span ng-if="x.d != 0  && (x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                            </span>
-                                            <span ng-if="x.t != 0">&nbsp;{{x.t}} 3B
-                            <span ng-if="x.t != 0  && ( x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                            </span>
-                                            <span ng-if="x.hr != 0">&nbsp;{{x.hr}} HR
-                            <span ng-if="x.hr != 0  && (x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                            </span>
-                                            <span ng-if="x.rbi != 0">&nbsp;{{x.rbi}} RBI
-                            <span ng-if="x.rbi != 0  && (x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                            </span>
-                                            <span ng-if="x.bb != 0">&nbsp;{{x.bb}} BB
-                            <span ng-if="x.bb != 0  && (x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                            </span>
-                                            <span ng-if="x.r != 0">&nbsp;{{x.r}} R
-                            <span ng-if="x.r != 0  && (x.sb != 0 || x.cs != 0)">,</span>
-                                            </span>
-                                            <span ng-if="x.sb != 0">&nbsp;{{x.sb}} SB
-                            <span ng-if="x.sb != 0  && (x.cs != 0)">,</span>
-                                            </span>
-                                            <span ng-if="x.cs != 0">&nbsp;{{x.cs}} CS</span>
+                                            <span>{{getHittingStatLine(x)}}</span>
                                         </td>
                                     </tr>
                                 </thead>
@@ -165,27 +141,7 @@
                     <tr>
                         <td colspan="3" class="stats-table">
                             <span>&nbsp;&nbsp;</span>
-                            <span>
-                            <span ng-if="pitchedGames._w > 0">W</span>
-                            <span ng-if="pitchedGames._l > 0">L</span>
-                            <span ng-if="(pitchedGames._w != 0 || pitchedGames._l != 0)">,</span>
-                            </span>
-                            <span ng-if="pitchedGames._ip != 0">&nbsp;{{pitchedGames._ip}} IP
-                            <span ng-if="pitchedGames._ip != 0  && (pitchedGames._h != 0 || pitchedGames._er != 0 || pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
-                            </span>
-                            <span ng-if="pitchedGames._h != 0">&nbsp;{{pitchedGames._h}} H
-                            <span ng-if="pitchedGames._h != 0  && (pitchedGames._er != 0 || pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
-                            </span>
-                            <span ng-if="pitchedGames._er != 0">&nbsp;{{pitchedGames._er}} ER
-                            <span ng-if="pitchedGames._er != 0  && (pitchedGames._bb != 0 || pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
-                            </span>
-                            <span ng-if="pitchedGames._bb != 0">&nbsp;{{pitchedGames._bb}} BB
-                            <span ng-if="pitchedGames._bb != 0  && (pitchedGames._k != 0 || pitchedGames._sho != 0)">,</span>
-                            </span>
-                            <span ng-if="pitchedGames._k != 0">&nbsp;{{pitchedGames._k}} K
-                            <span ng-if="pitchedGames._k != 0  && (pitchedGames._sho != 0)">,</span>
-                            </span>
-                            <span ng-if="pitchedGames._sho != 0">&nbsp;{{pitchedGames._sho}} SHO</span>
+                            <span>{{getPitchingStatLine(pitchedGames)}}</span>
                         </td>
                     </tr>
                 </table>
@@ -248,31 +204,7 @@
                                         <tr>
                                             <td colspan="3" class="stats-table">
                                                 <span>&nbsp;&nbsp;</span>
-                                                <span>{{ x.h }} - {{x.ab}}
-                            <span ng-if="x.d != 0 || x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0">,</span>
-                                                </span>
-                                                <span ng-if="x.d != 0">&nbsp;{{x.d}} 2B
-                            <span ng-if="x.d != 0  && (x.t != 0 || x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                                </span>
-                                                <span ng-if="x.t != 0">&nbsp;{{x.t}} 3B
-                            <span ng-if="x.t != 0  && ( x.hr != 0 || x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                                </span>
-                                                <span ng-if="x.hr != 0">&nbsp;{{x.hr}} HR
-                            <span ng-if="x.hr != 0  && (x.rbi != 0 || x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                                </span>
-                                                <span ng-if="x.rbi != 0">&nbsp;{{x.rbi}} RBI
-                            <span ng-if="x.rbi != 0  && (x.bb != 0 || x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                                </span>
-                                                <span ng-if="x.bb != 0">&nbsp;{{x.bb}} BB
-                            <span ng-if="x.bb != 0  && (x.r != 0 || x.sb != 0 || x.cs != 0)">,</span>
-                                                </span>
-                                                <span ng-if="x.r != 0">&nbsp;{{x.r}} R
-                            <span ng-if="x.r != 0  && (x.sb != 0 || x.cs != 0)">,</span>
-                                                </span>
-                                                <span ng-if="x.sb != 0">&nbsp;{{x.sb}} SB
-                            <span ng-if="x.sb != 0  && (x.cs != 0)">,</span>
-                                                </span>
-                                                <span ng-if="x.cs != 0">&nbsp;{{x.cs}} CS</span>
+                                                <span>{{getHittingStatLine(x)}}</span>
                                             </td>
                                         </tr>
                                     </thead>

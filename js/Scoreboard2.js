@@ -393,6 +393,63 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.getPoints($scope.scoreBoard, date);
 
     };
+    $scope.getHittingStatLine = function(x) {
+        $scope.hittingStatLine = x.h + ' - ' + x.ab + ' ,';
+        if (x.d != 0) {
+            $scope.hittingStatLine += ' ' + x.d + ' 2B ,';
+        };
+        if (x.t != 0) {
+            $scope.hittingStatLine += ' ' + x.t + ' 3B ,';
+        };
+        if (x.hr != 0) {
+            $scope.hittingStatLine += ' ' + x.hr + ' HR ,';
+        };
+        if (x.rbi != 0) {
+            $scope.hittingStatLine += ' ' + x.rbi + ' RBI ,';
+        };
+        if (x.bb != 0) {
+            $scope.hittingStatLine += ' ' + x.bb + ' BB ,';
+        };
+        if (x.r != 0) {
+            $scope.hittingStatLine += ' ' + x.r + ' R ,';
+        };
+        if (x.sb != 0) {
+            $scope.hittingStatLine += ' ' + x.sb + ' SB ,';
+        };
+        if (x.cs != 0) {
+            $scope.hittingStatLine += ' ' + x.cs + ' CS ,';
+        };
+        $scope.hittingStatLine = $scope.hittingStatLine.substring(0, $scope.hittingStatLine.length - 1);
+        return $scope.hittingStatLine;
+    };
+
+    $scope.getPitchingStatLine = function(x) {
+        $scope.pitchingStatLine = '';
+        if (x._w > 0) {
+            $scope.pitchingStatLine = ' W ,';
+        };
+        if (x._l > 0) {
+            $scope.pitchingStatLine = ' L ,';
+        };
+        if (x._ip != 0) {
+            $scope.pitchingStatLine += ' ' + x._ip + ' IP ,';
+        };
+        if (x._h != 0) {
+            $scope.pitchingStatLine += ' ' + x._h + ' H ,';
+        };
+        if (x._er != 0) {
+            $scope.pitchingStatLine += ' ' + x._er + ' ER ,';
+        };
+        if (x._bb != 0) {
+            $scope.pitchingStatLine += ' ' + x._bb + ' BB ,';
+        };
+        if (x._sho != 0) {
+            $scope.pitchingStatLine += ' ' + x._sho + ' SHO ,';
+        };
+        $scope.pitchingStatLine = $scope.pitchingStatLine.substring(0, $scope.pitchingStatLine.length - 1);
+        return $scope.pitchingStatLine;
+    };
+
     $scope.getPoints = function(master, dateOfDay) {
         //console.log(dateOfDay.toString("dddd"));
         $http.get(master).success(function(data) {
@@ -435,7 +492,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                             angular.forEach(eachLineUp, function(eachBatter) {
                                 if ($scope.selectedTeam.indexOf(eachBatter.id.toString()) > -1) {
                                     $scope.daysTotalForWeekly += parseFloat($scope.getScore(0, eachBatter));
-                                    //console.log(eachBatter.id.toString() + '===' + parseFloat($scope.getScore(0, eachBatter)) + '===' + $scope.daysTotalForWeekly);
+                                    //console.log(eachBatter.id.toString() + '===' + parseFloat($scope.getScore(0, eachBatter)) '===' + $scope.daysTotalForWeekly);
                                     //
                                     //console.log($scope.daysTotalForWeekly);
                                     var theDate = new Date(dateOfDay);
@@ -446,7 +503,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                                         $scope.TuesdaysScore += parseFloat($scope.getScore(0, eachBatter));
                                     };
                                     if (theDate.toString("dddd") == "Wednesday") {
-
                                         $scope.WednesdayScore += parseFloat($scope.getScore(0, eachBatter));
                                     };
                                     if (theDate.toString("dddd") == "Thursday") {

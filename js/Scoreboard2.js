@@ -179,7 +179,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '425783', '471865', '598265'];
                 $scope.benchPlayers = ['434670', '457759', '630111', '425877', '592626', '475582'];
                 $scope.DLPlayers = ['431151']
-                $scope.myPitchingStaff = 'lan';
+                $scope.myPitchingStaff = 'chn';
             } else if (theSelectedDate.between(parseDate('2015-09-07'), parseDate('2015-09-13'))) {
                 //alert("no more Yadi");
                 $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '475582', '425783', '471865'];

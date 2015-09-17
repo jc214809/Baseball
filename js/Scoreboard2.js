@@ -277,7 +277,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 //alert("WEEK24");
                 $scope.myTeam = ['471083', '405395', '435079', '461858', '430947', '429665', '460086', '572041', '594809'];
                 $scope.benchPlayers = ['443558', '276519', '435263', '467827', '543281', '458731'];
-                $scope.myPitchingStaff = 'ana';
+                $scope.myPitchingStaff = 'chn';
             } else if (theSelectedDate.between(parseDate('2015-09-07'), parseDate('2015-09-13'))) {
                 //alert("WEEK23");
                 $scope.myTeam = ['467793', '408234', '572821', '134181', '628356', '453568', '456715', '121347', '150029'];
@@ -746,6 +746,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 return "stl";
             case "sfn":
                 return "sf";
+            case "chn":
+                return "chc";
             default:
                 return teamAbbreviation
         }

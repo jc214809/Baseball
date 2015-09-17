@@ -750,6 +750,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 return "stl";
             case "sfn":
                 return "sf";
+            case "chn":
+                return "chc";
             default:
                 return teamAbbreviation
         }

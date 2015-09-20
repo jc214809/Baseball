@@ -149,7 +149,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.pitchingStaffGames = [];
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
         $scope.pitchingStaffGames.push($scope.game1);
-        console.log(doubleHeader);
+        console.log($scope.doubleHeader);
         if ($scope.doubleHeader) {
             $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
             $scope.pitchingStaffGames.push($scope.game2);
@@ -850,11 +850,11 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
         $scope.pitchingStaffGamesTotals.push($scope.game1);
         //alert($scope.doubleHeader);
-        //if ($scope.doubleHeader) {
-        $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
-        $scope.pitchingStaffGamesTotals.push($scope.game2);
-        //alert("Got here");
-        //};
+        if ($scope.doubleHeader) {
+            $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
+            $scope.pitchingStaffGamesTotals.push($scope.game2);
+            //alert("Got here");
+        };
 
         angular.forEach($scope.pitchingStaffGamesTotals, function(pitchingTotals) {
             $scope.pitchingGame = $http.get(pitchingTotals);

@@ -97,6 +97,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.playersInTheHole2 = [];
         var baseball2 = [];
         $scope.baseballGame2 = null;
+        $scope.doubleHeader = false;
         //$scope.baseballGame = null;
         $scope.setTheDate(false);
         //console.log('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json');
@@ -111,13 +112,17 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                     $scope.playersOnDeck2.push(game.ondeck.id);
                     $scope.playersInTheHole2.push(game.inhole.id);
                     //console.log($scope.playersUpToBat);
-                }
-
+                };
                 if (game.hasOwnProperty('game_data_directory')) {
                     $scope.daysActiveGames.push('http://gd2.mlb.com' + game.game_data_directory + "/boxscore.json");
                     //console.log($scope.daysActiveGames);
                     //console.log("joel");
-                }
+                };
+                if (game.double_header_sw != 'N') {
+                    if (game.away_code == $scope.myPitchingStaff || game.home_code == $scope.myPitchingStaff) {
+                        $scope.doubleHeader = true;
+                    };
+                };
             });
             $scope.playersUpToBat = [];
             $scope.playersUpToBat = $scope.playersUpToBat2;
@@ -146,6 +151,11 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.pitchingStaffGames = [];
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
         $scope.pitchingStaffGames.push($scope.game1);
+        console.log(doubleHeader);
+        if ($scope.doubleHeader) {
+            $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
+            $scope.pitchingStaffGames.push($scope.game2);
+        };
         angular.forEach($scope.pitchingStaffGames, function(pitching) {
             $scope.pitchingGame = $http.get(pitching);
             $q.all([$scope.pitchingGame]).then(function(data) {
@@ -166,7 +176,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 //  console.log('Got here');
                 //}
                 $('#pitchingTable').show();
-
             });
         });
     })

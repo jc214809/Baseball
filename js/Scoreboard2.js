@@ -95,10 +95,11 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.playersUpToBat2 = [];
         $scope.playersOnDeck2 = [];
         $scope.playersInTheHole2 = [];
-        //baseball = [];
+        var baseball2 = [];
+        $scope.baseballGame2 = null;
         //$scope.baseballGame = null;
         $scope.setTheDate(false);
-        console.log('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json');
+        //console.log('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json');
         $http.get('http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/master_scoreboard.json').success(function(data, status) {
             //console.log("2");
             $scope.eachGameRefresh = data.data.games.game;
@@ -125,20 +126,23 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             $scope.playersInTheHole = [];
             $scope.playersInTheHole = $scope.playersInTheHole2;
 
-            // angular.forEach($scope.daysActiveGames, function(games) {
-            //     console.log("1");
-            //     $scope.game = $http.get(games);
-            //     $q.all([$scope.game]).then(function(values) {
-            //         console.log("2");
-            //         baseball.push(values);
-            //         $scope.baseballGame = baseball;
-            //         console.log("EnD HeRe");
-            //     });
-            // });
+            angular.forEach($scope.daysActiveGames, function(games) {
+                //console.log("1");
+                $scope.game = $http.get(games);
+                $q.all([$scope.game]).then(function(values) {
+                    //console.log("2");
+                    baseball2.push(values);
+                    //console.log("EnD HeRe");
+                });
+                //$scope.baseballGame2 = baseball2;
+            });
+            //$scope.baseballGame = $scope.baseballGame2;
+            //console.log(baseball2);
         }).error(function(data, status) {
             console.log(data);
             console.log(status);
         });
+        //$scope.baseballGame = $scope.baseballGame2;
         $scope.pitchingStaffGames = [];
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
         $scope.pitchingStaffGames.push($scope.game1);
@@ -1088,7 +1092,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             if (gameID == $scope.eachGameRefresh[i].game_pk) {
                 $scope.pitchingStaffGameStatus = $scope.eachGameRefresh[i].status.ind;
                 if ($scope.pitchingStaffGameStatus != 'DR') {
-                    return $scope.eachGameRefresh[i].away_name_abbrev + " " + $scope.eachGameRefresh[i].linescore.r.away + " " + $scope.eachGameRefresh[i].home_name_abbrev + " " + $scope.eachGameRefresh[i].linescore.r.home;
+                    return $scope.eachGameRefresh[i].away_name_abbrev + ' ' + $scope.eachGameRefresh[i].linescore.r.away + ' ' + $scope.eachGameRefresh[i].home_name_abbrev + ' ' + $scope.eachGameRefresh[i].linescore.r.home;
                 };
             };
         };
@@ -1098,7 +1102,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         for (var i = $scope.eachGameRefresh.length - 1; i >= 0; i--) {
             if (gameID == $scope.eachGameRefresh[i].game_pk) {
                 if ($scope.eachGameRefresh[i].status.status == 'Pre-Game') {
-                    return $scope.eachGameRefresh[i].away_name_abbrev + " @ " + $scope.eachGameRefresh[i].home_name_abbrev + ' ' + $scope.eachGameRefresh[i].time + ' ' + $scope.eachGameRefresh[i].ampm;
+                    return $scope.eachGameRefresh[i].away_name_abbrev + ' @ ' + $scope.eachGameRefresh[i].home_name_abbrev + ' ' + $scope.eachGameRefresh[i].time + ' ' + $scope.eachGameRefresh[i].ampm;
                 };
             };
         };
@@ -1122,7 +1126,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                         default:
                             $scope.pitchingStaffTopOrBottom = 'B';
                     }
-                    return $scope.pitchingStaffTopOrBottom + $scope.pitchingStaffInning;
+                    return ", " + $scope.pitchingStaffTopOrBottom + $scope.pitchingStaffInning;
                 };
             };
         };
@@ -1178,6 +1182,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
 
                 $scope.daysGames.push('http://gd2.mlb.com' + JSONlink + "/boxscore.json");
             });
+
             //alert($scope.daysGames);
             angular.forEach($scope.daysGames, function(games) {
                 $scope.game = $http.get(games);
@@ -1185,13 +1190,37 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                     baseball.push(values);
                     $scope.baseballGame = baseball;
                     //$scope.reds = baseball[0][0].data.data.boxscore.batting;
+                    //Trying to get each hitter instead of every player in the boxscore
+                    angular.forEach($scope.baseballGame, function(eachFullGameJSON) {
+                        console.log("Joel");
+                        angular.forEach(eachFullGameJSON, function(eachGame) {
+                            console.log("Joel2");
+                            var hittingBoxscore = eachGame.data.data.boxscore.batting;
+                            angular.forEach(hittingBoxscore, function(eachTeamsBoxscore) {
+                                console.log("Joel3");
+                                var eachLineUp = eachTeamsBoxscore.batter;
+                                angular.forEach(eachLineUp, function(eachBatter) {
+                                    console.log("Joel4");
+                                    if ($scope.selectedTeam.indexOf(eachBatter.id.toString()) > -1) {
+                                        if ($scope.hitters.indexOf(eachBatter) == -1) {
+                                            $scope.hitters.push(eachBatter);
+                                            console.log($scope.hitters);
+                                        };
+                                    };
+                                });
+                            });
+                        });
+                    });
+                    //END
                 });
             });
             // $scope.injuryNews();
 
             $scope.pitchingStaff();
         });
+        $scope.hitters = [];
         $scope.getTotal();
+
     };
     $scope.injuryNews = function() {
         // $scope.injuryData = [];

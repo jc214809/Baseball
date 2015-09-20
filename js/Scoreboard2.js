@@ -1303,6 +1303,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             success: function(data) {
                 $scope.mlbPlayers = [];
                 $scope.lineup = data;
+                $scope.$apply();
                 $scope.teamer2($scope.lineup);
             },
             type: 'GET'
@@ -1321,18 +1322,10 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             },
             dataType: 'json',
             success: function(data) {
-                $scope.standings2(data);
+                $scope.dater = data;
+                $scope.$apply();
             },
             type: 'GET'
         });
-    };
-    $scope.standings2 = function(eachTeam) {
-        $scope.standingsDataArray = [];
-        $scope.standingsData = eachTeam.fb_index_standings.queryResults;
-        angular.forEach($scope.standingsData.row, function(team) {
-            $scope.standingsDataArray.push(team);
-            $scope.$apply();
-        });
-
     };
 });

@@ -20,6 +20,25 @@
         $("#navBar").load("../Baseball/navbar.html");
     });
     </script>
+    <style>
+    table {
+        width: 600px;
+        text-align: center;
+    }
+    
+    table,
+    td,
+    th {
+        border: 1px solid red;
+        text-align: center;
+    }
+    
+    th {
+        background-color: red;
+        color: white;
+        font-weight: bold;
+    }
+    </style>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="../Baseball/images/favicon.ico" sizes="16x16">
     <link rel="shortcut icon" href="../Baseball/images/favicon.ico" type="image/x-icon" />
@@ -38,37 +57,63 @@
     <div id="navBar"></div>
     <div ng-app="myApp">
         <div ng-controller="baseballController" data-ng-init="standings();">
-            {{standingsDataArray}}
-            <p ng-reapeat="team in standingsDataArray">{{team}}</p>
             <div>
-                <table>
-                    <thead>
-                        <th></th>
-                        <th>Team</th>
-                        <th>Wins</th>
-                        <th>Losses</th>
-                        <th>Games Back</th>
-                        <th>Points</th>
-                    </thead>
-                    <tbody>
-                        <!--                         <tr  ng-if="true">
-                            
-                            <td>
-                                <img src="http://www.mlb.com/{{team_logo_url}}"></td>
-                            <td>{{team.team_name}}</td>
-                            <td>{{team.wins}}</td>
-                            <td>{{team.losses}}</td>
-                            <td>{{team.games_back}}</td>
-                            <td>{{team.points_for}}</td>
-                        </tr> -->
-                    </tbody>
-                </table>
+                <center>
+                    WEST
+                    <table>
+                        <thead>
+                            <th></th>
+                            <th>Rank</th>
+                            <th>Team</th>
+                            <th>Wins</th>
+                            <th>Losses</th>
+                            <th>Games Back</th>
+                            <th>Points</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="team in dater.fb_index_standings.queryResults.row" ng-if="team.div_name == 'West'">
+                                <td>
+                                    <img src="{{team.team_logo_url}}"></td>
+                                <td>{{team.div_rank}}</td>
+                                <td>{{team.team_name}}</td>
+                                <td>{{team.wins}}</td>
+                                <td>{{team.losses}}</td>
+                                <td>{{team.games_back}}</td>
+                                <td>{{team.points_for}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+                <center>
+                    EAST
+                    <table>
+                        <thead>
+                            <th></th>
+                            <th>Rank</th>
+                            <th>Team</th>
+                            <th>Wins</th>
+                            <th>Losses</th>
+                            <th>Games Back</th>
+                            <th>Points</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="team in dater.fb_index_standings.queryResults.row" ng-if="team.div_name == 'East'">
+                                <td>
+                                    <img src="{{team.team_logo_url}}"></td>
+                                <td>{{team.div_rank}}</td>
+                                <td>{{team.team_name}}</td>
+                                <td>{{team.wins}}</td>
+                                <td>{{team.losses}}</td>
+                                <td>{{team.games_back}}</td>
+                                <td>{{team.points_for}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
             </div>
             </br>
             </br>
-            {{standingsDataArray}}
         </div>
-        <p> Joel</p>
 </body>
 <footer>
     <center>

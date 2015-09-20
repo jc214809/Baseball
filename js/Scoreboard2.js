@@ -115,8 +115,6 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 };
                 if (game.hasOwnProperty('game_data_directory')) {
                     $scope.daysActiveGames.push('http://gd2.mlb.com' + game.game_data_directory + "/boxscore.json");
-                    //console.log($scope.daysActiveGames);
-                    //console.log("joel");
                 };
                 if (game.double_header_sw != 'N') {
                     if (game.away_code == $scope.myPitchingStaff || game.home_code == $scope.myPitchingStaff) {
@@ -1167,13 +1165,12 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             $scope.eachGame = data.data.games.game;
             $scope.eachGameRefresh = data.data.games.game;
             angular.forEach($scope.eachGame, function(batter) {
-                if (batter.double_header_sw != 'N') {
-                    $scope.doubleHeader = true;
-                    //alert("doubleHeader");
-                };
                 $scope.pitchingStaffGameID = batter.game_pk;
-                var thisSession = batter;
                 if (batter.away_code == $scope.myPitchingStaff || batter.home_code == $scope.myPitchingStaff) {
+                    if (batter.double_header_sw != 'N') {
+                        $scope.doubleHeader = true;
+                        //alert("doubleHeader");
+                    };
                     $scope.pitchingStaffStatus = batter.status;
                     if (batter.away_code == $scope.myPitchingStaff) {
                         $scope.pitchingStaffTeamName = batter.away_team_city + ' ' + batter.away_team_name;
@@ -1182,7 +1179,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                     }
                 };
 
-                if (thisSession.hasOwnProperty('inhole')) {
+                if (batter.hasOwnProperty('inhole')) {
                     $scope.playersUpToBat.push(batter.batter.id);
                     $scope.playersOnDeck.push(batter.ondeck.id);
                     $scope.playersInTheHole.push(batter.inhole.id);
@@ -1200,26 +1197,27 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                     $scope.baseballGame = baseball;
                     //$scope.reds = baseball[0][0].data.data.boxscore.batting;
                     //Trying to get each hitter instead of every player in the boxscore
-                    angular.forEach($scope.baseballGame, function(eachFullGameJSON) {
-                        console.log("Joel");
-                        angular.forEach(eachFullGameJSON, function(eachGame) {
-                            console.log("Joel2");
-                            var hittingBoxscore = eachGame.data.data.boxscore.batting;
-                            angular.forEach(hittingBoxscore, function(eachTeamsBoxscore) {
-                                console.log("Joel3");
-                                var eachLineUp = eachTeamsBoxscore.batter;
-                                angular.forEach(eachLineUp, function(eachBatter) {
-                                    console.log("Joel4");
-                                    if ($scope.selectedTeam.indexOf(eachBatter.id.toString()) > -1) {
-                                        if ($scope.hitters.indexOf(eachBatter) == -1) {
-                                            $scope.hitters.push(eachBatter);
-                                            console.log($scope.hitters);
-                                        };
-                                    };
-                                });
-                            });
-                        });
-                    });
+                    // angular.forEach($scope.baseballGame, function(eachFullGameJSON) {
+                    //     // console.log("Joel");
+                    //     angular.forEach(eachFullGameJSON, function(eachGame) {
+                    //         // console.log("Joel2");
+                    //         var hittingBoxscore = eachGame.data.data.boxscore.batting;
+                    //         angular.forEach(hittingBoxscore, function(eachTeamsBoxscore) {
+                    //             // console.log("Joel3");
+                    //             var eachLineUp = eachTeamsBoxscore.batter;
+                    //             angular.forEach(eachLineUp, function(eachBatter) {
+                    //                 // console.log("Joel4");
+                    //                 if ($scope.selectedTeam.indexOf(eachBatter.id.toString()) > -1) {
+                    //                     if ($scope.hitters.indexOf(eachBatter) == -1) {
+                    //                         $scope.hitters.push(eachBatter);
+                    //                         console.log($scope.hitters);
+                    //                     };
+                    //                 };
+                    //             });
+                    //         });
+                    //     });
+                    // });
+
                     //END
                 });
             });

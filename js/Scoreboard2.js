@@ -1409,31 +1409,31 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                         dataType: 'json',
                         success: function(data) {
                             $scope.mlbTeam = data;
-                            $scope.$apply();
-                        },
-                        type: 'GET'
-                    });
-                    for (var i = $scope.mlbTeam.fb_team_lineup.queryResults.row.length - 1; i >= 0; i--) {
-                        if ($scope.mlbTeam[i].league_player_id == eachgame.league_player_id) {
-                            $scope.playerID = $scope.mlbTeam[i].player_id;
-                            break;
-                        };
-                    };
 
-                    $.ajax({
-                        url: 'http://m.mlb.com/lookup/json/named.stats_batter_vs_pitcher_composed.bam?league_list_id=%27mlb%27&game_type=%27R%27&player_id=' + $scope.playerID + '&pitcher_id=' + eachgame.opp_probable_pitcher_id,
-                        data: {
-                            //format: 'json'
-                        },
-                        error: function() {
-                            console.log("Error");
-                        },
-                        dataType: 'json',
-                        success: function(data) {
-                            console.log("HERE");
-                            console.log(data);
-                            eachgame.pitcherVsBatter = data.stats_batter_vs_pitcher_composed.stats_batter_vs_pitcher_total.queryResults.row;
+                            for (var i = $scope.mlbTeam.fb_team_lineup.queryResults.row.length - 1; i >= 0; i--) {
+                                if ($scope.mlbTeam.fb_team_lineup.queryResults.row[i].league_player_id == eachgame.league_player_id) {
+                                    $scope.playerID = $scope.mlbTeam.fb_team_lineup.queryResults.row[i].player_id;
+                                    break;
+                                };
+                            };
 
+                            $.ajax({
+                                url: 'http://m.mlb.com/lookup/json/named.stats_batter_vs_pitcher_composed.bam?league_list_id=%27mlb%27&game_type=%27R%27&player_id=' + $scope.playerID + '&pitcher_id=' + eachgame.opp_probable_pitcher_id,
+                                data: {
+                                    //format: 'json'
+                                },
+                                error: function() {
+                                    console.log("Error");
+                                },
+                                dataType: 'json',
+                                success: function(data) {
+                                    console.log("HERE");
+                                    console.log(data);
+                                    eachgame.pitcherVsBatter = data.stats_batter_vs_pitcher_composed.stats_batter_vs_pitcher_total.queryResults.row;
+
+                                },
+                                type: 'GET'
+                            });
                         },
                         type: 'GET'
                     });

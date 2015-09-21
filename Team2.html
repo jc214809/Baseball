@@ -72,8 +72,7 @@
                     <td nowrap>{{player.position}}</td>
                     <td ng-repeat="schedule in schedule.fb_team_lineup_view_schedule.queryResults.row" ng-if="schedule.league_player_id == player.league_player_id" nowrap>
                         {{schedule.opp_probable_pitcher_name}}
-                        <br>
-                        <!--                         {{schedule.pitcherVsBatter.}}{{schedule.pitcherVsBatter.}}{{schedule.pitcherVsBatter.}}{{schedule.pitcherVsBatter.}} -->
+                        <br> {{schedule.pitcherVsBatter.h}}-{{schedule.pitcherVsBatter.ab}}, {{schedule.pitcherVsBatter.avg}}, {{schedule.pitcherVsBatter.hr}}HR, {{schedule.pitcherVsBatter.d}}2B, {{schedule.pitcherVsBatter.t}}3B
                     </td>
                 </tr>
             </table>

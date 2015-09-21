@@ -149,7 +149,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.pitchingStaffGames = [];
         $scope.game1 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_1.xml';
         $scope.pitchingStaffGames.push($scope.game1);
-        console.log($scope.doubleHeader);
+        //console.log($scope.doubleHeader);
         if ($scope.doubleHeader) {
             $scope.game2 = 'http://gd2.mlb.com/components/game/mlb/year_' + $scope.year + '/month_' + $scope.month + '/day_' + $scope.day + '/pitching_staff/' + $scope.myPitchingStaff + '_2.xml';
             $scope.pitchingStaffGames.push($scope.game2);
@@ -198,7 +198,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.whichTeam = team;
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
         if ($scope.whichTeam == "Mine") {
-            if (theSelectedDate.between(parseDate('2015-09-14'), parseDate('2015-09-20'))) {
+            if (theSelectedDate.between(parseDate('2015-09-21'), parseDate('2015-09-27'))) {
+                //alert("PLAYOFFS");
+                $scope.myTeam = ["457763", "547989", "547989", "543829", "592518", "435622", "425783", "471865", "570256", "598265"];
+                $scope.benchPlayers = ["425877", "431151", "457759", "475582", "592626", "630111"];
+                $scope.DLPlayers = ["434670"];
+                $scope.myPitchingStaff = 'lan';
+            } else if (theSelectedDate.between(parseDate('2015-09-14'), parseDate('2015-09-20'))) {
                 //alert("Welcome Jackie");
                 $scope.myTeam = ['457763', '547989', '543829', '570256', '592518', '435622', '425783', '471865', '598265'];
                 $scope.benchPlayers = ['434670', '457759', '630111', '425877', '592626', '475582'];
@@ -297,7 +303,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
-            if (theSelectedDate.between(parseDate('2015-09-14'), parseDate('2015-09-20'))) {
+            if (theSelectedDate.between(parseDate('2015-09-21'), parseDate('2015-09-27'))) {
+                //alert("PLAYOFFS WEEK 1");
+                $scope.myTeam = ["518595", "502671", "543685", "592178", "608365", "461314", "518792", "605141", "572122"];
+                $scope.benchPlayers = ["141", "425509", "446308", "474832", "607680", "621043"];
+                $scope.DLPlayers = ["519317"];
+                $scope.myPitchingStaff = 'stl';
+            } else if (theSelectedDate.between(parseDate('2015-09-14'), parseDate('2015-09-20'))) {
                 //alert("WEEK24");
                 $scope.myTeam = ['471083', '405395', '435079', '461858', '430947', '429665', '460086', '572041', '594809'];
                 $scope.benchPlayers = ['443558', '276519', '435263', '467827', '543281', '458731'];
@@ -1348,13 +1360,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 $scope.setLineUp = [];
                 angular.forEach(data.fb_team_lineup.queryResults.row, function(player) {
                     if (player.slot_val == 'Bn') {
-                        $scope.setBench.push(player.league_player_id);
+                        $scope.setBench.push(player.player_id);
                     } else if (player.slot_val == 'DL') {
-                        $scope.setDL.push(player.league_player_id);
+                        $scope.setDL.push(player.player_id);
                     } else if (player.slot_val == 'PS') {
-                        $scope.setPitchingStaff.push(player.league_player_id);
+                        $scope.setPitchingStaff.push(player.player_id);
                     } else {
-                        $scope.setLineUp.push(player.league_player_id);
+                        $scope.setLineUp.push(player.player_id);
                     }
                 });
                 $scope.$apply();
@@ -1363,7 +1375,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         });
     };
     $scope.getScheduleChecker = function(schedule, player, day) {
-        console.log((schedule.game_date + '/2015').toString('dddd') == 'Monday');
+        //console.log((schedule.game_date + '/2015').toString('dddd') == 'Monday');
         if (schedule.league_player_id == player.league_player_id && (schedule.game_date + '/2015').toString('dddd') == day) {
 
         };
@@ -1371,7 +1383,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     $scope.getTeamsSchedule = function() {
         $scope.periodId = $("#period_id").val();
         $scope.teamID = $("#team_id").val();
-        console.log('http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_schedule.bam?period_id=' + $scope.periodId + '&team_id=' + $scope.teamID);
+        //console.log('http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_schedule.bam?period_id=' + $scope.periodId + '&team_id=' + $scope.teamID);
         $.ajax({
             url: 'http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_schedule.bam?period_id=' + $scope.periodId + '&team_id=' + $scope.teamID,
             data: {
@@ -1383,10 +1395,84 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             dataType: 'json',
             success: function(data) {
                 $scope.schedule = data;
+                $scope.mlbTeam = null;
+                angular.forEach($scope.schedule.fb_team_lineup_view_schedule.queryResults.row, function(eachgame) {
+                    $scope.playerID = null;
+                    $.ajax({
+                        url: 'http://www.mlb.com/fantasylookup/json/named.fb_team_lineup.bam?period_id=' + $scope.periodId + '&team_id=' + $scope.teamID,
+                        data: {
+                            //format: 'json'
+                        },
+                        error: function() {
+                            console.log("Error");
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            $scope.mlbTeam = data;
+                            $scope.$apply();
+                        },
+                        type: 'GET'
+                    });
+                    for (var i = $scope.mlbTeam.fb_team_lineup.queryResults.row.length - 1; i >= 0; i--) {
+                        if ($scope.mlbTeam[i].league_player_id == eachgame.league_player_id) {
+                            $scope.playerID = $scope.mlbTeam[i].player_id;
+                            break;
+                        };
+                    };
+
+                    $.ajax({
+                        url: 'http://m.mlb.com/lookup/json/named.stats_batter_vs_pitcher_composed.bam?league_list_id=%27mlb%27&game_type=%27R%27&player_id=' + $scope.playerID + '&pitcher_id=' + eachgame.opp_probable_pitcher_id,
+                        data: {
+                            //format: 'json'
+                        },
+                        error: function() {
+                            console.log("Error");
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log("HERE");
+                            console.log(data);
+                            eachgame.pitcherVsBatter = data.stats_batter_vs_pitcher_composed.stats_batter_vs_pitcher_total.queryResults.row;
+
+                        },
+                        type: 'GET'
+                    });
+                    // };
+                    //$scope.$apply();
+                    //console.log($scope.getPitcherVsBatter(eachgame.opp_probable_pitcher_id, eachgame.league_player_id));
+                });
+                //$scope.$apply();
+                //console.log(JSON.stringify($scope.schedule.fb_team_lineup_view_schedule.queryResults));
+
+            },
+            type: 'GET'
+        });
+    };
+    $scope.getPitcherVsBatter = function(pitcherID, batterID) {
+        //$scope.periodId = $("#period_id").val();
+        //$scope.teamID = $("#team_id").val();
+        //console.log('http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_schedule.bam?period_id=' + $scope.periodId + '&team_id=' + $scope.teamID);
+        $scope.pitcherVsBatterData = null;
+        //console.log('http://m.mlb.com/lookup/json/named.stats_batter_vs_pitcher_composed.bam?league_list_id=%27mlb%27&game_type=%27R%27&player_id=' + batterID + '&pitcher_id=' + pitcherID);
+        $.ajax({
+            url: 'http://m.mlb.com/lookup/json/named.stats_batter_vs_pitcher_composed.bam?league_list_id=%27mlb%27&game_type=%27R%27&player_id=' + batterID + '&pitcher_id=' + pitcherID,
+            data: {
+                //format: 'json'
+            },
+            error: function() {
+                console.log("Error");
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log("HERE");
+                console.log(data);
+
+                $scope.pitcherVsBatterData = data;
                 $scope.$apply();
             },
             type: 'GET'
         });
+        return $scope.pitcherVsBatterData;
     };
     $scope.getTeams = function() {
 

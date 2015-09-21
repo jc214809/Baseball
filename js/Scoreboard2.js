@@ -1328,4 +1328,82 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             type: 'GET'
         });
     };
+    $scope.mlbTeam = function() {
+        $scope.periodId = $("#period_id").val();
+        $scope.teamID = $("#team_id").val();
+        $.ajax({
+            url: 'http://www.mlb.com/fantasylookup/json/named.fb_team_lineup.bam?period_id=' + $scope.periodId + '&team_id=' + $scope.teamID,
+            data: {
+                //format: 'json'
+            },
+            error: function() {
+                console.log("Error");
+            },
+            dataType: 'json',
+            success: function(data) {
+                $scope.mlbTeam = data;
+                $scope.setBench = [];
+                $scope.setDL = [];
+                $scope.setPitchingStaff = [];
+                $scope.setLineUp = [];
+                angular.forEach(data.fb_team_lineup.queryResults.row, function(player) {
+                    if (player.slot_val == 'Bn') {
+                        $scope.setBench.push(player.league_player_id);
+                    } else if (player.slot_val == 'DL') {
+                        $scope.setDL.push(player.league_player_id);
+                    } else if (player.slot_val == 'PS') {
+                        $scope.setPitchingStaff.push(player.league_player_id);
+                    } else {
+                        $scope.setLineUp.push(player.league_player_id);
+                    }
+                });
+                $scope.$apply();
+            },
+            type: 'GET'
+        });
+    };
+    $scope.getScheduleChecker = function(schedule, player, day) {
+        console.log((schedule.game_date + '/2015').toString('dddd') == 'Monday');
+        if (schedule.league_player_id == player.league_player_id && (schedule.game_date + '/2015').toString('dddd') == day) {
+
+        };
+    };
+    $scope.getTeamsSchedule = function() {
+        $scope.periodId = $("#period_id").val();
+        $scope.teamID = $("#team_id").val();
+        console.log('http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_schedule.bam?period_id=' + $scope.periodId + '&team_id=' + $scope.teamID);
+        $.ajax({
+            url: 'http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_schedule.bam?period_id=' + $scope.periodId + '&team_id=' + $scope.teamID,
+            data: {
+                //format: 'json'
+            },
+            error: function() {
+                console.log("Error");
+            },
+            dataType: 'json',
+            success: function(data) {
+                $scope.schedule = data;
+                $scope.$apply();
+            },
+            type: 'GET'
+        });
+    };
+    $scope.getTeams = function() {
+
+        $.ajax({
+            url: 'http://www.mlb.com/fantasylookup/json/named.fb_global_teams.bam?league_id=8623',
+            data: {
+                //format: 'json'
+            },
+            error: function() {
+                console.log("Error");
+            },
+            dataType: 'json',
+            success: function(data) {
+                $scope.fantasyTeams = data.fb_global_teams.queryResults;
+                $scope.$apply();
+            },
+            type: 'GET'
+        });
+    };
 });

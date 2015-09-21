@@ -62,7 +62,30 @@
 <body>
     <div id="navBar"></div>
     <div ng-app="myApp">
-    </div>
+        <div ng-controller="baseballController" data-ng-init="getTeams();mlbTeam(); getTeamsSchedule(); ">
+            <table>
+                <tr ng-repeat="player in mlbTeam.fb_team_lineup.queryResults.row" nowrap>
+                    <td nowrap>{{player.player_name}}</td>
+                    <td nowrap>{{player.slot_val}}</td>
+                    <td nowrap>{{player.is_locked}}</td>
+                    <td nowrap>{{player.team_name}}</td>
+                    <td nowrap>{{player.position}}</td>
+                    <td ng-repeat="schedule in schedule.fb_team_lineup_view_schedule.queryResults.row" ng-if="schedule.league_player_id == player.league_player_id" nowrap>
+                        {{schedule.opp_probable_pitcher_name}}
+                    </td>
+                </tr>
+            </table>
+            <select id="team_id">
+                <option ng-repeat="Teams in fantasyTeams.row" value="{{Teams.team_id}}">{{Teams.team_name}}</option>
+            </select>
+            <input type="text" value="34" id="period_id" />
+            <input type="button" value="GO" ng-click="mlbTeam(); getTeamsSchedule();" />
+            <br>
+            <br>$scope.myTeam ={{setLineUp}}
+            <br>$scope.benchPlayers={{setBench}}
+            <br>$scope.DLPlayers = {{setDL}}
+            <br>Pitching Staff: {{setPitchingStaff}}
+        </div>
 </body>
 <footer>
     <center>

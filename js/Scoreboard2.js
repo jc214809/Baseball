@@ -134,7 +134,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 $scope.game = $http.get(games);
                 $q.all([$scope.game]).then(function(values) {
                     //console.log("2");
-                    baseball2.push(values);
+                    //baseball2.push(values);
                     //console.log("EnD HeRe");
                 });
                 //$scope.baseballGame2 = baseball2;
@@ -1113,6 +1113,26 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 if ($scope.pitchingStaffGameStatus != 'DR') {
                     return $scope.eachGameRefresh[i].away_name_abbrev + ' ' + $scope.eachGameRefresh[i].linescore.r.away + ' ' + $scope.eachGameRefresh[i].home_name_abbrev + ' ' + $scope.eachGameRefresh[i].linescore.r.home;
                 };
+            };
+        };
+    };
+
+    $scope.getCurrentCount = function(gameID, indicator) {
+        for (var i = $scope.eachGameRefresh.length - 1; i >= 0; i--) {
+            if (gameID == $scope.eachGameRefresh[i].game_pk) {
+                var inningState = $scope.eachGameRefresh[i].status.inning_state.toLowerCase();
+                if (inningState == 'top' || inningState == 'bottom') {
+                    switch (indicator) {
+                        case "Ball":
+                            return $scope.eachGameRefresh[i].status.b;
+                        case "Strike":
+                            return $scope.eachGameRefresh[i].status.s;
+                        case "Out":
+                            return $scope.eachGameRefresh[i].status.o;
+                        default:
+                            console.log('error')
+                    }
+                }
             };
         };
     };

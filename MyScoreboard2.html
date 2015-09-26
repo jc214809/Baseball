@@ -33,7 +33,7 @@
 
 <body>
     <div ng-app="myApp">
-        <div id="mycontroller" ng-controller="baseballController" data-ng-init="findMyTeam(''); changeDate(0, true);">
+        <div ng-controller="baseballController" data-ng-init="findMyTeam('Mine'); teamer(); changeDate(0, true);">
             <center>
                 <table class="scoreboard">
                     <thead>
@@ -64,67 +64,29 @@
             </center>
             <div class="header" hidden>
                 <span>
-                   <button id="dateBack" ng-click="changeDate(-1, false); findMyTeam('');standings();" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  
+                   <button id="dateBack" ng-click="changeDate(-1, false); findMyTeam('Mine');" class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-left"></i></button>  
                </span>
                 <span>
-                  &nbsp;<span class="center-date" style="font-size: 195%;"><b><a id="dateToday" ng-click="backToTodaysDate(); findMyTeam('');">{{month}}/{{day}}/{{year}}</a></b></span>&nbsp;
+                  &nbsp;<span class="center-date" style="font-size: 195%;"><b><a id="dateToday" ng-click="backToTodaysDate(); findMyTeam('Mine');">{{month}}/{{day}}/{{year}}</a></b></span>&nbsp;
                 </span>
                 <span class="right">
-                 <button id="dateForward" ng-click="changeDate(1, false); findMyTeam('');"  class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
+                 <button id="dateForward" ng-click="changeDate(1, false);findMyTeam('Mine');"  class="btn btn-primary" ><i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
              </span>
             </div>
             </br>
             <div ng-repeat="game in baseballGame">
-                <div ng-repeat="gameinfo in game[0].data.data;">
-                    <div ng-repeat="team in game[0].data.data.boxscore.batting;">
-                        <!--<h1 ng-if="team.team_flag==' home'"><b>{{game[0].data.data.boxscore.home_fname | uppercase}}</b></h1>
-                    <h1 ng-if="team.team_flag == 'away'"><b>{{game[0].data.data.boxscore.away_fname | uppercase}}</b></h1>-->
-                        {{getGameStatus(gameinfo.game_pk)}}
-                        <div ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (selectedTeam.indexOf(x.id)>-1) " ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1 && gameStatus != 'P' && gameStatus != 'F', 'at-bat' : playersUpToBat.indexOf(x.id) != -1 && gameStatus != 'P' && gameStatus != 'F', 'in-hole' : playersInTheHole.indexOf(x.id) != -1 && gameStatus != 'P' && gameStatus != 'F'}" class="player-container">
-                            {{stillInGame(team, x)}}
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th class="player-photo" rowspan="2"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg" /></th>
-                                        <th colspan="2"><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span><span class="game-info status-indicators" ng-if="gameStatus == 'F' || gameStatus == 'O' || gameStatus == 'IR' || gameStatus == 'I'|| gameStatus == 'MA'|| gameStatus == 'PW'"> <b>{{getCurrentGamesScore(gameinfo.game_pk)}}</b><span ng-if="gameStatus != 'F' && gameStatus != 'O'  && gameStatus != 'DR' || gameStatus != 'MA'"> <b>{{getCurrentGamesInning(gameinfo.game_pk)}}</b></span></span>
-                                            <span style="display:inline" class="ass bases_container base" ng-if="gameStatus == 'I' || gameStatus == 'DI'">
-                                                <i class="base first glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_1b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_1b')}"></i>
-                                                <i class="base second glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_2b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_2b')}"></i>
-                                                <i class="base third glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_3b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_3b')}"></i>
-
-                                            </span>
-                                            <img ng-if="gameStatus == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" /> <img ng-if="gameStatus == 'F' || gameStatus == 'O'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" />
-                                            <blink ng-if="gameStatus == 'DR'|| gameStatus == 'PR' ||  gameStatus == 'IR' || gameStatus == 'MA'|| gameStatus == 'DE'|| gameStatus == 'DI'"><img ng-if="gameStatus == 'DR' || gameStatus == 'DE' || gameStatus == 'DI'" class="status-indicators" width="50" src="..\Baseball\images\pictures\PPD.jpg" /><img ng-if="gameStatus == 'IR'|| gameStatus == 'PR'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Delay.jpg" /><img ng-if="gameStatus == 'MA'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Challenge.jpg" /></blink><span class="game-info status-indicators game-time" ng-if="gameStatus != 'F' && gameStatus != 'O' && gameStatus != 'I'  && gameStatus != 'DR'"><b>{{getMoreGameInfo(gameinfo.game_pk,false)}} {{getMatchup(gameinfo.game_pk)}}</b></span>
-                                            <img src="..\Baseball\images\pictures\EnteredButLeftGame.JPG" class="status-indicators" width="50" ng-if="enteredButLeft" />
-                                            <img src="..\Baseball\images\pictures\EnteredGame.JPG" class="status-indicators" width="50" ng-if="entered" />
-                                            <img src="..\Baseball\images\pictures\LeftGame.JPG" class="status-indicators" width="50" ng-if="leftGame" />
-                                            <span class="status-indicators" ng-if="gameStatus == 'I' || gameStatus == 'DI'">
-                                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(gameinfo.game_pk,'Ball')>= 1}"></i>
-                                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(gameinfo.game_pk,'Ball')>= 2}"></i>
-                                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(gameinfo.game_pk,'Ball')>= 3}"></i>
-                                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(gameinfo.game_pk,'Ball')== 4}"></i>
-                                            <i class="fa fa-circle circle strike" ng-class="{'activeStrike' : getCurrentCount(gameinfo.game_pk,'Strike')>= 1}"></i>
-                                            <i class="fa fa-circle circle strike" ng-class="{'activeStrike' : getCurrentCount(gameinfo.game_pk,'Strike')>= 2}"></i>
-                                            <i class="fa fa-circle circle strike" ng-class="{'activeStrike' : getCurrentCount(gameinfo.game_pk,'Strike')== 3}"></i>
-                                            <i class="fa fa-circle circle out" ng-class="{'activeOut' : getCurrentCount(gameinfo.game_pk,'Out')>= 1}"></i>
-                                            <i class="fa fa-circle circle out" ng-class="{'activeOut' : getCurrentCount(gameinfo.game_pk,'Out')>= 2}"></i>
-                                            <i class="fa fa-circle circle out" ng-class="{'activeOut' : getCurrentCount(gameinfo.game_pk,'Out')== 3}"></i>
-                                        </span>
-                                        </th>
-                                        <th style="float:right">
-                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore(gameinfo.game_pk, x)
-}}</span> <span class="points" style="float:right">Points: </span></th>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3" class="stats-table">
-                                            <span>&nbsp;&nbsp;</span>
-                                            <span>{{getHittingStatLine(x)}}</span>
-                                        </td>
-                                    </tr>
-                                </thead>
-                            </table>
-                            <!--  -->
-                        </div>
+                <div ng-repeat="gameinfo in game[0].data.data">
+                    <div ng-repeat="team in game[0].data.data.boxscore.batting">
+                        <table width="100%" ng-repeat="x in team.batter | orderBy:'x.id'" ng-if="(x.pos != 'P') && (myTeam.indexOf(x.id)>-1)" ng-class="{'on-deck' : playersOnDeck.indexOf(x.id) != -1 && gameStatus != 'P' && gameStatus != 'F', 'at-bat' : playersUpToBat.indexOf(x.id) != -1 && gameStatus != 'P' && gameStatus != 'F', 'in-hole' : playersInTheHole.indexOf(x.id) != -1 && gameStatus != 'P' && gameStatus != 'F'}">
+                            <tr>
+                                <td rowspan="2" width="62px" height="71px"><img src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{x.id}}.jpg" /></td>
+                                <td class="player-label">{{x.name_display_first_last }}, {{x.pos}}</td>
+                                <td style="float:right;">Points: {{getScore(gameinfo.game_pk, x)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="stats-table">{{getHittingStatLine(x)}}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -136,7 +98,7 @@
                         <th rowspan="2"><img height="75" width="62" src="http://mlb.mlb.com/images/logos/42x50/{{getStaffPictureAbbreviation(myPitchingStaff)}}.png"></th>
                         <th colspan="2"><span class="player-label">{{pitchingStaffTeamName}}, P</span>&nbsp;
                             <span class="game-info status-indicators game-time" ng-if="gameStatus != 'F' && gameStatus != 'O' && gameStatus != 'I'  && gameStatus != 'DR'">
-                            <b>{{getMatchup(pitchedGames._game_pk)}}</b>
+                            <b>{{getMoreGameInfo(pitchedGames._game_pk, true)}} {{getMatchup(pitchedGames._game_pk)}}</b>
                         </span>
                             <span class="game-info status-indicators" ng-if="gameStatus == 'F' || gameStatus == 'O' || gameStatus == 'IR' || gameStatus == 'I'|| gameStatus == 'MA' || gameStatus == 'PW'"> 
                             <b>{{getCurrentGamesScore(pitchedGames._game_pk)}}</b>
@@ -155,18 +117,25 @@
                                 <img ng-if="gameStatus == 'DR'|| gameStatus == 'DI' || gameStatus == 'DE'" class="status-indicators" width="50" src="..\Baseball\images\pictures\PPD.jpg" />
                                 <img ng-if="gameStatus == 'IR'|| gameStatus == 'PR'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Delay.jpg" />
                                 <img ng-if="gameStatus == 'MA'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Challenge.jpg" />
-                            </blink <span class="status-indicators" ng-if="gameStatus == 'I' || gameStatus == 'DI'">
-                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(pitchedGames._game_pkgameinfo.game_pk,'Ball')>= 1}"></i>
-                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(pitchedGames._game_pk,'Ball')>= 2}"></i>
-                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(pitchedGames._game_pk,'Ball')>= 3}"></i>
-                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(pitchedGames._game_pk,'Ball')== 4}"></i>
-                            <i class="fa fa-circle circle strike" ng-class="{'activeStrike' : getCurrentCount(pitchedGames._game_pk,'Strike')>= 1}"></i>
-                            <i class="fa fa-circle circle strike" ng-class="{'activeStrike' : getCurrentCount(pitchedGames._game_pk,'Strike')>= 2}"></i>
-                            <i class="fa fa-circle circle strike" ng-class="{'activeStrike' : getCurrentCount(pitchedGames._game_pk,'Strike')== 3}"></i>
-                            <i class="fa fa-circle circle out" ng-class="{'activeOut' : getCurrentCount(pitchedGames._game_pk,'Out')>= 1}"></i>
-                            <i class="fa fa-circle circle out" ng-class="{'activeOut' : getCurrentCount(pitchedGames._game_pk,'Out')>= 2}"></i>
-                            <i class="fa fa-circle circle out" ng-class="{'activeOut' : getCurrentCount(pitchedGames._game_pk,'Out')== 3}"></i>
-                            </span>
+                            </blink>
+                            <div> {{getCurrentCount(pitchedGames._game_pk)}}
+                                <span style="display:block;">
+                    <i class="fa fa-circle circle ball one"></i>
+                    <i class="fa fa-circle circle ball two"></i>
+                    <i class="fa fa-circle circle ball three"></i>
+                    <i class="fa fa-circle circle ball four"></i>
+                </span>
+                                <span style="display:block;">
+                    <i class="fa fa-circle circle strike one"></i>
+                    <i class="fa fa-circle circle strike two"></i>
+                    <i class="fa fa-circle circle strike three"></i>
+                </span>
+                                <span style="display:block;">
+                    <i class="fa fa-circle circle out one"></i>
+                    <i class="fa fa-circle circle out two"></i>
+                    <i class="fa fa-circle circle out three"></i>
+                </span>
+                            </div>
                         </th>
                         <th style="float:right">
                             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span class="points" style="float:right">Points:<span ng-attr-id="{{$index}}">{{getPitchingStaffScore(pitchedGames)}}</span></span>
@@ -210,7 +179,7 @@
                                             <th colspan="2"><span class="player-label">{{ x.name_display_first_last }}, {{x.pos}}</span>
                                                 <span class="game-info status-indicators" ng-if="gameStatus == 'F' || gameStatus == 'O' || gameStatus == 'IR' || gameStatus == 'I'|| gameStatus == 'MA' || gameStatus == 'PW'">
                                          <b>{{getCurrentGamesScore(gameinfo.game_pk)}}</b>
-                                         <span ng-if="gameStatus != 'F' && gameStatus != 'O'  && gameStatus != 'DR' "> <b>{{getCurrentGamesInning(gameinfo.game_pk)}}</b></span>
+                                         <span ng-if="gameStatus != 'F' && gameStatus != 'O'  && gameStatus != 'DR'"> <b>{{getCurrentGamesInning(gameinfo.game_pk)}}</b></span>
                                                 </span>
                                                 <img ng-if="gameStatus == 'PW'" class="status-indicators" width="50" src="..\Baseball\images\pictures\warmUp.jpg" />
                                                 <img ng-if="gameStatus == 'F' || gameStatus == 'O'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Final.jpg" />
@@ -226,26 +195,29 @@
                                                 <i class="base first glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_1b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_1b')}"></i>
                                                 <i class="base second glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_2b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_2b')}"></i>
                                                 <i class="base third glyphicon glyphicon-stop" ng-class="{'active' : getBaseRunners(gameinfo.game_pk, 'runner_on_3b'), 'fantasyplayer' : isRunnerCurrentPlayer(gameinfo.game_pk, x.id, 'runner_on_3b')}"></i>
-
                                             </span>
                                                 <img src="..\Baseball\images\pictures\EnteredButLeftGame.JPG" class="status-indicators" width="50" ng-if="enteredButLeft" />
                                                 <img src="..\Baseball\images\pictures\EnteredGame.JPG" class="status-indicators" width="50" ng-if="entered" />
                                                 <img src="..\Baseball\images\pictures\LeftGame.JPG" class="status-indicators" width="50" ng-if="leftGame" />
-                                                <span class="status-indicators" ng-if="gameStatus == 'I' || gameStatus == 'DI'">
-                                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(gameinfo.game_pk,'Ball')>= 1}"></i>
-                                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(gameinfo.game_pk,'Ball')>= 2}"></i>
-                                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(gameinfo.game_pk,'Ball')>= 3}"></i>
-                                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(gameinfo.game_pk,'Ball')== 4}"></i>
-                                            <i class="fa fa-circle circle strike" ng-class="{'activeStrike' : getCurrentCount(gameinfo.game_pk,'Strike')>= 1}"></i>
-                                            <i class="fa fa-circle circle strike" ng-class="{'activeStrike' : getCurrentCount(gameinfo.game_pk,'Strike')>= 2}"></i>
-                                            <i class="fa fa-circle circle strike" ng-class="{'activeStrike' : getCurrentCount(gameinfo.game_pk,'Strike')== 3}"></i>
-                                            <i class="fa fa-circle circle out" ng-class="{'activeOut' : getCurrentCount(gameinfo.game_pk,'Out')>= 1}"></i>
-                                            <i class="fa fa-circle circle out" ng-class="{'activeOut' : getCurrentCount(gameinfo.game_pk,'Out')>= 2}"></i>
-                                            <i class="fa fa-circle circle out" ng-class="{'activeOut' : getCurrentCount(gameinfo.game_pk,'Out')== 3}"></i>
-                                        </span>
+                                                <span style="display:block;">
+                    <i class="fa fa-circle circle ball"></i>
+                    <i class="fa fa-circle circle ball"></i>
+                    <i class="fa fa-circle circle ball"></i>
+                    <i class="fa fa-circle circle ball"></i>
+                </span>
+                                                <span style="display:block;">
+                    <i class="fa fa-circle circle strike"></i>
+                    <i class="fa fa-circle circle strike"></i>
+                    <i class="fa fa-circle circle strike"></i>
+                </span>
+                                                <span style="display:block;">
+                    <i class="fa fa-circle circle out"></i>
+                    <i class="fa fa-circle circle out"></i>
+                    <i class="fa fa-circle circle out"></i>
+                </span>
                                             </th>
                                             <th style="float:right">
-                                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore(gameinfo.game_pk, x)}}</span> <span class="points" style="float:right">Points: </span></th>
+                                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><span style="float:right" ng-attr-id="{{x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index}}" data-ng-init="gatherIds(x.id + '-' + $parent.$parent.$parent.$parent.$index + $parent.$parent.$parent.$index + $parent.$parent.$index + $parent.$index)" class="points"> {{getScore(gameinfo.game_pk, x) }}</span> <span class="points" style="float:right">Points: </span></th>
                                         </tr>
                                         <tr>
                                             <td colspan="3" class="stats-table">

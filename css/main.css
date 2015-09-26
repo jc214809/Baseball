@@ -11,6 +11,39 @@ body {
     font-size: 114%;
 }
 
+.circle {
+    position: relative;
+    font-size: 7px!important;
+    color: grey;
+    padding: 0px 0px 0px 0px;
+}
+
+.activeBall {
+    color: green;
+}
+
+.activeStrike {
+    color: red;
+}
+
+.activeOut {
+    color: blue;
+}
+
+.strike {
+    top: -9px;
+    right: 40px;
+}
+
+.out {
+    top: 0px;
+    right: 70px;
+}
+
+.ball {
+    top: -18px;
+}
+
 .ass .base {
     position: relative;
     width: 8px;
@@ -38,7 +71,7 @@ border: 1px solid #b4b4b4;
 
 .ass .base.first {
     top: -4px;
-    left: 20px
+    left: 20px;
 }
 
 .ass .base.second {

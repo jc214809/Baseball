@@ -114,7 +114,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                     //console.log($scope.playersUpToBat);
                 };
                 if (game.hasOwnProperty('game_data_directory')) {
-                    $scope.daysActiveGames.push('http://gd2.mlb.com' + game.game_data_directory + "/boxscore.json");
+                    //$scope.daysActiveGames.push('http://gd2.mlb.com' + game.game_data_directory + "/boxscore.json");
                 };
                 if (game.double_header_sw != 'N') {
                     if (game.away_code == $scope.myPitchingStaff || game.home_code == $scope.myPitchingStaff) {
@@ -129,16 +129,17 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             $scope.playersInTheHole = [];
             $scope.playersInTheHole = $scope.playersInTheHole2;
 
-            angular.forEach($scope.daysActiveGames, function(games) {
-                //console.log("1");
-                $scope.game = $http.get(games);
-                $q.all([$scope.game]).then(function(values) {
-                    //console.log("2");
-                    //baseball2.push(values);
-                    //console.log("EnD HeRe");
-                });
-                //$scope.baseballGame2 = baseball2;
-            });
+            // angular.forEach($scope.daysActiveGames, function(games) {
+            //     //console.log("1");
+            //     $scope.game = $http.get(games);
+            //     $q.all([$scope.game]).then(function(values) {
+            //         //console.log("2");
+            //         //baseball2.push(values);
+            //         //console.log("EnD HeRe");
+            //     });
+            //     //$scope.baseballGame2 = baseball2;
+            // });
+
             //$scope.baseballGame = $scope.baseballGame2;
             //console.log(baseball2);
         }).error(function(data, status) {
@@ -312,7 +313,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             if (theSelectedDate.between(parseDate('2015-09-28'), parseDate('2015-10-04'))) {
                 //alert("Championship Week!!");
                 $scope.myTeam = ["521692", "458015", "543401", "448801", "596019", "466320", "502210", "545361", "547180"];
-                $scope.benchPlayers = ["133", "450314", "488726", "518735", "518960", "543063"];
+                $scope.benchPlayers = ["450314", "488726", "518735", "518960", "543063"];
                 $scope.DLPlayers = [];
                 $scope.myPitchingStaff = 'chn';
             } else if (theSelectedDate.between(parseDate('2015-09-21'), parseDate('2015-09-27'))) {

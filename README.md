@@ -38,6 +38,10 @@ http://www.mlb.com/fantasylookup/json/named.fb_global_teams.bam?league_id=8623
 http://www.mlb.com/fantasylookup/json/named.wsfb_news_injury.bam
 http://www.mlb.com/fantasylookup/json/named.fb_players_list.bam?status=available&position=all_b&mode=stats&stats_type=%27last_year%27&order_by=points&fb_players_list.recPP=25&fb_players_list.recSP=1&league_id=8623
 http://www.mlb.com/fantasylookup/json/named.fb_players_list.bam?status=available&position=all_b&mode=stats&stats_type=%27last_year%27&order_by=points&league_id=8623
+-----http://www.mlb.com/fantasylookup/json/named.fb_players_list.bam?status=available&position=all_b&mode=stats&stats_type=%27season%27&order_by=points&fb_players_list.recPP=25&fb_players_list.recSP=1&league_id=8623
+
+http://mlb.mlb.com/flash/teamcodes.xml
+
 http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_overview_daily.bam?period_id=25&team_id=55988
 http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_stats.bam?period_id=25&team_id=55988&stats_type=last_7
 http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_stats.bam?period_id=25&team_id=55988&stats_type=last_30

@@ -13,21 +13,21 @@ body {
 
 .circle {
     position: relative;
-    font-size: 10px!important;
+    font-size: 7px!important;
     color: grey;
     padding: 0px 0px 0px 0px;
 }
 
 .activeBall {
-    color: black;
+    color: green;
 }
 
 .activeStrike {
-    color: black;
+    color: red;
 }
 
 .activeOut {
-    color: black;
+    color: blue;
 }
 
 .strike {

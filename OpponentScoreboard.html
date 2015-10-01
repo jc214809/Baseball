@@ -156,7 +156,7 @@
                                 <img ng-if="gameStatus == 'IR'|| gameStatus == 'PR'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Delay.jpg" />
                                 <img ng-if="gameStatus == 'MA'" class="status-indicators" width="50" src="..\Baseball\images\pictures\Challenge.jpg" />
                             </blink <span class="status-indicators" ng-if="gameStatus == 'I' || gameStatus == 'DI'">
-                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(pitchedGames._game_pkgameinfo.game_pk,'Ball')>= 1}"></i>
+                            <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(pitchedGames._game_pk,'Ball')>= 1}"></i>
                             <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(pitchedGames._game_pk,'Ball')>= 2}"></i>
                             <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(pitchedGames._game_pk,'Ball')>= 3}"></i>
                             <i class="fa fa-circle circle ball" ng-class="{'activeBall' : getCurrentCount(pitchedGames._game_pk,'Ball')== 4}"></i>

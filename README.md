@@ -56,13 +56,3 @@ http://m.mlb.com/lookup/json/named.team_all_season.bam?team_all_season.col_in=na
 
 http://plnkr.co/edit/6JbKH5eFZbmfGevckgCk?p=preview
 
-
-http://smile.amazon.com/EAS-Complete-Protein-Chocolate-Pound/dp/B00WE0ANTC/ref=sr_1_4_a_it?ie=UTF8&qid=1458821439&sr=8-4&keywords=Eas
-
-***PLEASE MAKE SURE YOU SELECT CHOCOLATE PLEASE*** 
-
-There should be a coupon you can clip on this page I’m sure you’ve seen it on other items it’s in the area to the right
-
-Then when you checkout use Sav30EAS16  as a promo code to make it 50% off total
-
-Should come out to $8.99 total

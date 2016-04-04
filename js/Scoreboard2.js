@@ -1358,7 +1358,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     $scope.standings = function() {
         $scope.standingsData = null;
         $.ajax({
-            url: 'http://www.mlb.com/fantasylookup/json/named.fb_index_standings.bam?league_id=8623',
+            url: 'http://www.mlb.com/fantasylookup/json/named.fb_index_standings.bam?league_id=9518',
             data: {
                 //format: 'json'
             },
@@ -1510,7 +1510,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
     $scope.getTeams = function() {
 
         $.ajax({
-            url: 'http://www.mlb.com/fantasylookup/json/named.fb_global_teams.bam?league_id=8623',
+            url: 'http://www.mlb.com/fantasylookup/json/named.fb_global_teams.bam?league_id=9518',
             data: {
                 //format: 'json'
             },

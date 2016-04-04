@@ -316,7 +316,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
-            if (theSelectedDate.between(parseDate('2015-09-28'), parseDate('2015-10-04'))) {
+           if (theSelectedDate.between(parseDate('2016-04-04'), parseDate('2016-04-10'))) {
+                //alert("Championship Week");
+                $scope.myTeam = ["521692","519203","523253","592518","553993","516782","542993","543807","519058"];
+                $scope.benchPlayers = ["435062","475582","571976","572041","592663","621439"];
+                $scope.DLPlayers = [];
+                $scope.myPitchingStaff = 'sfn';
+            } else if (theSelectedDate.between(parseDate('2015-09-28'), parseDate('2015-10-04'))) {
                 //alert("Championship Week!!");
                 $scope.myTeam = ["521692", "458015", "543401", "448801", "596019", "466320", "502210", "545361", "547180"];
                 $scope.benchPlayers = ["450314", "488726", "518735", "518960", "543063"];

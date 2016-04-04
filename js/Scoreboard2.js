@@ -1431,6 +1431,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         //console.log('http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_schedule.bam?period_id=' + $scope.periodId + '&team_id=' + $scope.teamID);
         $.ajax({
             url: 'http://www.mlb.com/fantasylookup/json/named.fb_team_lineup_view_schedule.bam?period_id=' + $scope.periodId + '&team_id=' + $scope.teamID,
+            headers: {'X-Requested-With': 'XMLHttpRequest'},
             data: {
                 //format: 'json'
             },

@@ -81,7 +81,7 @@
                     <tbody>
                         <tr ng-repeat="player in players">
                             <td width="125px"><img style="float:left" width="62px" height="75px" src="http://mlb.mlb.com/images/logos/42x50/{{getTeamLogoAbbreviation(player.team_abbrev)}}.png" />
-                                <img style="float:left" src="http://mlb.mlb.com/images/gameday/mugshots/mlb/{{player.player_id}}.jpg" /></td>
+                                <img style="float:left" width="62px" height="75px" src="http://mlb.mlb.com/mlb/images/players/head_shot/{{player.player_id}}.jpg" /></td>
                             <td>{{player.name_display_first_last}} &nbsp;&nbsp;
                                 <a ng-if="player.twitter_id != ''" href="https://twitter.com/{{player.twitter_id}}"><img src="http://ui.bamstatic.com/bridge/images/social/twitter_logo_blue_16.png" alt="{{player.twitter_id}}"></a>
                                 <img ng-click="InjuryNotes(player.player_id)" ng-if="(mlbPlayers.indexOf(player.player_id.toString()) > -1)" width="12px" src="..\Baseball\images\pictures\Injury.jpg" title="{{allInjuryInfo[mlbPlayers.indexOf(player.player_id)].due_back}}: {{allInjuryInfo[mlbPlayers.indexOf(player.player_id)].injury_desc}}">

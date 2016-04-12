@@ -327,7 +327,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 $scope.myTeam =["457763","120074","429664","518626","605113","434636","592626","624577","571697"]; 
                 $scope.benchPlayers=["113","405395","430945","453064","519306","594777"]; 
                 $scope.DLPlayers = []; 
-                $scope.myPitchingStaff = 'wsh';
+                $scope.myPitchingStaff = 'was';
             }else if (theSelectedDate.between(parseDate('2016-04-04'), parseDate('2016-04-10'))) {
                 //alert("Week 1");
                 $scope.myTeam = ["521692","519203","523253","592518","553993","516782","542993","543807","519058"];

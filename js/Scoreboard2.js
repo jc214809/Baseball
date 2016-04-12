@@ -199,8 +199,14 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.whichTeam = team;
         var theSelectedDate = parseDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
         if ($scope.whichTeam == "Mine") {
-            if (theSelectedDate.between(parseDate('2016-04-04'), parseDate('2016-04-10'))) {
-                //alert("Championship Week");
+            if (theSelectedDate.between(parseDate('2016-04-11'), parseDate('2016-04-17'))) {
+                //alert("Week 2");
+                $scope.myTeam =["519023","408234","543401","134181","596019","444432","453056","519317","408252"]; 
+                $scope.benchPlayers=["150029","407812","431145","444876","467827","502143"]; 
+                $scope.DLPlayers = []; 
+                $scope.myPitchingStaff = 'lan';
+            }else if (theSelectedDate.between(parseDate('2016-04-04'), parseDate('2016-04-10'))) {
+                //alert("Week 1");
                 $scope.myTeam = ["519023","408234","543401","134181","596019","453056","519317","656941","444432"];
                 $scope.benchPlayers = ["150029","407812","408252","444876","467827","502143"];
                 $scope.DLPlayers = [];
@@ -316,8 +322,14 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
             }
             $scope.selectedTeam = $scope.myTeam;
         } else {
-           if (theSelectedDate.between(parseDate('2016-04-04'), parseDate('2016-04-10'))) {
-                //alert("Championship Week");
+            if (theSelectedDate.between(parseDate('2016-04-11'), parseDate('2016-04-17'))) {
+                //alert("Week 2");
+                $scope.myTeam =["457763","120074","429664","518626","605113","434636","592626","624577","571697"]; 
+                $scope.benchPlayers=["113","405395","430945","453064","519306","594777"]; 
+                $scope.DLPlayers = []; 
+                $scope.myPitchingStaff = 'wsh';
+            }else if (theSelectedDate.between(parseDate('2016-04-04'), parseDate('2016-04-10'))) {
+                //alert("Week 1");
                 $scope.myTeam = ["521692","519203","523253","592518","553993","516782","542993","543807","519058"];
                 $scope.benchPlayers = ["435062","475582","571976","572041","592663","621439"];
                 $scope.DLPlayers = [];

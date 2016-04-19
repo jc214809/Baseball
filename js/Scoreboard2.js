@@ -833,6 +833,8 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 return "sf";
             case "chn":
                 return "chc";
+            case "cha":
+                return "chw";
             default:
                 return teamAbbreviation
         }

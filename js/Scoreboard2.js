@@ -1087,10 +1087,13 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                         if ((iBatter.charAt(0) == bBatter.charAt(0)) && (team.batter[i].id != team.batter[b].id)) {
                             if (parseInt(iBatter.charAt(2)) > 0 && parseInt(bBatter.charAt(2)) > parseInt(iBatter.charAt(2))) {
                                 $scope.enteredButLeft = true;
+                                break;
                             } else if (parseInt(iBatter.charAt(2)) > 0) {
                                 $scope.entered = true;
+                                break;
                             } else if (parseInt(iBatter.charAt(2)) == 0) {
                                 $scope.leftGame = true;
+                                break;
                             }
                         };
                     };

@@ -1079,6 +1079,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
         $scope.leftGame = false;
         for (var i = team.batter.length - 1; i >= 0; i--) {
             if ($scope.selectedTeam.indexOf(team.batter[i].id) > -1) {
+                if(team.batter[i].id == player.id){
                 for (var b = team.batter.length - 1; b >= 0; b--) {
                     var iBatter = team.batter[i].bo;
                     var bBatter = team.batter[b].bo;
@@ -1096,6 +1097,7 @@ myApp.controller('baseballController', function($scope, $http, $q, $timeout, poo
                 };
             };
         };
+    };
     };
     $scope.getBaseRunners = function(gameID, baseParameter) {
         for (var i = $scope.eachGameRefresh.length - 1; i >= 0; i--) {
